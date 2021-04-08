@@ -4,11 +4,11 @@ game 3 fases  (senes )
     display game 
     display highscore 
 
-class sanke (senes game)
- bevat blokje dit aantal licht aan het  opgepakte apel 
+class snake (senes game)
+ bevat blokjes voor de snake zijn lichaam. Dit is gebaseerd op aantal gegeten appels
 
-class apple (sprite) aple
-    er word een random appel op het schemr geplakt, waneer de slang de appel op pakt word de slang langer en komt er een nieuwe appel op het scherm. 
+class apple (sprite) 
+    er word een random appel op het scherm geplakt, wanneer de slang de appel oppakt word de slang langer en komt er een nieuwe appel op het scherm. 
     de appel is een afbeelding van een appel 
 
 class movement (snake)
