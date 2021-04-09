@@ -21,11 +21,3 @@ class scherm
 class game win / game over 
     waneer de slang zich zelf raakt is het game over. Ook als de slang de zij kant raakt. 
     wanneer de slang het scherm heeft gevuld IE even groot is als de blokken van het scherm. dan wint de speler!
-
-class geluid    
-    geluid speeld af wanneer;
-        de slang een appel pakt 
-        waneer de slang zich zelf eet 
-        waneer de slang de muur eet
-        start spel 
-        win !
