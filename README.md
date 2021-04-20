@@ -25,3 +25,5 @@ class game win / game over
 
 
 collision detection pygame.sprite.Group()
+
+Het werkt bij groep 1 ook??
