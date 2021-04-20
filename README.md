@@ -26,5 +26,5 @@ class game win / game over
 
 collision detection pygame.sprite.Group()
 
-
+Ja hij doet het
 Thij doet die het????
