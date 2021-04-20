@@ -28,3 +28,4 @@ collision detection pygame.sprite.Group()
 
 Ja hij doet het
 Thij doet die het????
+enge push dit
