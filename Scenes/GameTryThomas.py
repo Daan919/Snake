@@ -45,58 +45,63 @@ class background():
         screen.fill(BLUE)
         screen.blit(self.background, (0, 0))
 
+grootPlatform = (1, 1, 976, 133)
 
-grootPlatform = (0, 0, 978, 132)
+class Platform(pygame.sprite.Sprite):
+    def __init__(self, sprite_sheet_data):
+        pygame.sprite.Sprite.__init__(self)
+
+        sprite_sheet = SpriteSheet("platforms.png")
+
+        self.image = sprite_sheet.get_image(sprite_sheet_data[0],
+                                            sprite_sheet_data[1],
+                                            sprite_sheet_data[2],
+                                            sprite_sheet_data[3])
+
+        self.rect = self.image.get_rect()
 
 
-class level(object):
+class level():
+
+platform_list = None
+
     def __init__(self, player):
         self.coin_list = pygame.sprite.Group()
         self.spike_list = pygame.sprite.Group()
         self.platform_list = pygame.sprite.Group()
         self.player = player
-        # Variabele bevat platforms van verschillende grote word gebruikt om platforms te plaatsen
-        self.platforms
+    
+    def update(self):
+        self.platform_list.update()
 
-    def platform(self, x, y, width, height):
-        spriteSheet = pygame.image.load(
-            image_path + 'platforms.png').convert()
-
-        image = spriteSheet.get_image(x, y, width, height)
-        self.platforms.append(image)
-        self.rect = self.platforms.get_rect()
-
-    def draw(self):
+    def draw(self, screen):
         self.platform_list.draw(screen)
-
-
+    
 class level1(level):
 
-    super.__init__(level)
+    def __init__(self, player):
 
-    def __init__(self):
-
-        level = [[grootPlatform, 50, 400],
-                 ]
+        level.__init__(self, player)
+        
+        level = [ [platforms.grooPlatform, 0, 0],
+                  ]
 
         for platform in level:
-            block = platform[0]
-            blockX = platform[1]
-            blockY = platform[2]
+            block = platforms.Platform(platform[0])
+            block.rect.x = platform[0]
+            block.rect.y = platform[0]
+            block.player = self.player
             self.platform_list.add(block)
-
-
+        
 def main():
 
     bg = background()
-    lv = level1()
     running = True
 
     while running:
         clock.tick(60)
 
         bg.draw(screen)
-        lv.draw
         pygame.display.flip()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
