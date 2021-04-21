@@ -2,7 +2,7 @@ import pygame
 import Constants
 import Levels
 
-from player import player
+from player import Player
 
 def main():
 
