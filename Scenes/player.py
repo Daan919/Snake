@@ -2,7 +2,7 @@ import pygame
 import Constants
 
 from Platforms import MovingPlatform
-from spritesheet_function import SpriteSheet
+from spritesheet_functions import SpriteSheet
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
