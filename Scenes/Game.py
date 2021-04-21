@@ -4,9 +4,8 @@ import Levels
 
 from player import Player
 
-pygame.init()
-
 def main(): 
+    pygame.init()
     size = [Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT]
     screen = pygame.display.set_mode(size)
  
@@ -30,7 +29,7 @@ def main():
  
     clock = pygame.time.Clock()
     done = False
-    
+
     while not done:
         for event in pygame.event.get(): 
             if event.type == pygame.QUIT: 
@@ -50,20 +49,18 @@ def main():
                 if event.key == pygame.K_RIGHT and player.change_x > 0:
                     player.stop()
         
-        screen.fill((255,255,255))
         active_sprite_list.update()
- 
         current_level.update()
  
-        if player.rect.right >= 500:
-            diff = player.rect.right - 500
-            player.rect.right = 500
+        if player.rect.x >= 500:
+            diff = player.rect.x - 500
+            player.rect.x = 500
             current_level.shift_world(-diff)
   
-        if player.rect.left <= 120:
-            diff = 120 - player.rect.left
-            player.rect.left = 120
-            current_level.shift_world(diff)
+        if player.rect.x <= 120:
+            diff = 120 - player.rect.x
+            player.rect.x = 120
+            current_level.shift_world(-diff)
  
         current_position = player.rect.x + current_level.world_shift
         if current_position < current_level.level_limit:
@@ -75,10 +72,10 @@ def main():
  
         current_level.draw(screen)
         active_sprite_list.draw(screen)
- 
-        clock.tick(60)
- 
+
         pygame.display.flip()
+        clock.tick(60)
+
  
     pygame.quit()
 
