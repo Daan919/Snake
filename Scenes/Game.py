@@ -2,13 +2,15 @@ import pygame
 import os
 
 pygame.init()
+pygame.display.init()
+clock = pygame.time.Clock()
 
-image_path = os.path.dirname(__file__) + '/images/'
 screenWidth = 800
 screenHeight = 600
 screen = pygame.display.set_mode((screenWidth, screenHeight))
+image_path = os.path.dirname(__file__) + '/images/'
 
-playerImage = pygame.image.load(image_path + 'mainplayer.png')
+BLUE = (0,   0, 255)
 
 
 class spriteSheet(object):
@@ -31,29 +33,74 @@ class spriteSheet(object):
         return image
 
 
-class player(pygame.sprite.Sprite):
+class background():
     def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.player = pygame.sprite.Group()
+        self.background = None
+        self.background = pygame.image.load(
+            image_path + 'Starry_night_Image.png').convert()
+        self.background = pygame.transform.scale(
+            self.background, (screenWidth, screenHeight))
 
-        self.change_x = 0
-        self.change_y = 0
-
-        self.walking_frames_l = []
-        self.walking_frames_r = []
-
-        self.direction = "R"
-
-        image = playerImage.get_image(0, 0, 50, 50)
-        self.walking_frames_r.append(image)
+    def draw(self, screen):
+        screen.fill(BLUE)
+        screen.blit(self.background, (0, 0))
 
 
-p = player()
-running = True
+grootPlatform = (0, 0, 978, 132)
 
-while running:
-    screen.blit(p.walking_frames_r[0], (14, 44))
-    pygame.display.flip()
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
+
+class level(object):
+    def __init__(self, player):
+        self.coin_list = pygame.sprite.Group()
+        self.spike_list = pygame.sprite.Group()
+        self.platform_list = pygame.sprite.Group()
+        self.player = player
+        # Variabele bevat platforms van verschillende grote word gebruikt om platforms te plaatsen
+        self.platforms
+
+    def platform(self, x, y, width, height):
+        spriteSheet = pygame.image.load(
+            image_path + 'platforms.png').convert()
+
+        image = spriteSheet.get_image(x, y, width, height)
+        self.platforms.append(iamge)
+        self.rect = self.platforms.get_rect()
+
+    def draw(self):
+        self.platform_list.draw(screen)
+
+
+class level1(level):
+
+    super.__init__(level)
+
+    def __init__(self):
+
+        level = [[grootPlatform, 50, 400],
+                 ]
+
+        for platform in level:
+            block = platform[0]
+            blockX = platform[1]
+            blockY = platform[2]
+            self.platform_list.add(block)
+
+
+def main():
+
+    bg = background()
+    lv = level1()
+    running = True
+
+    while running:
+        clock.tick(60)
+
+        bg.draw(screen)
+        lv.draw
+        pygame.display.flip()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+
+
+main()
