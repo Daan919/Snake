@@ -2,13 +2,15 @@ import pygame
 import os
 
 pygame.init()
+pygame.display.init()
+clock = pygame.time.Clock()
 
-image_path = os.path.dirname(__file__) + '/images/'
 screenWidth = 800
 screenHeight = 600
 screen = pygame.display.set_mode((screenWidth, screenHeight))
+image_path = os.path.dirname(__file__) + '/images/'
 
-playerImage = pygame.image.load(image_path + 'mainplayer.png')
+BLUE = (0,   0, 255)
 
 
 class spriteSheet(object):
@@ -31,29 +33,32 @@ class spriteSheet(object):
         return image
 
 
-class player(pygame.sprite.Sprite):
+class background():
     def __init__(self):
-        pygame.sprite.Sprite.__init__(self)
-        self.player = pygame.sprite.Group()
+        self.background = None
+        self.background = pygame.image.load(
+            image_path + 'Starry_night_Image.png').convert()
+        self.background = pygame.transform.scale(
+            self.background, (screenWidth, screenHeight))
 
-        self.change_x = 0
-        self.change_y = 0
-
-        self.walking_frames_l = []
-        self.walking_frames_r = []
-
-        self.direction = "R"
-
-        image = playerImage.get_image(0, 0, 50, 50)
-        self.walking_frames_r.append(image)
+    def draw(self, screen):
+        screen.fill(BLUE)
+        screen.blit(self.background, (0, 0))
 
 
-p = player()
-running = True
+def main():
 
-while running:
-    screen.blit(p.walking_frames_r[0], (14, 44))
-    pygame.display.flip()
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
+    bg = background()
+    running = True
+
+    while running:
+        clock.tick(60)
+
+        bg.draw(screen)
+        pygame.display.flip()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+
+
+main()
