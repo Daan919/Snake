@@ -4,10 +4,9 @@ import Levels
 
 from player import Player
 
-def main():
+pygame.init()
 
-    pygame.init()
- 
+def main(): 
     size = [Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT]
     screen = pygame.display.set_mode(size)
  
@@ -51,7 +50,8 @@ def main():
                     player.stop()
                 if event.key == pygame.K_RIGHT and player.change_x > 0:
                     player.stop()
- 
+        
+        screen.fill((255,255,255))
         active_sprite_list.update()
  
         current_level.update()

@@ -20,7 +20,6 @@ class Level():
         self.enemy_list.update()
  
     def draw(self, screen):
-        screen.fill(Constants.blue)
         screen.blit(self.background,(self.world_shift // 3,0))
  
         self.platform_list.draw(screen)
