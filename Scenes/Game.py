@@ -46,6 +46,26 @@ class background():
         screen.blit(self.background, (0, 0))
 
 
+class level(object):
+    def __init__(self):
+        self.platform_list = pygame.sprite.Group()
+        self.coin_list = pygame.sprite.Group()
+        self.spike_list = pygame.sprite.Group()
+
+    def platform(self, platform_list):
+        spriteSheet = pygame.image.load(
+            image_path + 'platforms.png').convert()
+
+        image = platforms.get_image(
+            platformGroot[0], platformGroot[1], platformGroot[2], platformGroot[3])
+        self.
+
+
+class level1(level):
+
+    def __init__(self):
+
+
 def main():
 
     bg = background()
