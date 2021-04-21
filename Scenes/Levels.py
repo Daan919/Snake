@@ -59,13 +59,13 @@ class Level_01(Level):
                   ]
  
         for platform in level:
-            block = platforms.Platform(platform[0])
+            block = Platforms.Platform(platform[0])
             block.rect.x = platform[1]
             block.rect.y = platform[2]
             block.player = self.player
             self.platform_list.add(block)
  
-        block = platforms.MovingPlatform(Platforms.STONE_PLATFORM_MIDDLE)
+        block = Platforms.MovingPlatform(Platforms.STONE_PLATFORM_MIDDLE)
         block.rect.x = 1350
         block.rect.y = 280
         block.boundary_left = 1350
@@ -106,7 +106,7 @@ class Level_02(Level):
             block.player = self.player
             self.platform_list.add(block)
  
-        block = platforms.MovingPlatform(Platforms.STONE_PLATFORM_MIDDLE)
+        block = Platforms.MovingPlatform(Platforms.STONE_PLATFORM_MIDDLE)
         block.rect.x = 1500
         block.rect.y = 300
         block.boundary_top = 100
