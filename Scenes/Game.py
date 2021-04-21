@@ -28,10 +28,9 @@ def main():
     player.rect.y = Constants.SCREEN_HEIGHT - player.rect.height
     active_sprite_list.add(player)
  
-    done = False
- 
     clock = pygame.time.Clock()
- 
+    done = False
+    
     while not done:
         for event in pygame.event.get(): 
             if event.type == pygame.QUIT: 
