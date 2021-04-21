@@ -1,6 +1,6 @@
 import pygame
-import constants
-import levels
+import Constants
+import Levels
 
 from player import player
 
