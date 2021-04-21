@@ -15,7 +15,6 @@ class Player(pygame.sprite.Sprite):
         self.walking_frames_r = []
 
         self.direction = "R"
-
         self.level = None
 
         sprite_sheet = SpriteSheet('Assets/img/p1_walk.png')
@@ -70,8 +69,9 @@ class Player(pygame.sprite.Sprite):
     def update(self):
 
         self.calc_grav()
-
+        self.rect.x += self.change_x
         pos = self.rect.x + self.level.world_shift
+        
         if self.direction == "R":
             frame = (pos // 30) % len(self.walking_frames_r)
             self.image = self.walking_frames_r[frame]
