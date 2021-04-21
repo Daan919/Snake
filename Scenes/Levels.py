@@ -1,7 +1,7 @@
 import pygame
  
-import constants
-import platforms
+import Constants
+import Platforms
  
 class Level():
     def __init__(self, player):
