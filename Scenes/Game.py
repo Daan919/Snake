@@ -46,35 +46,57 @@ class background():
         screen.blit(self.background, (0, 0))
 
 
+grootPlatform = (0, 0, 978, 132)
+
+
 class level(object):
-    def __init__(self):
-        self.platform_list = pygame.sprite.Group()
+    def __init__(self, player):
         self.coin_list = pygame.sprite.Group()
         self.spike_list = pygame.sprite.Group()
+        self.platform_list = pygame.sprite.Group()
+        self.player = player
+        # Variabele bevat platforms van verschillende grote word gebruikt om platforms te plaatsen
+        self.platforms
 
-    def platform(self, platform_list):
+    def platform(self, x, y, width, height):
         spriteSheet = pygame.image.load(
             image_path + 'platforms.png').convert()
 
-        image = platforms.get_image(
-            platformGroot[0], platformGroot[1], platformGroot[2], platformGroot[3])
-        self.
+        image = spriteSheet.get_image(x, y, width, height)
+        self.platforms.append(iamge)
+        self.rect = self.platforms.get_rect()
+
+    def draw(self):
+        self.platform_list.draw(screen)
 
 
 class level1(level):
 
+    super.__init__(level)
+
     def __init__(self):
+
+        level = [[grootPlatform, 50, 400],
+                 ]
+
+        for platform in level:
+            block = platform[0]
+            blockX = platform[1]
+            blockY = platform[2]
+            self.platform_list.add(block)
 
 
 def main():
 
     bg = background()
+    lv = level1()
     running = True
 
     while running:
         clock.tick(60)
 
         bg.draw(screen)
+        lv.draw
         pygame.display.flip()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
