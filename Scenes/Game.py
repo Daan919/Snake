@@ -48,6 +48,7 @@ def main():
                     player.stop()
                 if event.key == pygame.K_RIGHT and player.change_x > 0:
                     player.stop()
+                    
         screen.fill((255,255,255))
         active_sprite_list.update()
         current_level.update()
@@ -60,7 +61,7 @@ def main():
         if player.rect.x <= 120:
             diff = 120 - player.rect.x
             player.rect.x = 120
-            current_level.shift_world(-diff)
+            current_level.shift_world(diff)
  
         current_position = player.rect.x + current_level.world_shift
         if current_position < current_level.level_limit:
