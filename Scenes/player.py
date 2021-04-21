@@ -18,7 +18,7 @@ class Player(pygame.sprite.Sprite):
 
         self.level = None
 
-        sprite_sheet = SpriteSheet("MoetNogGemaaktWorden.png")
+        sprite_sheet = SpriteSheet("p1_walk.png")
 
         #Rechts
 
