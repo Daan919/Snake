@@ -11,7 +11,7 @@ def main():
     size = [constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT]
     screen = pygame.display.set_mode(size)
  
-    pygame.display.set_caption("Rome")
+    pygame.display.set_caption("THE ARES GAME")
  
     player = Player()
  
