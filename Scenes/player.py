@@ -18,7 +18,7 @@ class Player(pygame.sprite.Sprite):
 
         self.level = None
 
-        sprite_sheet = SpriteSheet(Assets/img/p1_walk.png)
+        sprite_sheet = SpriteSheet('Assets/img/p1_walk.png')
 
         #Rechts
 

@@ -40,7 +40,7 @@ class Level_01(Level):
  
         Level.__init__(self, player)
  
-        self.background = pygame.image.load(Assets/img/background_Lvl1Poseidon.png).convert()
+        self.background = pygame.image.load('Assets/img/background_Lvl1Poseidon.png').convert()
         self.background.set_colorkey(Constants.white)
         self.level_limit = -2500
  
@@ -81,7 +81,7 @@ class Level_02(Level):
  
         Level.__init__(self, player)
  
-        self.background = pygame.image.load(Assets/img/background_Lvl2Poseidon.png).convert()
+        self.background = pygame.image.load('Assets/img/background_Lvl2Poseidon.png').convert()
         self.background.set_colorkey(Constants.white)
         self.level_limit = -1000
  
