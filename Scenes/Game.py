@@ -48,7 +48,7 @@ def main():
                     player.stop()
                 if event.key == pygame.K_RIGHT and player.change_x > 0:
                     player.stop()
-        
+        screen.fill((255,255,255))
         active_sprite_list.update()
         current_level.update()
  
