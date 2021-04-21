@@ -4,8 +4,8 @@ from spritesheet_functions import SpriteSheet
 
 
 WATER_LEFT            = (500, 720, 70, 70)
-WATER_RIGHT           = (500, 720, 70, 70)
 WATER_MIDDLE          = (425, 640, 70, 70)
+WATER_RIGHT           = (500, 720, 70, 70)
 STONE_PLATFORM_LEFT   = (432, 720, 70, 40)
 STONE_PLATFORM_MIDDLE = (648, 648, 70, 40)
 STONE_PLATFORM_RIGHT  = (792, 648, 70, 40)
