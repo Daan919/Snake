@@ -44,18 +44,18 @@ class Level_01(Level):
         self.background.set_colorkey(Constants.white)
         self.level_limit = -2500
  
-        level = [ [platforms.WATER_LEFT, 500, 500],
-                  [platforms.WATER_MIDDLE, 570, 500],
-                  [platforms.WATER_RIGHT, 640, 500],
-                  [platforms.WATER_LEFT, 800, 400],
-                  [platforms.WATER_MIDDLE, 870, 400],
-                  [platforms.WATER_RIGHT, 940, 400],
-                  [platforms.WATER_LEFT, 1000, 500],
-                  [platforms.WATER_MIDDLE, 1070, 500],
-                  [platforms.WATER_RIGHT, 1140, 500],
-                  [platforms.STONE_PLATFORM_LEFT, 1120, 280],
-                  [platforms.STONE_PLATFORM_MIDDLE, 1190, 280],
-                  [platforms.STONE_PLATFORM_RIGHT, 1260, 280],
+        level = [ [Platforms.WATER_LEFT, 500, 500],
+                  [Platforms.WATER_MIDDLE, 570, 500],
+                  [Platforms.WATER_RIGHT, 640, 500],
+                  [Platforms.WATER_LEFT, 800, 400],
+                  [Platforms.WATER_MIDDLE, 870, 400],
+                  [Platforms.WATER_RIGHT, 940, 400],
+                  [Platforms.WATER_LEFT, 1000, 500],
+                  [Platforms.WATER_MIDDLE, 1070, 500],
+                  [Platforms.WATER_RIGHT, 1140, 500],
+                  [Platforms.STONE_PLATFORM_LEFT, 1120, 280],
+                  [Platforms.STONE_PLATFORM_MIDDLE, 1190, 280],
+                  [Platforms.STONE_PLATFORM_RIGHT, 1260, 280],
                   ]
  
         for platform in level:
@@ -65,7 +65,7 @@ class Level_01(Level):
             block.player = self.player
             self.platform_list.add(block)
  
-        block = platforms.MovingPlatform(platforms.STONE_PLATFORM_MIDDLE)
+        block = platforms.MovingPlatform(Platforms.STONE_PLATFORM_MIDDLE)
         block.rect.x = 1350
         block.rect.y = 280
         block.boundary_left = 1350
@@ -85,28 +85,28 @@ class Level_02(Level):
         self.background.set_colorkey(Constants.white)
         self.level_limit = -1000
  
-        level = [ [platforms.STONE_PLATFORM_LEFT, 500, 550],
-                  [platforms.STONE_PLATFORM_MIDDLE, 570, 550],
-                  [platforms.STONE_PLATFORM_RIGHT, 640, 550],
-                  [platforms.WATER_LEFT, 800, 400],
-                  [platforms.WATER_MIDDLE, 870, 400],
-                  [platforms.WATER_RIGHT, 940, 400],
-                  [platforms.WATER_LEFT, 1000, 500],
-                  [platforms.WATER_MIDDLE, 1070, 500],
-                  [platforms.WATER_RIGHT, 1140, 500],
-                  [platforms.STONE_PLATFORM_LEFT, 1120, 280],
-                  [platforms.STONE_PLATFORM_MIDDLE, 1190, 280],
-                  [platforms.STONE_PLATFORM_RIGHT, 1260, 280],
+        level = [ [Platforms.STONE_PLATFORM_LEFT, 500, 550],
+                  [Platforms.STONE_PLATFORM_MIDDLE, 570, 550],
+                  [Platforms.STONE_PLATFORM_RIGHT, 640, 550],
+                  [Platforms.WATER_LEFT, 800, 400],
+                  [Platforms.WATER_MIDDLE, 870, 400],
+                  [Platforms.WATER_RIGHT, 940, 400],
+                  [Platforms.WATER_LEFT, 1000, 500],
+                  [Platforms.WATER_MIDDLE, 1070, 500],
+                  [Platforms.WATER_RIGHT, 1140, 500],
+                  [Platforms.STONE_PLATFORM_LEFT, 1120, 280],
+                  [Platforms.STONE_PLATFORM_MIDDLE, 1190, 280],
+                  [Platforms.STONE_PLATFORM_RIGHT, 1260, 280],
                   ]
  
         for platform in level:
-            block = platforms.Platform(platform[0])
+            block = Platforms.Platform(platform[0])
             block.rect.x = platform[1]
             block.rect.y = platform[2]
             block.player = self.player
             self.platform_list.add(block)
  
-        block = platforms.MovingPlatform(platforms.STONE_PLATFORM_MIDDLE)
+        block = platforms.MovingPlatform(Platforms.STONE_PLATFORM_MIDDLE)
         block.rect.x = 1500
         block.rect.y = 300
         block.boundary_top = 100
