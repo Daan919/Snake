@@ -13,7 +13,7 @@ STONE_PLATFORM_RIGHT  = (792, 648, 70, 40)
 class Platform(pygame.sprite.Sprite):
     def __init__(self, sprite_sheet_data ):
         pygame.sprite.Sprite.__init__(self)
-        sprite_sheet = SpriteSheet("tiles_spritesheet.png")
+        sprite_sheet = SpriteSheet(Assets/img/tiles_spritesheet.png)
         self.image = sprite_sheet.getImage( sprite_sheet_data[0],
                                             sprite_sheet_data[1],
                                             sprite_sheet_data[2],
