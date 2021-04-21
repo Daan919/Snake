@@ -8,7 +8,7 @@ def main():
 
     pygame.init()
  
-    size = [constants.SCREEN_WIDTH, constants.SCREEN_HEIGHT]
+    size = [Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT]
     screen = pygame.display.set_mode(size)
  
     pygame.display.set_caption("THE ARES GAME")
@@ -26,7 +26,7 @@ def main():
     player.level = current_level
  
     player.rect.x = 340
-    player.rect.y = constants.SCREEN_HEIGHT - player.rect.height
+    player.rect.y = Constants.SCREEN_HEIGHT - player.rect.height
     active_sprite_list.add(player)
  
     done = False

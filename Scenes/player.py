@@ -107,9 +107,9 @@ class Player(pygame.sprite.Sprite):
         else:
             self.change_y += .35
 
-        if self.rect.y >= constants.SCREEN_HEIGHT - self.rect.height and self.change_y >= 0:
+        if self.rect.y >= Constants.SCREEN_HEIGHT - self.rect.height and self.change_y >= 0:
             self.change_y = 0
-            self.rect.y = constants.SCREEN_HEIGHT - self.rect.height
+            self.rect.y = Constants.SCREEN_HEIGHT - self.rect.height
 
     def jump(self):
         self.rect.y += 2

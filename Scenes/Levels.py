@@ -20,7 +20,7 @@ class Level():
         self.enemy_list.update()
  
     def draw(self, screen):
-        screen.fill(constants.BLUE)
+        screen.fill(Constants.blue)
         screen.blit(self.background,(self.world_shift // 3,0))
  
         self.platform_list.draw(screen)
@@ -41,18 +41,18 @@ class Level_01(Level):
         Level.__init__(self, player)
  
         self.background = pygame.image.load(Assets/img/background_Lvl1Poseidon.png).convert()
-        self.background.set_colorkey(constants.WHITE)
+        self.background.set_colorkey(Constants.white)
         self.level_limit = -2500
  
-        level = [ [platforms.GRASS_LEFT, 500, 500],
-                  [platforms.GRASS_MIDDLE, 570, 500],
-                  [platforms.GRASS_RIGHT, 640, 500],
-                  [platforms.GRASS_LEFT, 800, 400],
-                  [platforms.GRASS_MIDDLE, 870, 400],
-                  [platforms.GRASS_RIGHT, 940, 400],
-                  [platforms.GRASS_LEFT, 1000, 500],
-                  [platforms.GRASS_MIDDLE, 1070, 500],
-                  [platforms.GRASS_RIGHT, 1140, 500],
+        level = [ [platforms.WATER_LEFT, 500, 500],
+                  [platforms.WATER_MIDDLE, 570, 500],
+                  [platforms.WATER_RIGHT, 640, 500],
+                  [platforms.WATER_LEFT, 800, 400],
+                  [platforms.WATER_MIDDLE, 870, 400],
+                  [platforms.WATER_RIGHT, 940, 400],
+                  [platforms.WATER_LEFT, 1000, 500],
+                  [platforms.WATER_MIDDLE, 1070, 500],
+                  [platforms.WATER_RIGHT, 1140, 500],
                   [platforms.STONE_PLATFORM_LEFT, 1120, 280],
                   [platforms.STONE_PLATFORM_MIDDLE, 1190, 280],
                   [platforms.STONE_PLATFORM_RIGHT, 1260, 280],
@@ -82,18 +82,18 @@ class Level_02(Level):
         Level.__init__(self, player)
  
         self.background = pygame.image.load(Assets/img/background_Lvl2Poseidon.png).convert()
-        self.background.set_colorkey(constants.WHITE)
+        self.background.set_colorkey(Constants.white)
         self.level_limit = -1000
  
         level = [ [platforms.STONE_PLATFORM_LEFT, 500, 550],
                   [platforms.STONE_PLATFORM_MIDDLE, 570, 550],
                   [platforms.STONE_PLATFORM_RIGHT, 640, 550],
-                  [platforms.GRASS_LEFT, 800, 400],
-                  [platforms.GRASS_MIDDLE, 870, 400],
-                  [platforms.GRASS_RIGHT, 940, 400],
-                  [platforms.GRASS_LEFT, 1000, 500],
-                  [platforms.GRASS_MIDDLE, 1070, 500],
-                  [platforms.GRASS_RIGHT, 1140, 500],
+                  [platforms.WATER_LEFT, 800, 400],
+                  [platforms.WATER_MIDDLE, 870, 400],
+                  [platforms.WATER_RIGHT, 940, 400],
+                  [platforms.WATER_LEFT, 1000, 500],
+                  [platforms.WATER_MIDDLE, 1070, 500],
+                  [platforms.WATER_RIGHT, 1140, 500],
                   [platforms.STONE_PLATFORM_LEFT, 1120, 280],
                   [platforms.STONE_PLATFORM_MIDDLE, 1190, 280],
                   [platforms.STONE_PLATFORM_RIGHT, 1260, 280],
