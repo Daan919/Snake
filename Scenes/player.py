@@ -68,7 +68,38 @@ class Player(pygame.sprite.Sprite):
  
     
     def update(self):
-        pass
+
+        self.calc_grav()
+
+        pos = self.rect.x + self.level.world_shift
+        if self.direction == "R":
+            frame = (pos // 30) % len(self.walking_frames_r)
+            self.image = self.walking_frames_r[frame]
+        else:
+            frame = (pos // 30) % len(self.walking_frames_l)
+            self.image = self.walking_frames_l[frame]
+
+        block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
+        for block in block_hit_list:
+            if self.change_x > 0:
+                self.rect.right = block.rect.left
+            elif self.change_x < 0:
+                self.rect.left = block.rect.right
+                
+        self.rect.y += self.change_y
+
+        block_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
+        for block in block_hit_list:
+            if self.change_y > 0:
+                self.rect.bottom = block.rect.top
+            elif self.change_y < 0:
+                self.rect.top = block.rect.bottom
+
+            self.change_y = 0
+            if isinstance(block, MovingPlatform):
+                self.rect.x += block.change_x
+
+
 
     def calc_grav(self):
         if self.change_y == 0:
