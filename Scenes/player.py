@@ -71,7 +71,7 @@ class Player(pygame.sprite.Sprite):
         self.calc_grav()
         self.rect.x += self.change_x
         pos = self.rect.x + self.level.world_shift
-        
+
         if self.direction == "R":
             frame = (pos // 30) % len(self.walking_frames_r)
             self.image = self.walking_frames_r[frame]
@@ -115,6 +115,9 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += 2
         platform_hit_list = pygame.sprite.spritecollide(self, self.level.platform_list, False)
         self.rect.y -= 2
+
+        if len(platform_hit_list) > 0 or self.rect.bottom >= Constants.SCREEN_HEIGHT:
+            self.change_y = -10
 
     def go_left(self):
         self.change_x = -6

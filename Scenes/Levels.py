@@ -82,7 +82,7 @@ class Level_02(Level):
  
         self.background = pygame.image.load('Assets/img/background_Lvl2Poseidon.png').convert()
         self.background.set_colorkey(Constants.white)
-        self.level_limit = -1000
+        self.level_limit = -2000
  
         level = [ [Platforms.STONE_PLATFORM_LEFT, 500, 550],
                   [Platforms.STONE_PLATFORM_MIDDLE, 570, 550],
