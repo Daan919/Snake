@@ -98,6 +98,53 @@ class level(pygame.sprite.Sprite):
         for tile in self.tile_list:
             screen.blit(tile[0], tile[1])
 
+class player():
+    def __init__(self, x, y):
+        img = img = pygame.image.load(image_path + "Fall (32x32).png")
+        self.image = pygame.transform.scale(img, (40,80))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.width = self.image.get_width()
+        self.height = self.image.get_height()
+        self.vel_y = 0
+        self.jumped = False
+    
+    def update(self):
+        dx = 0
+        dy = 0
+
+        key = pygame.key.get_pressed()
+        if key[pygame.K_SPACE] and self.jumped == False:
+            self.vel_y = -15
+            self.jumped = True
+        if key[pygame.K_SPACE] == False:
+            self.jumped = False
+        if key[pygame.K_LEFT]:
+            dx -= 5
+        if key[pygame.K_RIGHT]:
+            dx += 5
+        
+        self.vel_y += 1
+        if self.vel_y > 10:
+            self.vel_y = 10
+        dy += self.vel_y
+
+        #for tile in level.tile_list:
+        #    if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.width, self.height):
+        #        if self.vel_y < 0:
+        #            dy = tile[1].bottom - self.rect.top
+        #        if self.vel_y >= 0:
+        #            dy = tile[1].top - self.rect.bottom
+        
+
+        self.rect.x += dx
+        self.rect.y += dy
+
+        screen.blit(self.image, self.rect)
+
+player = player(100, screenHeight - 130)
+
 class platform_move(pygame.sprite.Sprite):
     def __init__(self, x, y, move_x, move_y):
         pygame.sprite.Sprite.__init__(self)
@@ -133,6 +180,7 @@ def main():
         bg.draw(screen)
         lv.draw()
         lv.platform_list.update()
+        player.update()
         lv.platform_list.draw(screen)
         pygame.display.flip()
 
