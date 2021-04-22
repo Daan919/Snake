@@ -13,26 +13,6 @@ image_path = os.path.dirname(__file__) + '/images/'
 BLUE = (0,   0, 255)
 
 
-class spriteSheet(object):
-    sprite_sheet = None
-
-    def __init__(self, file_name):
-        self.sprite_sheet = pygame.image.load(file_name).convert()
-
-    def get_image(self, x, y, width, height):
-        # Creeer een lege image
-        image = pygame.Surface([width, height]).convert()
-
-        # Kopieer het de uitgeknipte sprite naar het lege image
-        image.blit(self.sprite_sheet, (0, 0), (x, y, width, height))
-
-        # Assuming black works as the transparent color
-        image.set_colorkey(constants.BLACK)
-
-        # Return the image
-        return image
-
-
 class background():
     def __init__(self):
         self.background = None
@@ -46,38 +26,32 @@ class background():
         screen.blit(self.background, (0, 0))
 
 
-grootPlatform = (0, 0, 978, 132)
+class level(pygame.sprite.Sprite):
 
-
-class level(object):
-    def __init__(self, player):
+    def __init__(self):
         self.coin_list = pygame.sprite.Group()
         self.spike_list = pygame.sprite.Group()
         self.platform_list = pygame.sprite.Group()
-        self.player = player
-        # Variabele bevat platforms van verschillende grote word gebruikt om platforms te plaatsen
-        self.platforms
 
-    def platform(self, x, y, width, height):
-        spriteSheet = pygame.image.load(
-            image_path + 'platforms.png').convert()
+        platform_smal = pygame.image.load(image_path + "")
 
-        image = spriteSheet.get_image(x, y, width, height)
+    def platform(self):
+
+        pygame.sprite.Sprite.__init__(self)
+
+        sprite_sheet = spriteSheet(
+            image_path + 'platforms.png')
+
+        image = sprite_sheet.get_image(0, 0, 132, 978)
         self.platforms.append(iamge)
         self.rect = self.platforms.get_rect()
 
     def draw(self):
         self.platform_list.draw(screen)
 
+    def level1(self):
 
-class level1(level):
-
-    super.__init__(level)
-
-    def __init__(self):
-
-        level = [[grootPlatform, 50, 400],
-                 ]
+        level = [grootPlatform, 50, 400]
 
         for platform in level:
             block = platform[0]
@@ -89,14 +63,18 @@ class level1(level):
 def main():
 
     bg = background()
-    lv = level1()
+    lv = level()
+    lv.platform()
+
     running = True
 
     while running:
         clock.tick(60)
 
         bg.draw(screen)
-        lv.draw
+
+        lv.level1()
+        lv.draw()
         pygame.display.flip()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
