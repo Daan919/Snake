@@ -8,6 +8,7 @@ clock = pygame.time.Clock()
 screenWidth = 1000
 screenHeight = 1000
 screen = pygame.display.set_mode((screenWidth, screenHeight))
+pygame.display.set_caption('ons eerste spelletje')
 image_path = os.path.dirname(__file__) + '/images/'
 
 BLUE = (0,   0, 255)
@@ -41,7 +42,7 @@ class background():
     def __init__(self):
         self.background = None
         self.background = pygame.image.load(
-            image_path + 'Starry_night_Image.png').convert()
+            image_path + 'bg.png').convert()
         self.background = pygame.transform.scale(
             self.background, (screenWidth, screenHeight))
 
