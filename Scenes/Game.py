@@ -70,7 +70,15 @@ def main():
                 current_level_no += 1
                 current_level = level_list[current_level_no]
                 player.level = current_level
- 
+
+        print(player.rect.x)
+        if current_level_no == 0:
+            if current_level.doorLocation[0] == player.rect.x +2110:
+                current_level_no += 1
+                current_level = level_list[current_level_no]
+                player.level = current_level
+            
+                          
         current_level.draw(screen)
         active_sprite_list.draw(screen)
 

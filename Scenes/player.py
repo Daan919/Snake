@@ -1,5 +1,6 @@
 import pygame
 import Constants
+import Levels
 
 from Platforms import MovingPlatform
 from spritesheet_functions import SpriteSheet

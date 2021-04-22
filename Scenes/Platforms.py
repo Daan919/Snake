@@ -9,6 +9,8 @@ WATER_RIGHT           = (500, 720, 70, 70)
 STONE_PLATFORM_LEFT   = (432, 720, 70, 40)
 STONE_PLATFORM_MIDDLE = (648, 648, 70, 40)
 STONE_PLATFORM_RIGHT  = (792, 648, 70, 40)
+DOOR_UP               = (648, 360, 70, 70)
+DOOR_DOWN             = (648, 430, 70, 70)
 
 class Platform(pygame.sprite.Sprite):
     def __init__(self, sprite_sheet_data ):
