@@ -2,9 +2,10 @@ import pygame
  
 import Constants
 import Platforms
- 
+
 class Level():
     def __init__(self, player):
+        self.doorLocation = []
         self.platform_list = None
         self.enemy_list = None
         self.background = None
@@ -38,8 +39,8 @@ class Level_01(Level):
     def __init__(self, player):
  
         Level.__init__(self, player)
- 
-        self.background = pygame.image.load('Assets/img/background_Lvl1Poseidon.png').convert()
+
+        self.background = pygame.image.load('Assets/img/background_Lvl1Hades.png').convert()
         self.background.set_colorkey(Constants.white)
         self.level_limit = -2500
  
@@ -55,6 +56,14 @@ class Level_01(Level):
                   [Platforms.STONE_PLATFORM_LEFT, 1120, 280],
                   [Platforms.STONE_PLATFORM_MIDDLE, 1190, 280],
                   [Platforms.STONE_PLATFORM_RIGHT, 1260, 280],
+                  [Platforms.STONE_PLATFORM_LEFT, 1830, 480],
+                  [Platforms.STONE_PLATFORM_MIDDLE, 1900, 480],
+                  [Platforms.STONE_PLATFORM_RIGHT, 1970, 480],
+                  [Platforms.STONE_PLATFORM_LEFT, 2430, 480],
+                  [Platforms.STONE_PLATFORM_MIDDLE, 2500, 480],
+                  [Platforms.STONE_PLATFORM_RIGHT, 2570, 480],
+                  [Platforms.DOOR_UP, 2500, 345],
+                  [Platforms.DOOR_DOWN, 2500, 410],
                   ]
  
         for platform in level:
@@ -63,7 +72,10 @@ class Level_01(Level):
             block.rect.y = platform[2]
             block.player = self.player
             self.platform_list.add(block)
- 
+            if platform[0] == Platforms.DOOR_UP or platform[0] == Platforms.DOOR_DOWN:
+                a=(platform[1])
+                self.doorLocation.append(a)
+
         block = Platforms.MovingPlatform(Platforms.STONE_PLATFORM_MIDDLE)
         block.rect.x = 1350
         block.rect.y = 280
@@ -73,14 +85,14 @@ class Level_01(Level):
         block.player = self.player
         block.level = self
         self.platform_list.add(block)
- 
+        
  
 class Level_02(Level):
     def __init__(self, player):
  
         Level.__init__(self, player)
- 
-        self.background = pygame.image.load('Assets/img/background_Lvl2Poseidon.png').convert()
+
+        self.background = pygame.image.load('Assets/img/background_Lvl2Hades.png').convert()
         self.background.set_colorkey(Constants.white)
         self.level_limit = -2000
  
@@ -104,6 +116,9 @@ class Level_02(Level):
             block.rect.y = platform[2]
             block.player = self.player
             self.platform_list.add(block)
+            if platform[0] == Platforms.DOOR_UP or platform[0] == Platforms.DOOR_DOWN:
+                a=(platform[1])
+                self.doorLocation.append(a)
  
         block = Platforms.MovingPlatform(Platforms.STONE_PLATFORM_MIDDLE)
         block.rect.x = 1500
