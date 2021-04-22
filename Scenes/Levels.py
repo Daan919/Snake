@@ -94,7 +94,7 @@ class Level_02(Level):
 
         self.background = pygame.image.load('Assets/img/background_Lvl2Hades.png').convert()
         self.background.set_colorkey(Constants.white)
-        self.level_limit = -2000
+        self.level_limit = -1000
  
         level = [ [Platforms.STONE_PLATFORM_LEFT, 500, 550],
                   [Platforms.STONE_PLATFORM_MIDDLE, 570, 550],
@@ -130,7 +130,3 @@ class Level_02(Level):
         block.level = self
         self.platform_list.add(block)
 
-class Level_03(Level):
-    pass
-class Level_04(Level):
-    pass
