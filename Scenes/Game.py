@@ -66,7 +66,6 @@ class level(pygame.sprite.Sprite):
         self.grass = self.platform_img
         self.grass = pygame.transform.scale(
             self.grass, (tile_size, tile_size))
-       
 
         row_count = 0
         for row in data:
@@ -85,12 +84,14 @@ class level(pygame.sprite.Sprite):
                     tile = (self.grass, img_rect)
                     self.tile_list.append(tile)
                 if tile == 3:
-                    platform = platform_move(colum_count * tile_size, row_count * tile_size, 1, 0)
+                    platform = platform_move(
+                        colum_count * tile_size, row_count * tile_size, 1, 0)
                     self.platform_list.add(platform)
                 if tile == 4:
-                    platform = platform_move(colum_count * tile_size, row_count * tile_size, 0, 1)
+                    platform = platform_move(
+                        colum_count * tile_size, row_count * tile_size, 0, 1)
                     self.platform_list.add(platform)
-                
+
                 colum_count += 1
             row_count += 1
 
@@ -98,10 +99,11 @@ class level(pygame.sprite.Sprite):
         for tile in self.tile_list:
             screen.blit(tile[0], tile[1])
 
+
 class player():
     def __init__(self, x, y):
         img = img = pygame.image.load(image_path + "Fall (32x32).png")
-        self.image = pygame.transform.scale(img, (40,80))
+        self.image = pygame.transform.scale(img, (40, 80))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -109,7 +111,7 @@ class player():
         self.height = self.image.get_height()
         self.vel_y = 0
         self.jumped = False
-    
+
     def update(self):
         dx = 0
         dy = 0
@@ -124,26 +126,27 @@ class player():
             dx -= 5
         if key[pygame.K_RIGHT]:
             dx += 5
-        
+
         self.vel_y += 1
         if self.vel_y > 10:
             self.vel_y = 10
         dy += self.vel_y
 
-        #for tile in level.tile_list:
+        # for tile in level.tile_list:
         #    if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.width, self.height):
         #        if self.vel_y < 0:
         #            dy = tile[1].bottom - self.rect.top
         #        if self.vel_y >= 0:
         #            dy = tile[1].top - self.rect.bottom
-        
 
         self.rect.x += dx
         self.rect.y += dy
 
         screen.blit(self.image, self.rect)
 
+
 player = player(100, screenHeight - 130)
+
 
 class platform_move(pygame.sprite.Sprite):
     def __init__(self, x, y, move_x, move_y):
@@ -158,7 +161,6 @@ class platform_move(pygame.sprite.Sprite):
         self.move_x = move_x
         self.move_y = move_y
 
-        
     def update(self):
         self.rect.x += self.move_direction * self.move_x
         self.rect.y += self.move_direction * self.move_y
@@ -186,6 +188,7 @@ def main():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                running = False
                 pygame.quit()
 
 
