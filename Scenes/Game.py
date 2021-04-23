@@ -6,14 +6,14 @@ pygame.init()
 pygame.display.init()
 clock = pygame.time.Clock()
 
-screenWidth = 1000
-screenHeight = 1000
+screenWidth = 500
+screenHeight = 500
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption('ons eerste spelletje')
 image_path = os.path.dirname(__file__) + '/images/'
 
 BLUE = (0,   0, 255)
-tile_size = 50
+tile_size = 25
 
 world_data = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -28,13 +28,13 @@ world_data = [
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
 ]
 
@@ -104,7 +104,7 @@ class level(pygame.sprite.Sprite):
 class player():
     def __init__(self, x, y):
         img = img = pygame.image.load(image_path + "Fall (32x32).png")
-        self.image = pygame.transform.scale(img, (40, 80))
+        self.image = pygame.transform.scale(img, (20, 40))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -112,33 +112,56 @@ class player():
         self.height = self.image.get_height()
         self.vel_y = 0
         self.jumped = False
+        self.in_air = False
 
     def update(self):
         dx = 0
         dy = 0
+        col_tresh = 20
 
         key = pygame.key.get_pressed()
-        if key[pygame.K_SPACE] and self.jumped == False:
+        if key[pygame.K_SPACE] and self.jumped == False and self.in_air == False:
             self.vel_y = -15
             self.jumped = True
         if key[pygame.K_SPACE] == False:
             self.jumped = False
         if key[pygame.K_LEFT]:
-            dx -= 5
+            dx -= 2
         if key[pygame.K_RIGHT]:
-            dx += 5
+            dx += 2
 
         self.vel_y += 1
         if self.vel_y > 10:
             self.vel_y = 10
         dy += self.vel_y
 
-        # for tile in level.tile_list:
-        #    if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.width, self.height):
-        #        if self.vel_y < 0:
-        #            dy = tile[1].bottom - self.rect.top
-        #        if self.vel_y >= 0:
-        #            dy = tile[1].top - self.rect.bottom
+        self.in_air = True
+        for tile in lv.tile_list:
+            if tile[1].colliderect(self.rect.x + dx, self.rect.y, self.width, self.height):
+                dx = 0
+
+            if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.width, self.height):
+                if self.vel_y < 0:
+                    dy = tile[1].bottom - self.rect.top
+                    self.vel_y = 0
+                elif self.vel_y >= 0:
+                    dy = tile[1].top - self.rect.bottom
+                    self.vel_y = 0
+                    self.in_air = False
+
+        for platform in lv.platform_list:
+            if platform.rect.colliderect(self.rect.x + dx, self.rect.y, self.width, self.height):
+                dx = 0
+            if platform.rect.colliderect(self.rect.x, self.rect.y + dy, self.width, self.height):
+                if abs((self.rect.top + dy) - platform.rect.bottom) < col_tresh:
+                    self.vel_y = 0
+                    dy = platform.rect.bottom - self.rect.top
+                elif abs((self.rect.bottom + dy) - platform.rect.top) < col_tresh:
+                    self.rect.bottom = platform.rect.top - 1
+                    dy = 0
+                    self.in_air = False
+                if platform.move_x != 0:
+                    self.rect.x += platform.move_direction
 
         self.rect.x += dx
         self.rect.y += dy
@@ -171,10 +194,12 @@ class platform_move(pygame.sprite.Sprite):
             self.move_counter *= -1
 
 
+lv = level(world_data)
+
+
 def main():
 
     bg = background()
-    lv = level(world_data)
     running = True
 
     while running:
@@ -191,6 +216,7 @@ def main():
             if event.type == pygame.QUIT:
                 running = False
                 pygame.quit()
+                runnig = False
 
 
 main()
