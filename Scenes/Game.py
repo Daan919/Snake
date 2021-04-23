@@ -1,4 +1,5 @@
 import pygame
+from pygame.locals import *
 import os
 
 pygame.init()
@@ -130,12 +131,14 @@ class player():
             self.vel_y = 10
         dy += self.vel_y
 
-        #for tile in level.tile_list:
-        #    if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.width, self.height):
-        #        if self.vel_y < 0:
-        #            dy = tile[1].bottom - self.rect.top
-        #        if self.vel_y >= 0:
-        #            dy = tile[1].top - self.rect.bottom
+        lv = level(world_data)
+
+        for tile in lv.tile_list:
+            if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.width, self.height):
+                if self.vel_y < 0:
+                    dy = tile[1].bottom - self.rect.top
+                if self.vel_y >= 0:
+                    dy = tile[1].top - self.rect.bottom
         
 
         self.rect.x += dx
