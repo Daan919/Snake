@@ -68,6 +68,11 @@ class level(pygame.sprite.Sprite):
         self.grass = pygame.transform.scale(
             self.grass, (tile_size, tile_size))
 
+        self.coin_img = pygame.image.load(image_path + "grass.png")
+        self.coin = self.coin_img
+        self.coin = pygame.transform.scale(
+            self.coin, (tile_size, tile_size))
+
         row_count = 0
         for row in data:
             colum_count = 0
@@ -192,6 +197,10 @@ class platform_move(pygame.sprite.Sprite):
         if abs(self.move_counter) > 100:
             self.move_direction *= -1
             self.move_counter *= -1
+
+
+class coin(pygame.sprite.Sprite):
+    def __init__(self):
 
 
 lv = level(world_data)
