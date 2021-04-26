@@ -1,11 +1,13 @@
 import pygame
 import Constants
 import Levels
+import LobbyMenu
 
 from player import Player
+pygame.init()
 
 def main(): 
-    pygame.init()
+   
     size = [Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT]
     screen = pygame.display.set_mode(size)
  
@@ -42,7 +44,7 @@ def main():
                     player.go_right()
                 if event.key == pygame.K_UP:
                     player.jump()
- 
+                    
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT and player.change_x < 0:
                     player.stop()
@@ -71,7 +73,6 @@ def main():
                 current_level = level_list[current_level_no]
                 player.level = current_level
 
-        print(player.rect.x)
         if current_level_no == 0:
             if current_level.doorLocation[0] == player.rect.x +2110:
                 current_level_no += 1
@@ -89,6 +90,6 @@ def main():
     pygame.quit()
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()
 
