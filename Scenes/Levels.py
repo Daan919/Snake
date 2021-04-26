@@ -8,14 +8,12 @@ class Level():
         self.doorLocation = []
         self.platform_list = None
         self.enemy_list = None
-        self.door_list = None
         self.background = None
  
         self.world_shift = 0
         self.level_limit = -1000
         self.platform_list = pygame.sprite.Group()
         self.enemy_list = pygame.sprite.Group()
-        self.door_list = pygame.sprite.Group()
         self.player = player
  
     def update(self):
@@ -27,7 +25,11 @@ class Level():
  
         self.platform_list.draw(screen)
         self.enemy_list.draw(screen)
-        self.door_list.draw(screen)
+        UP = Platforms.Platform(Platforms.DOOR_UP)
+        # DOWN = Platforms.Platform(Platforms.DOOR_DOWN)
+
+        screen.blit(Constants.DOOR, (100, 445))
+        # screen.blit(DOWN, (2500, 410))
 
     def shift_world(self, shift_x):
         self.world_shift += shift_x
@@ -37,7 +39,9 @@ class Level():
  
         for enemy in self.enemy_list:
             enemy.rect.x += shift_x
- 
+
+
+    
 class Level_01(Level):
     def __init__(self, player):
  
@@ -83,15 +87,9 @@ class Level_01(Level):
         block.player = self.player
         block.level = self
         self.platform_list.add(block)
+ 
 
-        doors = [ [Platforms.DOOR_UP, 2500, 345],
-                  [Platforms.DOOR_DOWN, 2500, 410]
-        ]
 
-        door = Platforms.DOOR_UP
-        for door_list in doors:
-            self.door_list.add(door)
-            self.doorLocation = b[0][1]            
  
 class Level_02(Level):
     def __init__(self, player):
