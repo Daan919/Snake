@@ -135,9 +135,9 @@ class player():
         if key[pygame.K_SPACE] == False:
             self.jumped = False
         if key[pygame.K_LEFT]:
-            dx -= 2
+            dx -= 5
         if key[pygame.K_RIGHT]:
-            dx += 2
+            dx += 5
 
         self.vel_y += 1
         if self.vel_y > 10:
@@ -211,6 +211,11 @@ class platform_move(pygame.sprite.Sprite):
         if abs(self.move_counter) > 100:
             self.move_direction *= -1
             self.move_counter *= -1
+
+
+class coin(pygame.sprite.Sprite):
+    def __init__(self):
+        pass
 
 
 lv = level(world_data)
