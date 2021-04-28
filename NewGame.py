@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-import Menu
+# import Menu
 import os
 
 pygame.init()
@@ -12,6 +12,8 @@ screenHeight = 500
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption('ons eerste spelletje')
 image_path = os.path.dirname(__file__) + '/Images/'
+
+door = pygame.image.load(image_path + "tiles_door.png")
 
 BLUE = (0,   0, 255)
 tile_size = 25
@@ -105,6 +107,9 @@ class level(pygame.sprite.Sprite):
     def draw(self,):
         for tile in self.tile_list:
             screen.blit(tile[0], tile[1])
+
+    def drawDoor(self, screen):
+        screen.blit(door, (250, 300))       
 
 
 class player():
@@ -217,6 +222,7 @@ def main():
 
         bg.draw(screen)
         lv.draw()
+        lv.drawDoor(screen)
         lv.platform_list.update()
         player.update()
         lv.platform_list.draw(screen)
@@ -227,3 +233,6 @@ def main():
                 running = False
                 pygame.quit()
                 runnig = False
+
+
+main()            
