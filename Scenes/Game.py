@@ -124,9 +124,9 @@ class player():
         if key[pygame.K_SPACE] == False:
             self.jumped = False
         if key[pygame.K_LEFT]:
-            dx -= 2
+            dx -= 5
         if key[pygame.K_RIGHT]:
-            dx += 2
+            dx += 5
         
         self.vel_y += 1
         if self.vel_y > 10:
