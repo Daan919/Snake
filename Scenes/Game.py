@@ -27,10 +27,10 @@ world_data = [
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 5, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 4, 4, 4, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
@@ -68,10 +68,10 @@ class level(pygame.sprite.Sprite):
         self.grass = pygame.transform.scale(
             self.grass, (tile_size, tile_size))
 
-        self.coin_img = pygame.image.load(image_path + "grass.png")
-        self.coin = self.coin_img
-        self.coin = pygame.transform.scale(
-            self.coin, (tile_size, tile_size))
+        # self.coin_img = pygame.image.load(image_path + "coin.png")
+        # self.coin = self.coin_img
+        # self.coin = pygame.transform.scale(
+        #     self.coin, (tile_size, tile_size))
 
         row_count = 0
         for row in data:
@@ -97,6 +97,10 @@ class level(pygame.sprite.Sprite):
                     platform = platform_move(
                         colum_count * tile_size, row_count * tile_size, 0, 1)
                     self.platform_list.add(platform)
+                if tile == 5:
+                    coin = coins(
+                        colum_count * tile_size, row_count * tile_size)
+                    self.coin_list.add(coin)
 
                 colum_count += 1
             row_count += 1
@@ -177,6 +181,16 @@ class player():
 player = player(100, screenHeight - 130)
 
 
+class coins(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        img = pygame.image.load(image_path + 'coin.png')
+        self.image = pygame.transform.scale(
+            img, (tile_size // 2, tile_size // 2))
+        self.rect = self.image.get_rect()
+        self.rect.center = (x, y)
+
+
 class platform_move(pygame.sprite.Sprite):
     def __init__(self, x, y, move_x, move_y):
         pygame.sprite.Sprite.__init__(self)
@@ -199,10 +213,6 @@ class platform_move(pygame.sprite.Sprite):
             self.move_counter *= -1
 
 
-class coin(pygame.sprite.Sprite):
-    def __init__(self):
-
-
 lv = level(world_data)
 
 
@@ -216,7 +226,10 @@ def main():
 
         bg.draw(screen)
         lv.draw()
+
+        lv.coin_list.draw(screen)
         lv.platform_list.update()
+
         player.update()
         lv.platform_list.draw(screen)
         pygame.display.flip()
