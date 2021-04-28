@@ -1,6 +1,6 @@
 import pygame
 from pygame.locals import *
-# import Menu
+import Menu
 import os
 
 pygame.init()
@@ -36,10 +36,33 @@ world_data = [
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 1],
+    [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
+]
+
+world_data2 = [
+    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 1],
+    [1, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 1],
     [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
 ]
 
@@ -63,6 +86,8 @@ class level(pygame.sprite.Sprite):
         self.coin_list = pygame.sprite.Group()
         self.spike_list = pygame.sprite.Group()
         self.platform_list = pygame.sprite.Group()
+        self.door_list = pygame.sprite.Group()
+        self.key_list = pygame.sprite.Group()
 
         self.platform_img = pygame.image.load(image_path + "dirt.png")
         self.dirt = self.platform_img
@@ -102,6 +127,12 @@ class level(pygame.sprite.Sprite):
                     platform = platform_move(
                         colum_count * tile_size, row_count * tile_size, 0, 1)
                     self.platform_list.add(platform)
+                if tile == 9:
+                    door = Doors( colum_count * tile_size, row_count * tile_size)     
+                    self.door_list.add(door)
+                if tile == 10:
+                    key = Keys( colum_count * tile_size, row_count * tile_size)     
+                    self.key_list.add(key)    
 
                 colum_count += 1
             row_count += 1
@@ -109,23 +140,6 @@ class level(pygame.sprite.Sprite):
     def draw(self,):
         for tile in self.tile_list:
             screen.blit(tile[0], tile[1])
-
-    # def drawDoorKey(self, screen):
-    #     door_rect = screen.blit(door, (250, 300)) 
-
-    #     if key_found == False:
-    #         key_rect = screen.blit(key, (420, 420))
-
-    #     if player.rect.colliderect(key_rect):
-    #         print("found")
-    #         key_found = True
-    #         print(key_found)    
-        
-    #     if player.rect.colliderect(door_rect):
-    #         print(key_found)
-    #         if key_found == True:
-    #             print("goToNextLevel")
-
 
 
 class player():
@@ -198,6 +212,32 @@ class player():
 
 player = player(100, screenHeight - 130)
 
+class Doors(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        img = pygame.image.load(image_path + 'tiles_door.png')
+        self.image = pygame.transform.scale(
+            img, ( int (tile_size * 1.5), int (tile_size * 2)))
+        self.rect = self.image.get_rect()
+        self.rect.center = (x, y)
+
+class Keys(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        img = pygame.image.load(image_path + 'tiles_oldkey.png')
+        self.image = pygame.transform.scale(
+            img, ( int (tile_size * 1.5), int (tile_size * 2)))
+        self.rect = self.image.get_rect()
+        self.rect.center = (x, y)
+
+class coins(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        img = pygame.image.load(image_path + 'coin.png')
+        self.image = pygame.transform.scale(
+            img, (tile_size // 2, tile_size // 2))
+        self.rect = self.image.get_rect()
+        self.rect.center = (x, y)        
 
 class platform_move(pygame.sprite.Sprite):
     def __init__(self, x, y, move_x, move_y):
@@ -219,11 +259,6 @@ class platform_move(pygame.sprite.Sprite):
         if abs(self.move_counter) > 100:
             self.move_direction *= -1
             self.move_counter *= -1
-
-
-class coin(pygame.sprite.Sprite):
-    def __init__(self):
-        pass
     
 lv = level(world_data)
 
@@ -233,40 +268,29 @@ def main():
     bg = background()
     running = True
     key_found = False
-    screen.blit(door, (250, 300)) 
+    
 
-    if key_found == False:
-        print(key_found)
-        screen.blit(key, (420, 420))
 
     while running:
         clock.tick(60)
-        
-        door_rect = screen.blit(door, (250, 300))
-        key_rect = screen.blit(key, (420, 420)) 
-        if player.rect.colliderect(key_rect):
-            print("found")
-            key_found = True
-            print(key_found)    
-        
-        if player.rect.colliderect(door_rect):
-            print(key_found)
-            if key_found == True:
-                print("goToNextLevel")
-
         bg.draw(screen)
         lv.draw()
-        # lv.drawDoorKey(screen)
         lv.platform_list.update()
         player.update()
         lv.platform_list.draw(screen)
+        lv.door_list.draw(screen)
+        if pygame.sprite.spritecollide(player,lv.door_list, False) and key_found:
+            print("next level")
+            del lv
+            lv = level(world_data2)
+        lv.key_list.draw(screen)
+        if pygame.sprite.spritecollide(player,lv.key_list, True):
+            key_found = True
+            print("Door to Next level")    
         pygame.display.flip()
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
                 pygame.quit()
                 runnig = False
-
-
-main()            
+    main()            
