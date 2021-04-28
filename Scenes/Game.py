@@ -73,8 +73,8 @@ def main():
                 current_level = level_list[current_level_no]
                 player.level = current_level
 
-        if current_level_no == 0:
-            if current_level.doorLocation[0] == player.rect.x +2110:
+        if Constants.DOOR == player.rect.x:
+                print("ewa")
                 current_level_no += 1
                 current_level = level_list[current_level_no]
                 player.level = current_level
