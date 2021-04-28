@@ -67,7 +67,11 @@ class level(pygame.sprite.Sprite):
         self.grass = self.platform_img
         self.grass = pygame.transform.scale(
             self.grass, (tile_size, tile_size))
-       
+
+        self.coin_img = pygame.image.load(image_path + "grass.png")
+        self.coin = self.coin_img
+        self.coin = pygame.transform.scale(
+            self.coin, (tile_size, tile_size))
 
         row_count = 0
         for row in data:
@@ -86,12 +90,14 @@ class level(pygame.sprite.Sprite):
                     tile = (self.grass, img_rect)
                     self.tile_list.append(tile)
                 if tile == 3:
-                    platform = platform_move(colum_count * tile_size, row_count * tile_size, 1, 0)
+                    platform = platform_move(
+                        colum_count * tile_size, row_count * tile_size, 1, 0)
                     self.platform_list.add(platform)
                 if tile == 4:
-                    platform = platform_move(colum_count * tile_size, row_count * tile_size, 0, 1)
+                    platform = platform_move(
+                        colum_count * tile_size, row_count * tile_size, 0, 1)
                     self.platform_list.add(platform)
-                
+
                 colum_count += 1
             row_count += 1
 
@@ -99,10 +105,11 @@ class level(pygame.sprite.Sprite):
         for tile in self.tile_list:
             screen.blit(tile[0], tile[1])
 
+
 class player():
     def __init__(self, x, y):
         img = img = pygame.image.load(image_path + "Fall (32x32).png")
-        self.image = pygame.transform.scale(img, (20,40))
+        self.image = pygame.transform.scale(img, (20, 40))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -111,7 +118,7 @@ class player():
         self.vel_y = 0
         self.jumped = False
         self.in_air = False
-    
+
     def update(self):
         dx = 0
         dy = 0
@@ -146,30 +153,29 @@ class player():
                     dy = tile[1].top - self.rect.bottom
                     self.vel_y = 0
                     self.in_air = False
-    
+
         for platform in lv.platform_list:
             if platform.rect.colliderect(self.rect.x + dx, self.rect.y, self.width, self.height):
                 dx = 0
             if platform.rect.colliderect(self.rect.x, self.rect.y + dy, self.width, self.height):
-                if abs((self.rect.top + dy ) - platform.rect.bottom) < col_tresh:
+                if abs((self.rect.top + dy) - platform.rect.bottom) < col_tresh:
                     self.vel_y = 0
                     dy = platform.rect.bottom - self.rect.top
-                elif abs((self.rect.bottom + dy ) - platform.rect.top) < col_tresh:
+                elif abs((self.rect.bottom + dy) - platform.rect.top) < col_tresh:
                     self.rect.bottom = platform.rect.top - 1
                     dy = 0
                     self.in_air = False
                 if platform.move_x != 0:
                     self.rect.x += platform.move_direction
 
-
-        
-
         self.rect.x += dx
         self.rect.y += dy
 
         screen.blit(self.image, self.rect)
 
+
 player = player(100, screenHeight - 130)
+
 
 class platform_move(pygame.sprite.Sprite):
     def __init__(self, x, y, move_x, move_y):
@@ -184,7 +190,6 @@ class platform_move(pygame.sprite.Sprite):
         self.move_x = move_x
         self.move_y = move_y
 
-        
     def update(self):
         self.rect.x += self.move_direction * self.move_x
         self.rect.y += self.move_direction * self.move_y
@@ -194,7 +199,12 @@ class platform_move(pygame.sprite.Sprite):
             self.move_counter *= -1
 
 
+class coin(pygame.sprite.Sprite):
+    def __init__(self):
+        pass
+    
 lv = level(world_data)
+
 
 def main():
 
@@ -213,6 +223,7 @@ def main():
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
+                running = False
                 pygame.quit()
                 runnig = False
 
