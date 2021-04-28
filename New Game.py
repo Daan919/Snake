@@ -10,7 +10,7 @@ screenWidth = 500
 screenHeight = 500
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption('ons eerste spelletje')
-image_path = os.path.dirname(__file__) + '/images/'
+image_path = os.path.dirname(__file__) + '/Images/'
 
 BLUE = (0,   0, 255)
 tile_size = 25
