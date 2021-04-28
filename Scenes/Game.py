@@ -213,11 +213,6 @@ class platform_move(pygame.sprite.Sprite):
             self.move_counter *= -1
 
 
-class coin(pygame.sprite.Sprite):
-    def __init__(self):
-        pass
-
-
 lv = level(world_data)
 
 
