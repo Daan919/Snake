@@ -34,8 +34,8 @@ world_data = [
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
+    [1, 0, 0, 0, 0, 2, 2, 2, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 6, 1],
+    [1, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
 ]
 
 
@@ -56,7 +56,7 @@ class level(pygame.sprite.Sprite):
     def __init__(self, data):
         self.tile_list = []
         self.coin_list = pygame.sprite.Group()
-        self.spike_list = pygame.sprite.Group()
+        self.lava_list = pygame.sprite.Group()
         self.platform_list = pygame.sprite.Group()
 
         self.platform_img = pygame.image.load(image_path + "dirt.png")
@@ -101,6 +101,9 @@ class level(pygame.sprite.Sprite):
                     coin = coins(
                         colum_count * tile_size, row_count * tile_size)
                     self.coin_list.add(coin)
+                if tile == 6:
+                    lava = Lava(colum_count * tile_size, row_count * tile_size + (tile_size // 2))
+                    self.lava_list.add(lava)
 
                 colum_count += 1
             row_count += 1
@@ -212,6 +215,16 @@ class platform_move(pygame.sprite.Sprite):
             self.move_direction *= -1
             self.move_counter *= -1
 
+class Lava(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        img = pygame.image.load(image_path + "lava.png")
+        self.image = pygame.transform.scale(img, (tile_size, tile_size // 2))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+
 
 lv = level(world_data)
 
@@ -228,6 +241,7 @@ def main():
         lv.draw()
 
         lv.coin_list.draw(screen)
+        lv.lava_list.draw(screen)
         lv.platform_list.update()
 
         player.update()
