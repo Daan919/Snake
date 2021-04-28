@@ -14,6 +14,8 @@ pygame.display.set_caption('ons eerste spelletje')
 image_path = os.path.dirname(__file__) + '/Images/'
 
 door = pygame.image.load(image_path + "tiles_door.png")
+key = pygame.image.load(image_path + "tiles_oldkey.png")
+
 
 BLUE = (0,   0, 255)
 tile_size = 25
@@ -108,8 +110,22 @@ class level(pygame.sprite.Sprite):
         for tile in self.tile_list:
             screen.blit(tile[0], tile[1])
 
-    def drawDoor(self, screen):
-        screen.blit(door, (250, 300))       
+    # def drawDoorKey(self, screen):
+    #     door_rect = screen.blit(door, (250, 300)) 
+
+    #     if key_found == False:
+    #         key_rect = screen.blit(key, (420, 420))
+
+    #     if player.rect.colliderect(key_rect):
+    #         print("found")
+    #         key_found = True
+    #         print(key_found)    
+        
+    #     if player.rect.colliderect(door_rect):
+    #         print(key_found)
+    #         if key_found == True:
+    #             print("goToNextLevel")
+
 
 
 class player():
@@ -216,13 +232,31 @@ def main():
 
     bg = background()
     running = True
+    key_found = False
+    screen.blit(door, (250, 300)) 
+
+    if key_found == False:
+        print(key_found)
+        screen.blit(key, (420, 420))
 
     while running:
         clock.tick(60)
+        
+        door_rect = screen.blit(door, (250, 300))
+        key_rect = screen.blit(key, (420, 420)) 
+        if player.rect.colliderect(key_rect):
+            print("found")
+            key_found = True
+            print(key_found)    
+        
+        if player.rect.colliderect(door_rect):
+            print(key_found)
+            if key_found == True:
+                print("goToNextLevel")
 
         bg.draw(screen)
         lv.draw()
-        lv.drawDoor(screen)
+        # lv.drawDoorKey(screen)
         lv.platform_list.update()
         player.update()
         lv.platform_list.draw(screen)
