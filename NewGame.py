@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+import Menu
 import os
 
 pygame.init()
@@ -226,6 +227,3 @@ def main():
                 running = False
                 pygame.quit()
                 runnig = False
-
-
-main()
