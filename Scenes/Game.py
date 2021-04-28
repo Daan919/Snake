@@ -22,6 +22,7 @@ sound_path = os.path.dirname(__file__) + '/Sounds/'
 
 BLUE = (0,   0, 255)
 tile_size = 25
+game_over = 0
 
 font_score = pygame.font.SysFont("Comic Sans", tile_size)
 
@@ -47,7 +48,7 @@ world_data = [
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 2, 2, 2, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 2, 2, 2, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 1],
     [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
 ]
 
@@ -153,59 +154,67 @@ class player():
         self.jumped = False
         self.in_air = False
 
-    def update(self):
+    def update(self, game_over):
         dx = 0
         dy = 0
         col_tresh = 20
 
-        key = pygame.key.get_pressed()
-        if key[pygame.K_SPACE] and self.jumped == False and self.in_air == False:
-            self.vel_y = -15
-            self.jumped = True
-        if key[pygame.K_SPACE] == False:
-            self.jumped = False
-        if key[pygame.K_LEFT]:
-            dx -= 5
-        if key[pygame.K_RIGHT]:
-            dx += 5
+        if game_over == 0:
 
-        self.vel_y += 1
-        if self.vel_y > 10:
-            self.vel_y = 10
-        dy += self.vel_y
+            key = pygame.key.get_pressed()
+            if key[pygame.K_SPACE] and self.jumped == False and self.in_air == False:
+                self.vel_y = -15
+                self.jumped = True
+            if key[pygame.K_SPACE] == False:
+                self.jumped = False
+            if key[pygame.K_LEFT]:
+                dx -= 5
+            if key[pygame.K_RIGHT]:
+                dx += 5
 
-        self.in_air = True
-        for tile in lv.tile_list:
-            if tile[1].colliderect(self.rect.x + dx, self.rect.y, self.width, self.height):
-                dx = 0
+            self.vel_y += 1
+            if self.vel_y > 10:
+                self.vel_y = 10
+            dy += self.vel_y
 
-            if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.width, self.height):
-                if self.vel_y < 0:
-                    dy = tile[1].bottom - self.rect.top
-                    self.vel_y = 0
-                elif self.vel_y >= 0:
-                    dy = tile[1].top - self.rect.bottom
-                    self.vel_y = 0
-                    self.in_air = False
+            self.in_air = True
+            for tile in lv.tile_list:
+                if tile[1].colliderect(self.rect.x + dx, self.rect.y, self.width, self.height):
+                    dx = 0
 
-        for platform in lv.platform_list:
-            if platform.rect.colliderect(self.rect.x + dx, self.rect.y, self.width, self.height):
-                dx = 0
-            if platform.rect.colliderect(self.rect.x, self.rect.y + dy, self.width, self.height):
-                if abs((self.rect.top + dy) - platform.rect.bottom) < col_tresh:
-                    self.vel_y = 0
-                    dy = platform.rect.bottom - self.rect.top
-                elif abs((self.rect.bottom + dy) - platform.rect.top) < col_tresh:
-                    self.rect.bottom = platform.rect.top - 1
-                    dy = 0
-                    self.in_air = False
-                if platform.move_x != 0:
-                    self.rect.x += platform.move_direction
+                if tile[1].colliderect(self.rect.x, self.rect.y + dy, self.width, self.height):
+                    if self.vel_y < 0:
+                        dy = tile[1].bottom - self.rect.top
+                        self.vel_y = 0
+                    elif self.vel_y >= 0:
+                        dy = tile[1].top - self.rect.bottom
+                        self.vel_y = 0
+                        self.in_air = False
+            
+            if pygame.sprite.spritecollide(self, lv.lava_list, False):
+                game_over = -1
+                
+            
+            for platform in lv.platform_list:
+                if platform.rect.colliderect(self.rect.x + dx, self.rect.y, self.width, self.height):
+                    dx = 0
+                if platform.rect.colliderect(self.rect.x, self.rect.y + dy, self.width, self.height):
+                    if abs((self.rect.top + dy) - platform.rect.bottom) < col_tresh:
+                        self.vel_y = 0
+                        dy = platform.rect.bottom - self.rect.top
+                    elif abs((self.rect.bottom + dy) - platform.rect.top) < col_tresh:
+                        self.rect.bottom = platform.rect.top - 1
+                        dy = 0
+                        self.in_air = False
+                    if platform.move_x != 0:
+                        self.rect.x += platform.move_direction
 
-        self.rect.x += dx
-        self.rect.y += dy
+            self.rect.x += dx
+            self.rect.y += dy
 
         screen.blit(self.image, self.rect)
+        
+        return game_over
 
 
 player = player(100, screenHeight - 130)
@@ -256,7 +265,7 @@ class Lava(pygame.sprite.Sprite):
 lv = level(world_data)
 
 
-def main():
+def main(game_over):
 
     bg = background()
     running = True
@@ -267,12 +276,14 @@ def main():
         bg.draw(screen)
         lv.draw()
 
+        if game_over == 0:
+            lv.platform_list.update()
+
         lv.coin_list.draw(screen)
         lv.lava_list.draw(screen)
-        lv.platform_list.update()
 
-        player.update()
         lv.platform_list.draw(screen)
+        game_over = player.update(game_over)
 
         # update score
 
@@ -291,4 +302,4 @@ def main():
                 runnig = False
 
 
-main()
+main(game_over)
