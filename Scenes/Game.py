@@ -1,9 +1,15 @@
 import pygame
 from pygame.locals import *
 import os
+from pygame import mixer
 
+
+pygame.mixer.pre_init(44100, -16, 2, 512)
+mixer.init()
 pygame.init()
 pygame.display.init()
+
+
 clock = pygame.time.Clock()
 
 screenWidth = 500
@@ -11,6 +17,7 @@ screenHeight = 500
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption('ons eerste spelletje')
 image_path = os.path.dirname(__file__) + '/images/'
+sound_path = os.path.dirname(__file__) + '/Sounds/'
 
 
 BLUE = (0,   0, 255)
@@ -43,6 +50,10 @@ world_data = [
     [1, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
 ]
+
+# load sounds
+sound_get_coin = pygame.mixer.Sound(sound_path + "coin.wav")
+sound_get_coin.set_volume(0.5)
 
 
 def drawText(text, font, tect_col, x, y):
@@ -253,6 +264,7 @@ def main():
 
         if pygame.sprite.spritecollide(player, lv.coin_list, True):
             lv.score += 1
+            sound_get_coin.play()
         drawText(" X" + str(lv.score), font_score,
                  white, tile_size // 2, tile_size // 4)
 
