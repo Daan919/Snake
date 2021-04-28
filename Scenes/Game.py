@@ -12,8 +12,14 @@ screen = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption('ons eerste spelletje')
 image_path = os.path.dirname(__file__) + '/images/'
 
+
 BLUE = (0,   0, 255)
 tile_size = 25
+
+font_score = pygame.font.SysFont("Comic Sans", tile_size)
+
+# collors
+white = (255, 255, 255)
 
 world_data = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -39,6 +45,11 @@ world_data = [
 ]
 
 
+def drawText(text, font, tect_col, x, y):
+    img = font.render(text, True, tect_col)
+    screen.blit(img, (x, y))
+
+
 class background():
     def __init__(self):
         self.background = None
@@ -58,6 +69,8 @@ class level(pygame.sprite.Sprite):
         self.coin_list = pygame.sprite.Group()
         self.lava_list = pygame.sprite.Group()
         self.platform_list = pygame.sprite.Group()
+
+        self.score = 0
 
         self.platform_img = pygame.image.load(image_path + "dirt.png")
         self.dirt = self.platform_img
@@ -99,7 +112,7 @@ class level(pygame.sprite.Sprite):
                     self.platform_list.add(platform)
                 if tile == 5:
                     coin = coins(
-                        colum_count * tile_size, row_count * tile_size)
+                        colum_count * tile_size + (tile_size // 2), row_count * tile_size + (tile_size // 2))
                     self.coin_list.add(coin)
                 if tile == 6:
                     lava = Lava(colum_count * tile_size, row_count * tile_size + (tile_size // 2))
@@ -107,6 +120,9 @@ class level(pygame.sprite.Sprite):
 
                 colum_count += 1
             row_count += 1
+
+        score_coin = coins(tile_size // 2, tile_size // 2)
+        self.coin_list.add(score_coin)
 
     def draw(self,):
         for tile in self.tile_list:
@@ -246,6 +262,14 @@ def main():
 
         player.update()
         lv.platform_list.draw(screen)
+
+        # update score
+
+        if pygame.sprite.spritecollide(player, lv.coin_list, True):
+            lv.score += 1
+        drawText(" X" + str(lv.score), font_score,
+                 white, tile_size // 2, tile_size // 4)
+
         pygame.display.flip()
 
         for event in pygame.event.get():
