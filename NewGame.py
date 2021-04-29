@@ -215,6 +215,8 @@ class platform_move(pygame.sprite.Sprite):
             self.move_direction *= -1
             self.move_counter *= -1
 
+#  functie maken die return van lv (World_data) weergeeft
+
 # Load in level data and create world
 pickle_in = open(f"level{level_counter}_data","rb")
 World_data = pickle.load(pickle_in)
@@ -226,10 +228,9 @@ def main(level_counter):
     bg = background()
     running = True
     key_found = False
-    
-
 
     while running:
+        global lv
         clock.tick(60)
         bg.draw(screen)
         lv.draw()
@@ -240,6 +241,10 @@ def main(level_counter):
         if pygame.sprite.spritecollide(player,lv.door_list, False) and key_found:
             print("next level")
             level_counter += 1
+            # Load in level data and create world
+            pickle_in = open(f"level{level_counter}_data","rb")
+            World_data = pickle.load(pickle_in)
+            lv = level(World_data)
             print(level_counter)
         lv.key_list.draw(screen)
         if pygame.sprite.spritecollide(player,lv.key_list, True):
