@@ -49,7 +49,7 @@ world_data = [
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 2, 2, 2, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 1],
+    [1, 0, 0, 0, 0, 7, 2, 2, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 1],
     [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
 ]
 
@@ -83,6 +83,7 @@ class level(pygame.sprite.Sprite):
         self.tile_list = []
         self.coin_list = pygame.sprite.Group()
         self.lava_list = pygame.sprite.Group()
+        self.spike_list = pygame.sprite.Group()
         self.platform_list = pygame.sprite.Group()
 
         self.score = 0
@@ -133,6 +134,11 @@ class level(pygame.sprite.Sprite):
                     lava = Lava(colum_count * tile_size,
                                 row_count * tile_size + (tile_size // 2))
                     self.lava_list.add(lava)
+                if tile == 7:
+                    spike = spikes(colum_count * tile_size + (tile_size // 2),
+                                row_count * tile_size)
+                    self.spike_list.add(spike)
+                
 
                 colum_count += 1
             row_count += 1
@@ -197,6 +203,14 @@ class player():
                         self.in_air = False
 
             if pygame.sprite.spritecollide(self, lv.lava_list, False):
+                self.life -= 1
+                if self.life != 0:
+                    self.rect.x = 100
+                    self.rect.y = screenHeight - 130
+                if self.life == 0:
+                    game_over = 1
+            
+            if pygame.sprite.spritecollide(self, lv.spike_list, False):
                 self.life -= 1
                 if self.life != 0:
                     self.rect.x = 100
@@ -270,6 +284,15 @@ class Lava(pygame.sprite.Sprite):
         self.rect.x = x
         self.rect.y = y
 
+class spikes(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        img = pygame.image.load(image_path + "spikes_right.png")
+        self.image = pygame.transform.scale(img, (tile_size // 2, tile_size))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
 
 lv = level(world_data)
 
@@ -294,6 +317,7 @@ def main(game_over):
 
         lv.coin_list.draw(screen)
         lv.lava_list.draw(screen)
+        lv.spike_list.draw(screen)
 
         lv.platform_list.draw(screen)
         game_over = player.update(game_over)
