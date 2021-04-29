@@ -47,9 +47,9 @@ world_data = [
     [1, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 4, 4, 4, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 7, 2, 2, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 7, 2, 2, 8, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 1],
     [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
 ]
 
@@ -139,8 +139,12 @@ class level(pygame.sprite.Sprite):
                                 row_count * tile_size + (tile_size // 2))
                     self.lava_list.add(lava)
                 if tile == 7:
-                    spike = spikes(colum_count * tile_size + (tile_size // 2),
-                                   row_count * tile_size)
+                    spike = spikes_r(colum_count * tile_size + (tile_size // 2),
+                                     row_count * tile_size)
+                    self.spike_list.add(spike)
+                if tile == 8:
+                    spike = spikes_l(colum_count * tile_size,
+                                     row_count * tile_size)
                     self.spike_list.add(spike)
 
                 colum_count += 1
@@ -183,7 +187,7 @@ class player():
         if game_over == 0:
 
             key = pygame.key.get_pressed()
-            if key[pygame.K_SPACE] or key[pygame.K_UP] and self.jumped == False and self.in_air == False:
+            if key[pygame.K_SPACE] and self.jumped == False and self.in_air == False:
                 self.vel_y = -15
                 self.jumped = True
             if key[pygame.K_SPACE] == False:
@@ -301,10 +305,20 @@ class Lava(pygame.sprite.Sprite):
         self.rect.y = y
 
 
-class spikes(pygame.sprite.Sprite):
+class spikes_r(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
         img = pygame.image.load(image_path + "spikes_right.png")
+        self.image = pygame.transform.scale(img, (tile_size // 2, tile_size))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+
+class spikes_l(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        img = pygame.image.load(image_path + "spikes_left.png")
         self.image = pygame.transform.scale(img, (tile_size // 2, tile_size))
         self.rect = self.image.get_rect()
         self.rect.x = x
