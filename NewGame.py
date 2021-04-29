@@ -164,6 +164,19 @@ class player():
 
         screen.blit(self.image, self.rect)
 
+    def reset(self, x, y):
+        img = img = pygame.image.load(image_path + "Fall (32x32).png")
+        self.image = pygame.transform.scale(img, (20, 40))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.width = self.image.get_width()
+        self.height = self.image.get_height()
+        self.vel_y = 0
+        self.jumped = False
+        self.in_air = False
+
+
 
 player = player(100, screenHeight - 130)
 
@@ -241,6 +254,7 @@ def main(level_counter):
         if pygame.sprite.spritecollide(player,lv.door_list, False) and key_found:
             print("next level")
             level_counter += 1
+            player.reset(100, screenHeight - 130)
             # Load in level data and create world
             pickle_in = open(f"level{level_counter}_data","rb")
             World_data = pickle.load(pickle_in)
