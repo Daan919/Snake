@@ -136,7 +136,7 @@ class player():
         col_tresh = 20
 
         key = pygame.key.get_pressed()
-        if key[pygame.K_SPACE] or key[pygame.K_UP] and self.jumped == False and self.in_air == False:
+        if key[pygame.K_UP] and self.jumped == False and self.in_air == False:
             self.vel_y = -15
             self.jumped = True
         if key[pygame.K_SPACE] == False:
