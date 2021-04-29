@@ -20,7 +20,6 @@ image_path = os.path.dirname(__file__) + '/images/'
 sound_path = os.path.dirname(__file__) + '/Sounds/'
 
 
-BLUE = (0,   0, 255)
 tile_size = 25
 game_over = 0
 
@@ -28,6 +27,8 @@ font_score = pygame.font.SysFont("Comic Sans", tile_size)
 
 # collors
 white = (255, 255, 255)
+BLUE = (0,   0, 255)
+BLACK = (0, 0, 0)
 
 world_data = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -55,6 +56,8 @@ world_data = [
 # load sounds
 sound_get_coin = pygame.mixer.Sound(sound_path + "coin.wav")
 sound_get_coin.set_volume(0.5)
+sound_game_over = pygame.mixer.Sound(sound_path + "game_over.wav")
+sound_game_over.set_volume(0.5)
 
 
 def drawText(text, font, tect_col, x, y):
@@ -127,7 +130,8 @@ class level(pygame.sprite.Sprite):
                         colum_count * tile_size + (tile_size // 2), row_count * tile_size + (tile_size // 2))
                     self.coin_list.add(coin)
                 if tile == 6:
-                    lava = Lava(colum_count * tile_size, row_count * tile_size + (tile_size // 2))
+                    lava = Lava(colum_count * tile_size,
+                                row_count * tile_size + (tile_size // 2))
                     self.lava_list.add(lava)
 
                 colum_count += 1
@@ -151,6 +155,7 @@ class player():
         self.width = self.image.get_width()
         self.height = self.image.get_height()
         self.vel_y = 0
+        self.life = 3
         self.jumped = False
         self.in_air = False
 
@@ -190,11 +195,15 @@ class player():
                         dy = tile[1].top - self.rect.bottom
                         self.vel_y = 0
                         self.in_air = False
-            
+
             if pygame.sprite.spritecollide(self, lv.lava_list, False):
-                game_over = -1
-                
-            
+                self.life -= 1
+                if self.life != 0:
+                    self.rect.x = 100
+                    self.rect.y = screenHeight - 130
+                if self.life == 0:
+                    game_over = 1
+
             for platform in lv.platform_list:
                 if platform.rect.colliderect(self.rect.x + dx, self.rect.y, self.width, self.height):
                     dx = 0
@@ -213,7 +222,7 @@ class player():
             self.rect.y += dy
 
         screen.blit(self.image, self.rect)
-        
+
         return game_over
 
 
@@ -251,6 +260,7 @@ class platform_move(pygame.sprite.Sprite):
             self.move_direction *= -1
             self.move_counter *= -1
 
+
 class Lava(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -259,7 +269,6 @@ class Lava(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
-
 
 
 lv = level(world_data)
@@ -278,6 +287,10 @@ def main(game_over):
 
         if game_over == 0:
             lv.platform_list.update()
+        if game_over != 0:
+            drawText("Game Over", font_score, BLACK,
+                     screenHeight // 2.5, screenWidth // 2)
+            sound_game_over.play()
 
         lv.coin_list.draw(screen)
         lv.lava_list.draw(screen)
