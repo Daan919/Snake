@@ -52,6 +52,14 @@ class level(pygame.sprite.Sprite):
         self.grass = self.platform_img
         self.grass = pygame.transform.scale(
             self.grass, (tile_size, tile_size))
+        self.platform_img = pygame.image.load(image_path + "water.png")
+        self.water = self.platform_img
+        self.water = pygame.transform.scale(
+            self.water, (tile_size, tile_size))
+        self.platform_img = pygame.image.load(image_path + "waterwave.png")
+        self.waterwave = self.platform_img
+        self.waterwave = pygame.transform.scale(
+            self.waterwave, (tile_size, tile_size))           
 
         self.coin_img = pygame.image.load(image_path + "grass.png")
         self.coin = self.coin_img
@@ -75,17 +83,29 @@ class level(pygame.sprite.Sprite):
                     tile = (self.grass, img_rect)
                     self.tile_list.append(tile)
                 if tile == 3:
+                    img_rect = self.water.get_rect()
+                    img_rect.x = colum_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (self.water, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 4:
+                    img_rect = self.waterwave.get_rect()
+                    img_rect.x = colum_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (self.waterwave, img_rect)
+                    self.tile_list.append(tile)           
+                if tile == 5:
                     platform = platform_move(
                         colum_count * tile_size, row_count * tile_size, 1, 0)
                     self.platform_list.add(platform)
-                if tile == 4:
+                if tile == 6:
                     platform = platform_move(
                         colum_count * tile_size, row_count * tile_size, 0, 1)
                     self.platform_list.add(platform)
-                if tile == 7:
+                if tile == 9:
                     door = Doors(colum_count * tile_size, row_count * tile_size)     
                     self.door_list.add(door)
-                if tile == 8:
+                if tile == 10:
                     key = Keys(colum_count * tile_size, row_count * tile_size)     
                     self.key_list.add(key)    
 
