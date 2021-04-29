@@ -49,7 +49,7 @@ world_data = [
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 7, 2, 2, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 1],
+    [1, 0, 0, 0, 0, 7, 2, 2, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
 ]
 
@@ -58,6 +58,8 @@ sound_get_coin = pygame.mixer.Sound(sound_path + "coin.wav")
 sound_get_coin.set_volume(0.5)
 sound_game_over = pygame.mixer.Sound(sound_path + "game_over.wav")
 sound_game_over.set_volume(0.5)
+
+
 sound_walking = pygame.mixer.Sound(sound_path + "walking.wav")
 sound_walking.set_volume(0.5)
 
@@ -138,9 +140,8 @@ class level(pygame.sprite.Sprite):
                     self.lava_list.add(lava)
                 if tile == 7:
                     spike = spikes(colum_count * tile_size + (tile_size // 2),
-                                row_count * tile_size)
+                                   row_count * tile_size)
                     self.spike_list.add(spike)
-                
 
                 colum_count += 1
             row_count += 1
@@ -166,6 +167,13 @@ class player():
         self.life = 3
         self.jumped = False
         self.in_air = False
+        self.walking = False
+
+    def playWalkingSound(self):
+        if self.walking:
+            sound_walking.play()
+        else:
+            sound_walking.stop()
 
     def update(self, game_over):
         dx = 0
@@ -180,14 +188,19 @@ class player():
                 self.jumped = True
             if key[pygame.K_SPACE] == False:
                 self.jumped = False
+
             if key[pygame.K_LEFT]:
                 dx -= 5
-                sound_walking.play()
-            # else:
-            #     sound_walking.pause()
+                self.walking = True
 
             if key[pygame.K_RIGHT]:
                 dx += 5
+                self.walking = True
+
+            if key[pygame.K_LEFT] == False and key[pygame.K_RIGHT] == False:
+                self.walking = False
+
+            self.playWalkingSound()
 
             self.vel_y += 1
             if self.vel_y > 10:
@@ -215,7 +228,7 @@ class player():
                     self.rect.y = screenHeight - 130
                 if self.life == 0:
                     game_over = 1
-            
+
             if pygame.sprite.spritecollide(self, lv.spike_list, False):
                 self.life -= 1
                 if self.life != 0:
@@ -286,6 +299,7 @@ class Lava(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+
 
 class spikes(pygame.sprite.Sprite):
     def __init__(self, x, y):
