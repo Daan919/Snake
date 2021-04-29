@@ -172,11 +172,12 @@ class player():
         self.jumped = False
         self.in_air = False
         self.walking = False
+        self.walking_sound = True
 
     def playWalkingSound(self):
-        if self.walking:
+        if self.walking and self.walking_sound:
             sound_walking.play()
-        else:
+        elif self.walking == False:
             sound_walking.stop()
 
     def update(self, game_over):
@@ -196,15 +197,18 @@ class player():
             if key[pygame.K_LEFT]:
                 dx -= 5
                 self.walking = True
+                self.playWalkingSound()
+                self.walking_sound = False
 
             if key[pygame.K_RIGHT]:
                 dx += 5
                 self.walking = True
+                self.playWalkingSound()
+                self.walking_sound = False
 
             if key[pygame.K_LEFT] == False and key[pygame.K_RIGHT] == False:
                 self.walking = False
-
-            self.playWalkingSound()
+                self.walking_sound = True
 
             self.vel_y += 1
             if self.vel_y > 10:
