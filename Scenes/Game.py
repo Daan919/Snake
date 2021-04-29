@@ -338,6 +338,7 @@ def main(game_over):
 
     bg = background()
     running = True
+    game_over_sound = True
 
     while running:
         clock.tick(60)
@@ -350,7 +351,11 @@ def main(game_over):
         if game_over != 0:
             drawText("Game Over", font_score, BLACK,
                      screenHeight // 2.5, screenWidth // 2)
-            sound_game_over.play()
+
+            if game_over_sound:
+                sound_walking.stop()
+                sound_game_over.play()
+                game_over_sound = False
 
         lv.coin_list.draw(screen)
         lv.lava_list.draw(screen)
