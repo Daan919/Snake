@@ -26,7 +26,7 @@ class background():
     def __init__(self):
         self.background = None
         self.background = pygame.image.load(
-            image_path + 'background_Poseidon-02').convert()
+            image_path + 'background_Poseidon-02.png').convert()
         self.background = pygame.transform.scale(
             self.background, (screenWidth, screenHeight))
 

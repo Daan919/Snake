@@ -22,7 +22,7 @@ pygame.display.set_caption('Level Editor')
 #load images
 sun_img = pygame.image.load('Images/sun.png')
 sun_img = pygame.transform.scale(sun_img, (tile_size, tile_size))
-bg_img = pygame.image.load('Images/background_Poseidon-02.png')
+bg_img = pygame.image.load('Images/background_Poseidon-01.png')
 bg_img = pygame.transform.scale(bg_img, (screen_width, screen_height - margin))
 dirt_img = pygame.image.load('Images/dirt.png')
 grass_img = pygame.image.load('Images/grass.png')
