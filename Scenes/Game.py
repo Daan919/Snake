@@ -207,6 +207,7 @@ class player():
                 self.walking_sound = False
 
             if key[pygame.K_LEFT] == False and key[pygame.K_RIGHT] == False:
+                sound_walking.stop()
                 self.walking = False
                 self.walking_sound = True
 
