@@ -279,14 +279,14 @@ def main():
         player.update()
         lv.platform_list.draw(screen)
         lv.door_list.draw(screen)
-        if pygame.sprite.spritecollide(player,lv.door_list, False) and key_found:
-            print("next level")
-            del lv
-            lv = level(world_data2)
+        # if pygame.sprite.spritecollide(player,lv.door_list, False) and key_found:
+        #     print("next level")
+        #     del lv
+        #     lv = level(world_data2)
         lv.key_list.draw(screen)
         if pygame.sprite.spritecollide(player,lv.key_list, True):
             key_found = True
-            print("Door to Next level")    
+            print("Go to Next level")    
         pygame.display.flip()
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
