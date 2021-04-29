@@ -22,30 +22,6 @@ level_counter = 1
 BLUE = (0,   0, 255)
 tile_size = 25
 
-world_data2 = [
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 1],
-    [1, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 1],
-    [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-]
-
-
 class background():
     def __init__(self):
         self.background = None
@@ -106,10 +82,10 @@ class level(pygame.sprite.Sprite):
                     platform = platform_move(
                         colum_count * tile_size, row_count * tile_size, 0, 1)
                     self.platform_list.add(platform)
-                if tile == 9:
+                if tile == 7:
                     door = Doors(colum_count * tile_size, row_count * tile_size)     
                     self.door_list.add(door)
-                if tile == 10:
+                if tile == 8:
                     key = Keys(colum_count * tile_size, row_count * tile_size)     
                     self.key_list.add(key)    
 
@@ -245,7 +221,7 @@ World_data = pickle.load(pickle_in)
 lv = level(World_data)
 
 
-def main():
+def main(level_counter):
 
     bg = background()
     running = True
@@ -261,10 +237,10 @@ def main():
         player.update()
         lv.platform_list.draw(screen)
         lv.door_list.draw(screen)
-        # if pygame.sprite.spritecollide(player,lv.door_list, False) and key_found:
-        #     print("next level")
-        #     del lv
-        #     lv = level(world_data2)
+        if pygame.sprite.spritecollide(player,lv.door_list, False) and key_found:
+            print("next level")
+            level_counter += 1
+            print(level_counter)
         lv.key_list.draw(screen)
         if pygame.sprite.spritecollide(player,lv.key_list, True):
             key_found = True
@@ -275,4 +251,4 @@ def main():
                 running = False
                 pygame.quit()
                 runnig = False
-    main()            
+          

@@ -49,7 +49,7 @@ def main_menu():
 
         if button_1.collidepoint((mx, my)):
             if click:
-                NewGame.main()
+                NewGame.main(NewGame.level_counter)
         if button_2.collidepoint((mx, my)):
             if click:
                 options_menu()

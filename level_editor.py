@@ -9,7 +9,7 @@ clock = pygame.time.Clock()
 fps = 60
 
 #game window
-tile_size = 50
+tile_size = 25
 cols = 20
 margin = 100
 screen_width = tile_size * cols
@@ -20,24 +20,25 @@ pygame.display.set_caption('Level Editor')
 
 
 #load images
-sun_img = pygame.image.load('img/sun.png')
+sun_img = pygame.image.load('Images/sun.png')
 sun_img = pygame.transform.scale(sun_img, (tile_size, tile_size))
-bg_img = pygame.image.load('img/sky.png')
+bg_img = pygame.image.load('Images/sky.png')
 bg_img = pygame.transform.scale(bg_img, (screen_width, screen_height - margin))
 dirt_img = pygame.image.load('Images/dirt.png')
 grass_img = pygame.image.load('Images/grass.png')
-platform_x_img = pygame.image.load('Images/platform_x.png')
-platform_y_img = pygame.image.load('Images/platform_y.png')
+platform_x_img = pygame.image.load('Images/platform.png')
+platform_y_img = pygame.image.load('Images/platform.png')
 lava_img = pygame.image.load('Images/lava.png')
 coin_img = pygame.image.load('Images/coin.png')
 exit_img = pygame.image.load('Images/tiles_door.png')
+key_img = pygame.image.load('Images/tiles_oldkey.png')
 save_img = pygame.image.load('Images/save_btn.png')
 load_img = pygame.image.load('Images/load_btn.png')
 
 
 #define game variables
 clicked = False
-level = 1
+level_counter = 1
 
 #define colours
 white = (255, 255, 255)
@@ -84,29 +85,29 @@ def draw_world():
 					img = pygame.transform.scale(grass_img, (tile_size, tile_size))
 					screen.blit(img, (col * tile_size, row * tile_size))
 				if world_data[row][col] == 3:
-					#enemy blocks
-					img = pygame.transform.scale(blob_img, (tile_size, int(tile_size * 0.75)))
-					screen.blit(img, (col * tile_size, row * tile_size + (tile_size * 0.25)))
-				if world_data[row][col] == 4:
 					#horizontally moving platform
 					img = pygame.transform.scale(platform_x_img, (tile_size, tile_size // 2))
 					screen.blit(img, (col * tile_size, row * tile_size))
-				if world_data[row][col] == 5:
+				if world_data[row][col] == 4:
 					#vertically moving platform
 					img = pygame.transform.scale(platform_y_img, (tile_size, tile_size // 2))
 					screen.blit(img, (col * tile_size, row * tile_size))
-				if world_data[row][col] == 6:
+				if world_data[row][col] == 5:
 					#lava
 					img = pygame.transform.scale(lava_img, (tile_size, tile_size // 2))
 					screen.blit(img, (col * tile_size, row * tile_size + (tile_size // 2)))
-				if world_data[row][col] == 7:
+				if world_data[row][col] == 6:
 					#coin
 					img = pygame.transform.scale(coin_img, (tile_size // 2, tile_size // 2))
 					screen.blit(img, (col * tile_size + (tile_size // 4), row * tile_size + (tile_size // 4)))
-				if world_data[row][col] == 8:
-					#exit
+				if world_data[row][col] == 7:
+					#door
 					img = pygame.transform.scale(exit_img, (tile_size, int(tile_size * 1.5)))
 					screen.blit(img, (col * tile_size, row * tile_size - (tile_size // 2)))
+				if world_data[row][col] == 8:
+					#key
+					img = pygame.transform.scale(key_img, (tile_size, int(tile_size * 1.5)))
+					screen.blit(img, (col * tile_size, row * tile_size - (tile_size // 2)))	
 
 
 
@@ -155,13 +156,13 @@ while run:
 	#load and save level
 	if save_button.draw():
 		#save level data
-		pickle_out = open(f'level{level}_data', 'wb')
+		pickle_out = open(f'level{level_counter}_data', 'wb')
 		pickle.dump(world_data, pickle_out)
 		pickle_out.close()
 	if load_button.draw():
 		#load in level data
-		if path.exists(f'level{level}_data'):
-			pickle_in = open(f'level{level}_data', 'rb')
+		if path.exists(f'level{level_counter}_data'):
+			pickle_in = open(f'level{level_counter}_data', 'rb')
 			world_data = pickle.load(pickle_in)
 
 
@@ -171,7 +172,7 @@ while run:
 
 
 	#text showing current level
-	draw_text(f'Level: {level}', font, white, tile_size, screen_height - 60)
+	draw_text(f'Level: {level_counter}', font, white, tile_size, screen_height - 60)
 	draw_text('Press UP or DOWN to change level', font, white, tile_size, screen_height - 40)
 
 	#event handler
@@ -201,9 +202,9 @@ while run:
 		#up and down key presses to change level number
 		if event.type == pygame.KEYDOWN:
 			if event.key == pygame.K_UP:
-				level += 1
-			elif event.key == pygame.K_DOWN and level > 1:
-				level -= 1
+				level_counter += 1
+			elif event.key == pygame.K_DOWN and level_counter > 1:
+				level_counter -= 1
 
 	#update game display window
 	pygame.display.update()
