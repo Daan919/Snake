@@ -240,9 +240,6 @@ class player():
         return game_over
 
 
-player = player(100, screenHeight - 130)
-
-
 class coins(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -295,6 +292,7 @@ class spikes(pygame.sprite.Sprite):
 
 
 lv = level(world_data)
+player = player(100, screenHeight - 130)
 
 
 def main(game_over):
@@ -329,6 +327,8 @@ def main(game_over):
             sound_get_coin.play()
         drawText(" X" + str(lv.score), font_score,
                  white, tile_size // 2, tile_size // 4)
+        drawText(str(player.life) + " lifes left", font_score,
+                 white, tile_size * 4, tile_size // 4)
 
         pygame.display.flip()
 
