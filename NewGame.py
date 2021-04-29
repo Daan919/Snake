@@ -1,7 +1,9 @@
 import pygame
 from pygame.locals import *
+import pickle
 import Menu
 import os
+from os import path
 
 pygame.init()
 pygame.display.init()
@@ -15,33 +17,10 @@ image_path = os.path.dirname(__file__) + '/Images/'
 
 door = pygame.image.load(image_path + "tiles_door.png")
 key = pygame.image.load(image_path + "tiles_oldkey.png")
-
+level_counter = 1
 
 BLUE = (0,   0, 255)
 tile_size = 25
-
-world_data = [
-    [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 4, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 10, 0, 1],
-    [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
-]
 
 world_data2 = [
     [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -128,10 +107,10 @@ class level(pygame.sprite.Sprite):
                         colum_count * tile_size, row_count * tile_size, 0, 1)
                     self.platform_list.add(platform)
                 if tile == 9:
-                    door = Doors( colum_count * tile_size, row_count * tile_size)     
+                    door = Doors(colum_count * tile_size, row_count * tile_size)     
                     self.door_list.add(door)
                 if tile == 10:
-                    key = Keys( colum_count * tile_size, row_count * tile_size)     
+                    key = Keys(colum_count * tile_size, row_count * tile_size)     
                     self.key_list.add(key)    
 
                 colum_count += 1
@@ -259,8 +238,11 @@ class platform_move(pygame.sprite.Sprite):
         if abs(self.move_counter) > 100:
             self.move_direction *= -1
             self.move_counter *= -1
-    
-lv = level(world_data)
+
+# Load in level data and create world
+pickle_in = open(f"level{level_counter}_data","rb")
+World_data = pickle.load(pickle_in)
+lv = level(World_data)
 
 
 def main():
