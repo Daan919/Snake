@@ -58,6 +58,8 @@ sound_get_coin = pygame.mixer.Sound(sound_path + "coin.wav")
 sound_get_coin.set_volume(0.5)
 sound_game_over = pygame.mixer.Sound(sound_path + "game_over.wav")
 sound_game_over.set_volume(0.5)
+sound_walking = pygame.mixer.Sound(sound_path + "walking.wav")
+sound_walking.set_volume(0.5)
 
 
 def drawText(text, font, tect_col, x, y):
@@ -174,6 +176,10 @@ class player():
                 self.jumped = False
             if key[pygame.K_LEFT]:
                 dx -= 5
+                sound_walking.play()
+            # else:
+            #     sound_walking.pause()
+
             if key[pygame.K_RIGHT]:
                 dx += 5
 
