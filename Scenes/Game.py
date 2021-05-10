@@ -46,10 +46,10 @@ world_data = [
     [1, 0, 0, 0, 0, 5, 0, 0, 0, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
     [1, 4, 4, 4, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 0, 0, 0, 0, 0, 1],
     [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
-    [1, 0, 0, 0, 0, 7, 2, 2, 8, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 1],
+    [1, 0, 0, 9, 9, 9, 9, 9, 9, 9, 9, 7, 2, 6, 6, 6, 6, 6, 6, 1],
     [1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
 ]
 
@@ -87,6 +87,7 @@ class level(pygame.sprite.Sprite):
         self.tile_list = []
         self.coin_list = pygame.sprite.Group()
         self.lava_list = pygame.sprite.Group()
+        self.water_list = pygame.sprite.Group()
         self.spike_list = pygame.sprite.Group()
         self.platform_list = pygame.sprite.Group()
 
@@ -146,6 +147,10 @@ class level(pygame.sprite.Sprite):
                     spike = spikes_l(colum_count * tile_size,
                                      row_count * tile_size)
                     self.spike_list.add(spike)
+                if tile == 9:
+                    water = Water(colum_count * tile_size,
+                                     row_count * tile_size + (tile_size // 2), 1, 0)
+                    self.water_list.add(water)
 
                 colum_count += 1
             row_count += 1
@@ -259,6 +264,20 @@ class player():
                         self.in_air = False
                     if platform.move_x != 0:
                         self.rect.x += platform.move_direction
+            
+            for platform in lv.water_list:
+                if platform.rect.colliderect(self.rect.x + dx, self.rect.y, self.width, self.height):
+                    dx = 0
+                if platform.rect.colliderect(self.rect.x, self.rect.y + dy, self.width, self.height):
+                    if abs((self.rect.top + dy) - platform.rect.bottom) < col_tresh:
+                        self.vel_y = 0
+                        dy = platform.rect.bottom - self.rect.top
+                    elif abs((self.rect.bottom + dy) - platform.rect.top) < col_tresh:
+                        self.rect.bottom = platform.rect.top - 1
+                        dy = 0
+                        self.in_air = False
+                    if platform.move_x != 0:
+                        self.rect.x += platform.move_direction
 
             self.rect.x += dx
             self.rect.y += dy
@@ -282,6 +301,27 @@ class platform_move(pygame.sprite.Sprite):
     def __init__(self, x, y, move_x, move_y):
         pygame.sprite.Sprite.__init__(self)
         img = pygame.image.load(image_path + "platform.png")
+        self.image = pygame.transform.scale(img, (tile_size, tile_size // 2))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+        self.move_counter = 0
+        self.move_direction = 1
+        self.move_x = move_x
+        self.move_y = move_y
+
+    def update(self):
+        self.rect.x += self.move_direction * self.move_x
+        self.rect.y += self.move_direction * self.move_y
+        self.move_counter += 1
+        if abs(self.move_counter) > 100:
+            self.move_direction *= -1
+            self.move_counter *= -1
+
+class Water(pygame.sprite.Sprite):
+    def __init__(self, x, y, move_x, move_y):
+        pygame.sprite.Sprite.__init__(self)
+        img = pygame.image.load(image_path + "water.png")
         self.image = pygame.transform.scale(img, (tile_size, tile_size // 2))
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -358,6 +398,7 @@ def main(game_over):
                 game_over_sound = False
 
         lv.coin_list.draw(screen)
+        lv.water_list.draw(screen)
         lv.lava_list.draw(screen)
         lv.spike_list.draw(screen)
 
