@@ -153,7 +153,11 @@ class level(pygame.sprite.Sprite):
                     self.door_list.add(door)
                 if tile == 12:
                     key = Keys(colum_count * tile_size, row_count * tile_size)     
-                    self.key_list.add(key)    
+                    self.key_list.add(key)
+                if tile == 13:
+                    coin = coins(
+                        colum_count * tile_size + (tile_size // 2), row_count * tile_size + (tile_size // 2))
+                    self.coin_list.add(coin)        
 
                 colum_count += 1
             row_count += 1
