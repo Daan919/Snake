@@ -9,7 +9,7 @@ pygame.init()
 pygame.display.set_caption('Menu')
 size = [500, 500]
 screen = pygame.display.set_mode(size)
-image_path = os.path.dirname(__file__) + '/Images/'
+image_path = os.path.dirname(__file__) + '/Images1/'
 
 
 font = pygame.font.SysFont(None, 20)
@@ -49,7 +49,7 @@ def main_menu():
 
         if button_1.collidepoint((mx, my)):
             if click:
-                NewGame.main(NewGame.level_counter, NewGame.game_over)
+                NewGame.main(NewGame.game_over)
         if button_2.collidepoint((mx, my)):
             if click:
                 options_menu()

@@ -16,29 +16,29 @@ screen_width = tile_size * cols
 screen_height = (tile_size * cols) + margin
 
 screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption('Level Editor Water')
+pygame.display.set_caption('Level Editor Cave')
 
 
 #load images
-sun_img = pygame.image.load('Images/sun.png')
+sun_img = pygame.image.load('Images3/sun.png')
 sun_img = pygame.transform.scale(sun_img, (tile_size, tile_size))
-bg_img = pygame.image.load('Images/background_Poseidon-01.png')
+bg_img = pygame.image.load('Images3/bg.png')
 bg_img = pygame.transform.scale(bg_img, (screen_width, screen_height - margin))
-dirt_img = pygame.image.load('Images/dirt.png')
-grass_img = pygame.image.load('Images/grass.png')
-waterblock_img = pygame.image.load('Images/waterblock.png')
-waterwave_img = pygame.image.load('Images/waterwave.png')
-platform_x_img = pygame.image.load('Images/platform.png')
-platform_y_img = pygame.image.load('Images/platform.png')
-lava_img = pygame.image.load('Images/lava.png')
-spikesR_img = pygame.image.load('Images/spikes_right.png')
-spikesL_img = pygame.image.load('Images/spikes_left.png')
-water_img = pygame.image.load('Images/water.png')
-coin_img = pygame.image.load('Images/coin.png')
-exit_img = pygame.image.load('Images/tiles_door.png')
-key_img = pygame.image.load('Images/tiles_oldkey.png')
-save_img = pygame.image.load('Images/save_btn.png')
-load_img = pygame.image.load('Images/load_btn.png')
+dirt_img = pygame.image.load('Images3/dirt.png')
+grass_img = pygame.image.load('Images3/grass.png')
+waterblock_img = pygame.image.load('Images3/waterblock.png')
+waterwave_img = pygame.image.load('Images3/waterwave.png')
+platform_x_img = pygame.image.load('Images3/platform.png')
+platform_y_img = pygame.image.load('Images3/platform.png')
+lava_img = pygame.image.load('Images3/lava.png')
+spikesR_img = pygame.image.load('Images3/spikes_right.png')
+spikesL_img = pygame.image.load('Images3/spikes_left.png')
+water_img = pygame.image.load('Images3/water.png')
+coin_img = pygame.image.load('Images3/coin.png')
+exit_img = pygame.image.load('Images3/tiles_door.png')
+key_img = pygame.image.load('Images3/tiles_oldkey.png')
+save_img = pygame.image.load('Images3/save_btn.png')
+load_img = pygame.image.load('Images3/load_btn.png')
 
 
 #define game variables
