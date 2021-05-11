@@ -169,25 +169,29 @@ class level(pygame.sprite.Sprite):
         for tile in self.tile_list:
             screen.blit(tile[0], tile[1])
 
-def changeTiles():
-    image_path = os.path.dirname(__file__) + '/Images' + str(level_counter) + '/'
-    print("Dit is" + image_path)
-    level.platform_img = pygame.image.load(image_path + "dirt.png")
-    level.dirt = level.platform_img
-    level.dirt = pygame.transform.scale(
-            level.dirt, (tile_size, tile_size))
-    level.platform_img = pygame.image.load(image_path + "grass.png")
-    level.grass = level.platform_img
-    level.grass = pygame.transform.scale(
-            level.grass, (tile_size, tile_size))
-    level.platform_img = pygame.image.load(image_path + "water.png")
-    level.water = level.platform_img
-    level.water = pygame.transform.scale(
-            level.water, (tile_size, tile_size))
-    level.platform_img = pygame.image.load(image_path + "waterwave.png")
-    level.waterwave = level.platform_img
-    level.waterwave = pygame.transform.scale(level.waterwave, (tile_size, tile_size))           
-    level.coin_img = pygame.image.load(image_path + "coin.png")
+    def changeTiles(self):
+        pickle_in = open(f"level{level_counter}_data","rb")
+        World_data = pickle.load(pickle_in)
+        self.__init__(self, World_data)
+        image_path = os.path.dirname(__file__) + '/Images' + str(level_counter) + '/'
+        print("Dit is" + image_path)
+        self.platform_img = pygame.image.load(image_path + "dirt.png")
+        self.dirt = self.platform_img
+        self.dirt = pygame.transform.scale(
+            self.dirt, (tile_size, tile_size))
+        self.platform_img = pygame.image.load(image_path + "grass.png")
+        self.grass = self.platform_img
+        self.grass = pygame.transform.scale(
+            self.grass, (tile_size, tile_size))
+        self.platform_img = pygame.image.load(image_path + "water.png")
+        self.water = self.platform_img
+        self.water = pygame.transform.scale(
+            self.water, (tile_size, tile_size))
+        self.platform_img = pygame.image.load(image_path + "waterwave.png")
+        self.waterwave = self.platform_img
+        self.waterwave = pygame.transform.scale(
+            self.waterwave, (tile_size, tile_size))           
+        self.coin_img = pygame.image.load(image_path + "coin.png")
 
 class player():
     def __init__(self, x, y):
@@ -484,13 +488,11 @@ def main(game_over):
             level_counter += 1
             player.reset(100, screenHeight - 130)
             # Change Tiles and Load in level data and create world
-            print(image_path)
-            changeTiles()
-            pickle_in = open(f"level{level_counter}_data","rb")
-            World_data = pickle.load(pickle_in)
-            lv = level(World_data)
+            level.changeTiles(level)
+            # pickle_in = open(f"level{level_counter}_data","rb")
+            # World_data = pickle.load(pickle_in)
+            # lv = level(World_data)
             print(level_counter)
-            print(image_path)
         
         if pygame.sprite.spritecollide(player,lv.key_list, True):
             key_found = True
