@@ -278,29 +278,29 @@ class level(pygame.sprite.Sprite):
         score_coin = coins(tile_size // 2, tile_size // 2)
         self.coin_list.add(score_coin)
 
-    def reset(self):
-        self.__init__()
+    # def reset(self):
+    #     self.__init__()
 
-    def changeTiles(self):
+    # def changeTiles(self):
 
-        image_path = os.path.dirname(__file__) + '/Images' + str(
-            level_counter) + '/'
-        print("Dit is" + image_path)
-        print("Dit is nummero " + level_counter)
-        self.platform_img = pygame.image.load(image_path + "dirt.png")
-        self.dirt = self.platform_img
-        self.dirt = pygame.transform.scale(self.dirt, (tile_size, tile_size))
-        self.platform_img = pygame.image.load(image_path + "grass.png")
-        self.grass = self.platform_img
-        self.grass = pygame.transform.scale(self.grass, (tile_size, tile_size))
-        self.platform_img = pygame.image.load(image_path + "water.png")
-        self.water = self.platform_img
-        self.water = pygame.transform.scale(self.water, (tile_size, tile_size))
-        self.platform_img = pygame.image.load(image_path + "waterwave.png")
-        self.waterwave = self.platform_img
-        self.waterwave = pygame.transform.scale(self.waterwave,
-                                                (tile_size, tile_size))
-        self.coin_img = pygame.image.load(image_path + "coin.png")
+    #     image_path = os.path.dirname(__file__) + '/Images' + str(
+    #         level_counter) + '/'
+    #     print("Dit is" + image_path)
+    #     print("Dit is nummero " + level_counter)
+    #     self.platform_img = pygame.image.load(image_path + "dirt.png")
+    #     self.dirt = self.platform_img
+    #     self.dirt = pygame.transform.scale(self.dirt, (tile_size, tile_size))
+    #     self.platform_img = pygame.image.load(image_path + "grass.png")
+    #     self.grass = self.platform_img
+    #     self.grass = pygame.transform.scale(self.grass, (tile_size, tile_size))
+    #     self.platform_img = pygame.image.load(image_path + "water.png")
+    #     self.water = self.platform_img
+    #     self.water = pygame.transform.scale(self.water, (tile_size, tile_size))
+    #     self.platform_img = pygame.image.load(image_path + "waterwave.png")
+    #     self.waterwave = self.platform_img
+    #     self.waterwave = pygame.transform.scale(self.waterwave,
+    #                                             (tile_size, tile_size))
+    #     self.coin_img = pygame.image.load(image_path + "coin.png")
 
 
 class player():
@@ -475,7 +475,7 @@ class Keys(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         img = pygame.image.load(image_path + 'tiles_oldkey.png')
         self.image = pygame.transform.scale(
-            img, (int(tile_size * 1.5), int(tile_size * 2)))
+            img,( tile_size, tile_size ))
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
 
