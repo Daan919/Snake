@@ -15,6 +15,9 @@ screen_width = 1000
 screen = pygame.display.set_mode(size)
 image_path = os.path.dirname(__file__) + '/Images1/'
 
+buttonhight = screen_hight / 10
+buttonWidth = screen_width / 3
+
 
 font = pygame.font.SysFont(None, 20)
 
@@ -50,9 +53,12 @@ def main_menu():
 
         mx, my = pygame.mouse.get_pos()
 
-        button_1 = pygame.Rect(screen_width / 3, screen_hight / 10, 220, 50)
-        button_2 = pygame.Rect(screen_width / 3, 256, 220, 50)
-        button_3 = pygame.Rect(screen_width / 3, 356, 220, 50)
+        button_1 = pygame.Rect(
+            screen_width / 3, buttonhight * 3, buttonWidth, buttonhight)
+        button_2 = pygame.Rect(
+            screen_width / 3, buttonhight * 5, buttonWidth, buttonhight)
+        button_3 = pygame.Rect(
+            screen_width / 3, buttonhight * 7, buttonWidth, buttonhight)
 
         if button_1.collidepoint((mx, my)):
             if click:
@@ -69,9 +75,12 @@ def main_menu():
         pygame.draw.rect(screen, (255, 0, 0), button_2, 1)
         pygame.draw.rect(screen, (255, 0, 0), button_3, 1)
 
-        draw_text('Game', font, (255, 255, 255), screen, 230, 165)
-        draw_text('Options', font, (255, 255, 255), screen, 230, 265)
-        draw_text('Quit', font, (255, 255, 255), screen, 230, 365)
+        draw_text('Game', font, (255, 255, 255),
+                  screen,  buttonWidth * 1.1, buttonhight * 3.45)
+        draw_text('Options', font, (255, 255, 255),
+                  screen,  buttonWidth * 1.1, buttonhight * 5.45)
+        draw_text('Quit', font, (255, 255, 255),
+                  screen,  buttonWidth * 1.1, buttonhight * 7.45)
 
         click = False
         for event in pygame.event.get():
