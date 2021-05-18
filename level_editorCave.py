@@ -9,8 +9,8 @@ clock = pygame.time.Clock()
 fps = 60
 
 #game window
-tile_size = 25
-cols = 20
+tile_size = 20
+cols = 40
 margin = 100
 screen_width = tile_size * cols
 screen_height = (tile_size * cols) + margin
@@ -53,16 +53,16 @@ font = pygame.font.SysFont('Futura', 24)
 
 #create empty tile list
 world_data = []
-for row in range(20):
-	r = [0] * 20
+for row in range(40):
+	r = [0] * 40
 	world_data.append(r)
 
 #create boundary
-for tile in range(0, 20):
-	world_data[19][tile] = 2
+for tile in range(0, 40):
+	world_data[39][tile] = 2
 	world_data[0][tile] = 1
 	world_data[tile][0] = 1
-	world_data[tile][19] = 1
+	world_data[tile][39] = 1
 
 #function for outputting text onto the screen
 def draw_text(text, font, text_col, x, y):
@@ -70,7 +70,7 @@ def draw_text(text, font, text_col, x, y):
 	screen.blit(img, (x, y))
 
 def draw_grid():
-	for c in range(21):
+	for c in range(41):
 		#vertical lines
 		pygame.draw.line(screen, white, (c * tile_size, 0), (c * tile_size, screen_height - margin))
 		#horizontal lines
@@ -78,8 +78,8 @@ def draw_grid():
 
 
 def draw_world():
-	for row in range(20):
-		for col in range(20):
+	for row in range(40):
+		for col in range(40):
 			if world_data[row][col] > 0:
 				if world_data[row][col] == 1:
 					#dirt blocks
@@ -212,7 +212,7 @@ while run:
 			x = pos[0] // tile_size
 			y = pos[1] // tile_size
 			#check that the coordinates are within the tile area
-			if x < 20 and y < 20:
+			if x < 40 and y < 40:
 				#update tile value
 				if pygame.mouse.get_pressed()[0] == 1:
 					world_data[y][x] += 1
