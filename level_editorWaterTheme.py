@@ -59,10 +59,10 @@ for row in range(40):
 
 #create boundary
 for tile in range(0, 40):
-	world_data[39][tile] = 2
-	world_data[0][tile] = 1
-	world_data[tile][0] = 1
-	world_data[tile][39] = 1
+	world_data[39][tile] = 3
+	world_data[0][tile] = 4
+	world_data[tile][0] = 4
+	world_data[tile][39] = 4
 
 #function for outputting text onto the screen
 def draw_text(text, font, text_col, x, y):
