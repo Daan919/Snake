@@ -15,8 +15,8 @@ clock = pygame.time.Clock()
 tile_size = 25
 level_counter = 1
 
-screenWidth = 500
-screenHeight = 500
+screenWidth = 1000
+screenHeight = 1000
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption('ons eerste spelletje')
 image_path = os.path.dirname(__file__) + '/Images' + str(level_counter) + '/'
@@ -41,7 +41,6 @@ game_over = 0
 white = (255, 255, 255)
 BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
-
 
 
 def drawText(text, font, tect_col, x, y):
@@ -474,7 +473,7 @@ class Keys(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         img = pygame.image.load(image_path + 'tiles_oldkey.png')
         self.image = pygame.transform.scale(
-            img,( tile_size, tile_size ))
+            img, (tile_size, tile_size))
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
 
