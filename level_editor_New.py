@@ -19,51 +19,55 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Level Editor Water')
 
 
-ImgPath = "Images8/"
+ImgPath = "Images4/"
 
 sun_img = pygame.image.load(ImgPath + 'sun.png')
 sun_img = pygame.transform.scale(sun_img, (tile_size, tile_size))
 bg_img = pygame.image.load(ImgPath + 'background.png')
 bg_img = pygame.transform.scale(bg_img, (screen_width, screen_height - margin))
 
-img_dirt = pygame.image.load(ImgPath + 'dirt')
-img_grass = pygame.image.load(ImgPath + 'grass')
-img_static_platform_left = pygame.image.load(ImgPath + 'static_platform_left ')
-img_static_platform_mid = pygame.image.load(ImgPath + 'static_platform_mid')
+img_dirt = pygame.image.load(ImgPath + 'dirt.png')
+img_grass = pygame.image.load(ImgPath + 'grass.png')
+img_static_platform_left = pygame.image.load(
+    ImgPath + 'static_platform_left.png')
+img_static_platform_mid = pygame.image.load(
+    ImgPath + 'static_platform_mid.png')
 img_static_platform_right = pygame.image.load(
-    ImgPath + 'static_platform_right')
-img_moving_platform = pygame.image.load(ImgPath + 'moving_platform')
-img_moving_platform = pygame.image.load(ImgPath + 'moving_platform')
-img_water = pygame.image.load(ImgPath + 'water')
-img_lava = pygame.image.load(ImgPath + 'lava')
-img_spike_right = pygame.image.load(ImgPath + 'spike_right')
-img_spike_left = pygame.image.load(ImgPath + 'spike_left')
-img_spike_up = pygame.image.load(ImgPath + 'spike_up')
-img_spike_down = pygame.image.load(ImgPath + 'spike_down')
-img_key = pygame.image.load(ImgPath + 'key')
-img_door = pygame.image.load(ImgPath + 'door')
-img_coin = pygame.image.load(ImgPath + 'Coin')
-img_enemy = pygame.image.load(ImgPath + 'enemy')
-img_deco_block_1 = pygame.image.load(ImgPath + 'deco_block_1')
-img_deco_block_2 = pygame.image.load(ImgPath + 'deco_block_2')
-img_deco_block_3 = pygame.image.load(ImgPath + 'deco_block_3')
-img_deco_block_4 = pygame.image.load(ImgPath + 'deco_block_4')
-img_deco_block_5 = pygame.image.load(ImgPath + 'deco_block_5')
-img_deco_block_6 = pygame.image.load(ImgPath + 'deco_block_6')
-img_deco_block_7 = pygame.image.load(ImgPath + 'deco_block_7')
-img_deco_block_8 = pygame.image.load(ImgPath + 'deco_block_8')
-img_deco_block_9 = pygame.image.load(ImgPath + 'deco_block_9')
-img_decoratie_1 = pygame.image.load(ImgPath + 'decoratie_1')
-img_decoratie_2 = pygame.image.load(ImgPath + 'decoratie_2')
-img_decoratie_3 = pygame.image.load(ImgPath + 'decoratie_3')
-img_decoratie_4 = pygame.image.load(ImgPath + 'decoratie_4')
-img_decoratie_5 = pygame.image.load(ImgPath + 'decoratie_5')
-img_decoratie_6 = pygame.image.load(ImgPath + 'decoratie_6')
-img_decoratie_7 = pygame.image.load(ImgPath + 'decoratie_7')
-img_decoratie_8 = pygame.image.load(ImgPath + 'decoratie_8')
-img_decoratie_9 = pygame.image.load(ImgPath + 'decoratie_9')
-img_decoratie_10 = pygame.image.load(ImgPath + 'decoratie_10')
+    ImgPath + 'static_platform_right.png')
+img_moving_platform = pygame.image.load(ImgPath + 'moving_platform.png')
+img_moving_platform = pygame.image.load(ImgPath + 'moving_platform.png')
+img_water = pygame.image.load(ImgPath + 'water.png')
+img_lava = pygame.image.load(ImgPath + 'lava.png')
+img_spike_right = pygame.image.load(ImgPath + 'spike_right.png')
+img_spike_left = pygame.image.load(ImgPath + 'spike_left.png')
+img_spike_up = pygame.image.load(ImgPath + 'spike_up.png')
+img_spike_down = pygame.image.load(ImgPath + 'spike_down.png')
+img_key = pygame.image.load(ImgPath + 'key.png')
+img_door = pygame.image.load(ImgPath + 'door.png')
+img_coin = pygame.image.load(ImgPath + 'Coin.png')
+img_enemy = pygame.image.load(ImgPath + 'coin.png')
+img_deco_block_1 = pygame.image.load(ImgPath + 'deco_block_1.png')
+img_deco_block_2 = pygame.image.load(ImgPath + 'deco_block_2.png')
+img_deco_block_3 = pygame.image.load(ImgPath + 'deco_block_3.png')
+img_deco_block_4 = pygame.image.load(ImgPath + 'deco_block_4.png')
+img_deco_block_5 = pygame.image.load(ImgPath + 'deco_block_5.png')
+img_deco_block_6 = pygame.image.load(ImgPath + 'deco_block_6.png')
+img_deco_block_7 = pygame.image.load(ImgPath + 'deco_block_7.png')
+img_deco_block_8 = pygame.image.load(ImgPath + 'deco_block_8.png')
+img_deco_block_9 = pygame.image.load(ImgPath + 'deco_block_9.png')
+img_decoratie_1 = pygame.image.load(ImgPath + 'decoratie_1.png')
+img_decoratie_2 = pygame.image.load(ImgPath + 'decoratie_2.png')
+img_decoratie_3 = pygame.image.load(ImgPath + 'decoratie_3.png')
+img_decoratie_4 = pygame.image.load(ImgPath + 'decoratie_4.png')
+img_decoratie_5 = pygame.image.load(ImgPath + 'decoratie_5.png')
+img_decoratie_6 = pygame.image.load(ImgPath + 'decoratie_6.png')
+img_decoratie_7 = pygame.image.load(ImgPath + 'decoratie_7.png')
+img_decoratie_8 = pygame.image.load(ImgPath + 'decoratie_8.png')
+img_decoratie_9 = pygame.image.load(ImgPath + 'decoratie_9.png')
+img_decoratie_10 = pygame.image.load(ImgPath + 'decoratie_10.png')
 
+save_img = pygame.image.load('Images2/save_btn.png')
+load_img = pygame.image.load('Images2/load_btn.png')
 
 # define game variables
 clicked = False
@@ -236,8 +240,7 @@ def draw_world():
                 if world_data[row][col] == 30:
                     img = pygame.transform.scale(
                         img_decoratie_4, (tile_size, tile_size // 2))
-                    screen.blit(img, (col * tile_size, row *
-                                tile_size + (tile_size // 2)))
+                    screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 31:
                     img = pygame.transform.scale(
                         img_decoratie_5, (tile_size, tile_size))
@@ -248,24 +251,20 @@ def draw_world():
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 33:
                     img = pygame.transform.scale(
-                        img_decoratie_7, (tile_size, tile_size // 2))
-                    screen.blit(img, (col * tile_size, row *
-                                tile_size + (tile_size // 2)))
+                        img_decoratie_7, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 34:
                     img = pygame.transform.scale(
-                        img_decoratie_8, (tile_size, int(tile_size * 1.5)))
-                    screen.blit(img, (col * tile_size, row *
-                                tile_size - (tile_size // 2)))
+                        img_decoratie_8, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 35:
                     img = pygame.transform.scale(
-                        img_decoratie_9, (tile_size, int(tile_size * 1.1)))
-                    screen.blit(img, (col * tile_size, row *
-                                tile_size - (tile_size // 2)))
+                        img_decoratie_9, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 36:
                     img = pygame.transform.scale(
-                        img_decoratie_10, (tile_size, tile_size // 2))
-                    screen.blit(img, (col * tile_size, row *
-                                tile_size + (tile_size // 2)))
+                        img_decoratie_10, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
 
 
 class Button():
