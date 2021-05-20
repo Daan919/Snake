@@ -13,7 +13,7 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 1
+level_counter = 7
 
 screenWidth = 1000
 screenHeight = 1000
@@ -557,7 +557,7 @@ pickle_in = open(f"level{level_counter}_data", "rb")
 World_data = pickle.load(pickle_in)
 lv = level()
 realLevel = lv.mapTiles(World_data)
-player = player(100, screenHeight - 130)
+player = player(130, screenHeight - 130)
 
 
 def levelUp(counter):

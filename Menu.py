@@ -19,7 +19,7 @@ buttonhight = screen_hight / 10
 buttonWidth = screen_width / 3
 
 
-font = pygame.font.SysFont(None, 20)
+font = pygame.font.SysFont(None, screen_width // 20)
 
 
 class background():
@@ -76,11 +76,11 @@ def main_menu():
         pygame.draw.rect(screen, (255, 0, 0), button_3, 1)
 
         draw_text('Game', font, (255, 255, 255),
-                  screen,  buttonWidth * 1.1, buttonhight * 3.45)
+                  screen,  buttonWidth * 1.1, buttonhight * 3.4)
         draw_text('Options', font, (255, 255, 255),
-                  screen,  buttonWidth * 1.1, buttonhight * 5.45)
+                  screen,  buttonWidth * 1.1, buttonhight * 5.4)
         draw_text('Quit', font, (255, 255, 255),
-                  screen,  buttonWidth * 1.1, buttonhight * 7.45)
+                  screen,  buttonWidth * 1.1, buttonhight * 7.4)
 
         click = False
         for event in pygame.event.get():
