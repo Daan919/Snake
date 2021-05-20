@@ -20,25 +20,28 @@ pygame.display.set_caption('Level Editor Cave')
 
 
 # load images
-sun_img = pygame.image.load('Images3/sun.png')
+sun_img = pygame.image.load('Images2/sun.png')
 sun_img = pygame.transform.scale(sun_img, (tile_size, tile_size))
 bg_img = pygame.image.load('Images4/background.png')
 bg_img = pygame.transform.scale(bg_img, (screen_width, screen_height - margin))
 dirt_img = pygame.image.load('Images4/stone.png')
 grass_img = pygame.image.load('Images4/grass.png')
-waterblock_img = pygame.image.load('Images3/waterblock.png')
-waterwave_img = pygame.image.load('Images3/waterwave.png')
-platform_x_img = pygame.image.load('Images3/platform.png')
-platform_y_img = pygame.image.load('Images3/platform.png')
-lava_img = pygame.image.load('Images3/lava.png')
-spikesR_img = pygame.image.load('Images3/spikes_right.png')
-spikesL_img = pygame.image.load('Images3/spikes_left.png')
-water_img = pygame.image.load('Images3/water.png')
-coin_img = pygame.image.load('Images3/coin.png')
+grassLeft_img = pygame.image.load('Images4/grassLeft.png')
+grassRight_img = pygame.image.load('Images4/grassRight.png')
+grassMid_img = pygame.image.load('Images4/grassMid.png')
+waterblock_img = pygame.image.load('Images2/waterblock.png')
+waterwave_img = pygame.image.load('Images2/waterwave.png')
+platform_x_img = pygame.image.load('Images2/platform.png')
+platform_y_img = pygame.image.load('Images4/platform.png')
+lava_img = pygame.image.load('Images2/lava.png')
+spikesR_img = pygame.image.load('Images2/spikes_right.png')
+spikesL_img = pygame.image.load('Images2/spikes_left.png')
+water_img = pygame.image.load('Images2/water.png')
+coin_img = pygame.image.load('Images2/coin.png')
 exit_img = pygame.image.load('Images4/door.png')
 key_img = pygame.image.load('Images4/key.png')
-save_img = pygame.image.load('Images3/save_btn.png')
-load_img = pygame.image.load('Images3/load_btn.png')
+save_img = pygame.image.load('Images2/save_btn.png')
+load_img = pygame.image.load('Images2/load_btn.png')
 
 
 # define game variables
@@ -156,6 +159,21 @@ def draw_world():
                         coin_img, (tile_size, tile_size // 2))
                     screen.blit(img, (col * tile_size, row *
                                 tile_size + (tile_size // 2)))
+                if world_data[row][col] == 14:
+                    # coins
+                    img = pygame.transform.scale(
+                        grassLeft_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 15:
+                    # coins
+                    img = pygame.transform.scale(
+                        grassRight_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 16:
+                    # coins
+                    img = pygame.transform.scale(
+                        grassMid_img, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
 
 
 class Button():
@@ -239,12 +257,12 @@ while run:
                 # update tile value
                 if pygame.mouse.get_pressed()[0] == 1:
                     world_data[y][x] += 1
-                    if world_data[y][x] > 13:
+                    if world_data[y][x] > 16:
                         world_data[y][x] = 0
                 elif pygame.mouse.get_pressed()[2] == 1:
                     world_data[y][x] -= 1
                     if world_data[y][x] < 0:
-                        world_data[y][x] = 13
+                        world_data[y][x] = 16
         if event.type == pygame.MOUSEBUTTONUP:
             clicked = False
         # up and down key presses to change level number
