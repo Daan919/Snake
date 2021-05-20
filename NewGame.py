@@ -557,7 +557,7 @@ pickle_in = open(f"level{level_counter}_data", "rb")
 World_data = pickle.load(pickle_in)
 lv = level()
 realLevel = lv.mapTiles(World_data)
-player = player(100, screenHeight - 130)
+player = player(130, screenHeight - 130)
 
 
 def levelUp(counter):
