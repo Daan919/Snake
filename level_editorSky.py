@@ -19,6 +19,8 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Level Editor Cave')
 
 
+map = 'images1'
+
 # load images
 sun_img = pygame.image.load('Images2/sun.png')
 sun_img = pygame.transform.scale(sun_img, (tile_size, tile_size))
