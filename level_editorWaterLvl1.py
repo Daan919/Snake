@@ -16,7 +16,7 @@ screen_width = tile_size * cols
 screen_height = (tile_size * cols) + margin
 
 screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption('Level Editor Water')
+pygame.display.set_caption('Level Editor Water 1')
 
 
 #load images
