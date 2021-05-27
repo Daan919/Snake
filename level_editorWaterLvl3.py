@@ -87,7 +87,7 @@ for row in range(40):
 
 # create boundary
 for tile in range(0, 40):
-    world_data[39][tile] = 20
+    world_data[39][tile] = 0
     world_data[0][tile] = 1
     world_data[tile][0] = 1
     world_data[tile][39] = 1
@@ -205,7 +205,7 @@ def draw_world():
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 22:
                     img = pygame.transform.scale(
-                        img_deco_block_5, (tile_size, tile_size *1,5))
+                        img_deco_block_5, (tile_size, tile_size *2))
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 23:
                     img = pygame.transform.scale(
