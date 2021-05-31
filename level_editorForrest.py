@@ -56,15 +56,15 @@ img_deco_block_7 = pygame.image.load(ImgPath + 'deco_block_7.png')
 img_deco_block_8 = pygame.image.load(ImgPath + 'deco_block_8.png')
 img_deco_block_9 = pygame.image.load(ImgPath + 'deco_block_9.png')
 img_decoratie_1 = pygame.image.load(ImgPath + 'decoratie_1.png')
-#img_decoratie_2 = pygame.image.load(ImgPath + 'decoratie_2.png')
-#img_decoratie_3 = pygame.image.load(ImgPath + 'decoratie_3.png')
-#img_decoratie_4 = pygame.image.load(ImgPath + 'decoratie_4.png')
-#img_decoratie_5 = pygame.image.load(ImgPath + 'decoratie_5.png')
-#img_decoratie_6 = pygame.image.load(ImgPath + 'decoratie_6.png')
-#img_decoratie_7 = pygame.image.load(ImgPath + 'decoratie_7.png')
-#img_decoratie_8 = pygame.image.load(ImgPath + 'decoratie_8.png')
-#img_decoratie_9 = pygame.image.load(ImgPath + 'decoratie_9.png')
-#img_decoratie_10 = pygame.image.load(ImgPath + 'decoratie_10.png')
+img_decoratie_2 = pygame.image.load(ImgPath + 'decoratie_2.png')
+img_decoratie_3 = pygame.image.load(ImgPath + 'decoratie_3.png')
+img_decoratie_4 = pygame.image.load(ImgPath + 'decoratie_4.png')
+img_decoratie_5 = pygame.image.load(ImgPath + 'decoratie_5.png')
+img_decoratie_6 = pygame.image.load(ImgPath + 'decoratie_6.png')
+img_decoratie_7 = pygame.image.load(ImgPath + 'decoratie_7.png')
+img_decoratie_8 = pygame.image.load(ImgPath + 'decoratie_8.png')
+img_decoratie_9 = pygame.image.load(ImgPath + 'decoratie_9.png')
+img_decoratie_10 = pygame.image.load(ImgPath + 'decoratie_10.png')
 
 save_img = pygame.image.load('Images2/save_btn.png')
 load_img = pygame.image.load('Images2/load_btn.png')
@@ -176,7 +176,7 @@ def draw_world():
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 15:
                     img = pygame.transform.scale(
-                        img_door, (tile_size, tile_size))
+                        img_door, (tile_size, tile_size * 2))
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 16:
                     img = pygame.transform.scale(
