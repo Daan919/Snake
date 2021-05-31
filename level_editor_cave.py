@@ -176,8 +176,9 @@ def draw_world():
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 15:
                     img = pygame.transform.scale(
-                        img_door, (tile_size, tile_size))
-                    screen.blit(img, (col * tile_size, row * tile_size))
+                        img_door, (tile_size, int(tile_size * 1.5)))
+                    screen.blit(img, (col * tile_size, row *
+                                tile_size - (tile_size // 2)))
                 if world_data[row][col] == 16:
                     img = pygame.transform.scale(
                         img_coin, (tile_size, tile_size))
@@ -231,15 +232,15 @@ def draw_world():
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 28:
                     img = pygame.transform.scale(
-                        img_decoratie_2, (tile_size, tile_size // 2))
+                        img_decoratie_2, (tile_size, tile_size))
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 29:
                     img = pygame.transform.scale(
-                        img_decoratie_3, (tile_size, tile_size // 2))
+                        img_decoratie_3, (tile_size, tile_size))
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 30:
                     img = pygame.transform.scale(
-                        img_decoratie_4, (tile_size, tile_size // 2))
+                        img_decoratie_4, (tile_size, tile_size))
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 31:
                     img = pygame.transform.scale(
