@@ -13,17 +13,14 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 7
+level_counter = 1
 
 screenWidth = 1000
 screenHeight = 1000
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption('ons eerste spelletje')
-image_path = os.path.dirname(__file__) + '/Images' + str(level_counter) + '/'
+image_path = os.path.dirname(__file__) + '/Images' + str("4") + '/'
 sound_path = os.path.dirname(__file__) + '/Sounds/'
-
-door = pygame.image.load(image_path + "tiles_door.png")
-key = pygame.image.load(image_path + "tiles_oldkey.png")
 
 font_score = pygame.font.SysFont("Comic Sans", tile_size)
 
@@ -51,7 +48,8 @@ def drawText(text, font, tect_col, x, y):
 class background():
     def __init__(self):
         self.background = None
-        self.background = pygame.image.load(image_path + 'bg.png').convert()
+        self.background = pygame.image.load(
+            image_path + 'background.png').convert()
         self.background = pygame.transform.scale(self.background,
                                                  (screenWidth, screenHeight))
 
@@ -64,8 +62,6 @@ class level(pygame.sprite.Sprite):
         print("hoi")
 
     def mapTiles(self, data):
-        image_path = os.path.dirname(__file__) + '/Images' + str(
-            level_counter) + '/'
 
         self.tile_list = []
         self.coin_list = pygame.sprite.Group()
@@ -78,90 +74,269 @@ class level(pygame.sprite.Sprite):
 
         self.score = 0
 
-        self.platform_img = pygame.image.load(image_path + "dirt.png")
-        self.dirt = self.platform_img
-        self.dirt = pygame.transform.scale(self.dirt, (tile_size, tile_size))
-        self.platform_img = pygame.image.load(image_path + "grass.png")
-        self.grass = self.platform_img
-        self.grass = pygame.transform.scale(self.grass, (tile_size, tile_size))
-        self.platform_img = pygame.image.load(image_path + "water.png")
-        self.water = self.platform_img
-        self.water = pygame.transform.scale(self.water, (tile_size, tile_size))
-        self.platform_img = pygame.image.load(image_path + "waterwave.png")
-        self.waterwave = self.platform_img
-        self.waterwave = pygame.transform.scale(self.waterwave,
-                                                (tile_size, tile_size))
-
-        self.coin_img = pygame.image.load(image_path + "coin.png")
-        self.coin = self.coin_img
-        self.coin = pygame.transform.scale(self.coin, (tile_size, tile_size))
+        self.img_dirt = pygame.image.load(image_path + 'dirt.png')
+        self.img_grass = pygame.image.load(image_path + 'grass.png')
+        self.img_static_platform_left = pygame.image.load(
+            image_path + 'static_platform_left.png')
+        self.img_static_platform_mid = pygame.image.load(
+            image_path + 'static_platform_mid.png')
+        self.img_static_platform_right = pygame.image.load(
+            image_path + 'static_platform_right.png')
+        self.img_water = pygame.image.load(image_path + 'water.png')
+        self.img_lava = pygame.image.load(image_path + 'lava.png')
+        self.img_spike_right = pygame.image.load(
+            image_path + 'spike_right.png')
+        self.img_spike_left = pygame.image.load(image_path + 'spike_left.png')
+        self.img_spike_up = pygame.image.load(image_path + 'spike_up.png')
+        self.img_spike_down = pygame.image.load(image_path + 'spike_down.png')
+        self.img_key = pygame.image.load(image_path + 'key.png')
+        self.img_door = pygame.image.load(image_path + 'door.png')
+        self.img_coin = pygame.image.load(image_path + 'Coin.png')
+        self.img_enemy = pygame.image.load(image_path + 'coin.png')
 
         row_count = 0
         for row in data:
             colum_count = 0
             for tile in row:
                 if tile == 1:
-                    img_rect = self.dirt.get_rect()
+                    img_rect = self.img_dirt.get_rect()
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
-                    tile = (self.dirt, img_rect)
+                    tile = (self.img_dirt, img_rect)
                     self.tile_list.append(tile)
                 if tile == 2:
-                    img_rect = self.grass.get_rect()
+                    img_rect = self.img_grass.get_rect()
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
-                    tile = (self.grass, img_rect)
+                    tile = (self.img_grass, img_rect)
                     self.tile_list.append(tile)
                 if tile == 3:
-                    img_rect = self.water.get_rect()
+                    img_rect = self.img_static_platform_left.get_rect()
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
-                    tile = (self.water, img_rect)
+                    tile = (self.img_static_platform_left, img_rect)
                     self.tile_list.append(tile)
                 if tile == 4:
-                    img_rect = self.waterwave.get_rect()
+                    img_rect = self.img_static_platform_mid.get_rect()
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
-                    tile = (self.waterwave, img_rect)
+                    tile = (self.img_static_platform_mid, img_rect)
                     self.tile_list.append(tile)
                 if tile == 5:
+                    img_rect = self.img_static_platform_right.get_rect()
+                    img_rect.x = colum_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (self.img_static_platform_right, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 6:
                     platform = platform_move(colum_count * tile_size,
                                              row_count * tile_size, 1, 0)
                     self.platform_list.add(platform)
-                if tile == 6:
+                if tile == 7:
                     platform = platform_move(colum_count * tile_size,
                                              row_count * tile_size, 0, 1)
                     self.platform_list.add(platform)
-                if tile == 7:
-                    lava = Lava(colum_count * tile_size,
-                                row_count * tile_size + (tile_size // 2))
-                    self.lava_list.add(lava)
                 if tile == 8:
-                    spike = spikes_r(
-                        colum_count * tile_size + (tile_size // 2),
-                        row_count * tile_size)
-                    self.spike_list.add(spike)
-                if tile == 9:
-                    spike = spikes_l(colum_count * tile_size,
-                                     row_count * tile_size)
-                    self.spike_list.add(spike)
-                if tile == 10:
                     water = Water(colum_count * tile_size,
                                   row_count * tile_size + (tile_size // 2), 1,
                                   0)
                     self.water_list.add(water)
+                if tile == 9:
+                    lava = Lava(colum_count * tile_size,
+                                row_count * tile_size + (tile_size // 2))
+                    self.lava_list.add(lava)
+                if tile == 10:
+                    spike = spikes_r(
+                        colum_count * tile_size + (tile_size // 2),
+                        row_count * tile_size)
+                    self.spike_list.add(spike)
                 if tile == 11:
+                    spike = spikes_l(
+                        colum_count * tile_size + (tile_size // 2),
+                        row_count * tile_size)
+                    self.spike_list.add(spike)
+
+                    # create spike up down
+                if tile == 12:
+                    spike = spikes_l(
+                        colum_count * tile_size + (tile_size // 2),
+                        row_count * tile_size)
+                    self.spike_list.add(spike)
+                if tile == 13:
+                    spike = spikes_l(
+                        colum_count * tile_size + (tile_size // 2),
+                        row_count * tile_size)
+                    self.spike_list.add(spike)
+                if tile == 14:
+                    key = Keys(colum_count * tile_size, row_count * tile_size)
+                    self.key_list.add(key)
+                if tile == 15:
                     door = Doors(colum_count * tile_size,
                                  row_count * tile_size)
                     self.door_list.add(door)
-                if tile == 12:
-                    key = Keys(colum_count * tile_size, row_count * tile_size)
-                    self.key_list.add(key)
-                if tile == 13:
+                if tile == 16:
                     coin = coins(colum_count * tile_size + (tile_size // 2),
                                  row_count * tile_size + (tile_size // 2))
                     self.coin_list.add(coin)
+                if tile == 17:  # create enamy class
+                    img_rect = self.img_dirt.get_rect()
+                    img_rect.x = colum_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (self.img_dirt, img_rect)
+                    self.tile_list.append(tile)
 
+                if tile == 18:
+                    self.img_deco_block = pygame.image.load(
+                        image_path + 'deco_block_18.png')
+                    img_rect = self.img_deco_block.get_rect()
+                    img_rect.x = colum_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (self.img_deco_block, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 19:
+                    self.img_deco_block = pygame.image.load(
+                        image_path + 'deco_block_19.png')
+                    img_rect = self.img_deco_block.get_rect()
+                    img_rect.x = colum_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (self.img_deco_block, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 20:
+                    self.img_deco_block = pygame.image.load(
+                        image_path + 'deco_block_20.png')
+                    img_rect = self.img_deco_block.get_rect()
+                    img_rect.x = colum_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (self.img_deco_block, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 21:
+                    self.img_deco_block = pygame.image.load(
+                        image_path + 'deco_block_21.png')
+                    img_rect = self.img_deco_block.get_rect()
+                    img_rect.x = colum_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (self.img_deco_block, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 22:
+                    self.img_deco_block = pygame.image.load(
+                        image_path + 'deco_block_22.png')
+                    img_rect = self.img_deco_block.get_rect()
+                    img_rect.x = colum_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (self.img_deco_block, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 23:
+                    self.img_deco_block = pygame.image.load(
+                        image_path + 'deco_block_23.png')
+                    img_rect = self.img_deco_block.get_rect()
+                    img_rect.x = colum_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (self.img_deco_block, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 24:
+                    self.img_deco_block = pygame.image.load(
+                        image_path + 'deco_block_24.png')
+                    img_rect = self.img_deco_block.get_rect()
+                    img_rect.x = colum_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (self.img_deco_block, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 25:
+                    self.img_deco_block = pygame.image.load(
+                        image_path + 'deco_block_25.png')
+                    img_rect = self.img_deco_block.get_rect()
+                    img_rect.x = colum_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (self.img_deco_block, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 26:
+                    self.img_deco_block = pygame.image.load(
+                        image_path + 'deco_block_26.png')
+                    img_rect = self.img_deco_block.get_rect()
+                    img_rect.x = colum_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (self.img_deco_block, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 27:
+                    self.img_deco = pygame.image.load(
+                        image_path + 'decoratie_27.png')
+                    img_rect = self.img_deco.get_rect()
+                    img_rect.x = colum_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (self.img_deco, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 28:
+                    self.img_deco = pygame.image.load(
+                        image_path + 'decoratie_28.png')
+                    img_rect = self.img_deco.get_rect()
+                    img_rect.x = colum_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (self.img_deco, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 29:
+                    self.img_deco = pygame.image.load(
+                        image_path + 'decoratie_29.png')
+                    img_rect = self.img_deco.get_rect()
+                    img_rect.x = colum_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (self.img_deco, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 30:
+                    self.img_deco = pygame.image.load(
+                        image_path + 'decoratie_30.png')
+                    img_rect = self.img_deco.get_rect()
+                    img_rect.x = colum_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (self.img_deco, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 31:
+                    self.img_deco = pygame.image.load(
+                        image_path + 'decoratie_31.png')
+                    img_rect = self.img_deco.get_rect()
+                    img_rect.x = colum_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (self.img_deco, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 32:
+                    self.img_deco = pygame.image.load(
+                        image_path + 'decoratie_32.png')
+                    img_rect = self.img_deco.get_rect()
+                    img_rect.x = colum_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (self.img_deco, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 33:
+                    self.img_deco = pygame.image.load(
+                        image_path + 'decoratie_33.png')
+                    img_rect = self.img_deco.get_rect()
+                    img_rect.x = colum_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (self.img_deco, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 34:
+                    self.img_deco = pygame.image.load(
+                        image_path + 'decoratie_34.png')
+                    img_rect = self.img_deco.get_rect()
+                    img_rect.x = colum_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (self.img_deco, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 35:
+                    self.img_deco = pygame.image.load(
+                        image_path + 'decoratie_35.png')
+                    img_rect = self.img_deco.get_rect()
+                    img_rect.x = colum_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (self.img_deco, img_rect)
+                    self.tile_list.append(tile)
+                if tile == 36:
+                    self.img_deco = pygame.image.load(
+                        image_path + 'decoratie_36.png')
+                    img_rect = self.img_deco.get_rect()
+                    img_rect.x = colum_count * tile_size
+                    img_rect.y = row_count * tile_size
+                    tile = (self.img_deco, img_rect)
+                    self.tile_list.append(tile)
                 colum_count += 1
             row_count += 1
 
@@ -174,7 +349,7 @@ class level(pygame.sprite.Sprite):
 
     def nextLevel(self, data):
         image_path = os.path.dirname(__file__) + '/Images' + str(
-            level_counter) + '/'
+            "4") + '/'
 
         print(image_path)
         self.tile_list = []
@@ -275,30 +450,6 @@ class level(pygame.sprite.Sprite):
 
         score_coin = coins(tile_size // 2, tile_size // 2)
         self.coin_list.add(score_coin)
-
-    # def reset(self):
-    #     self.__init__()
-
-    # def changeTiles(self):
-
-    #     image_path = os.path.dirname(__file__) + '/Images' + str(
-    #         level_counter) + '/'
-    #     print("Dit is" + image_path)
-    #     print("Dit is nummero " + level_counter)
-    #     self.platform_img = pygame.image.load(image_path + "dirt.png")
-    #     self.dirt = self.platform_img
-    #     self.dirt = pygame.transform.scale(self.dirt, (tile_size, tile_size))
-    #     self.platform_img = pygame.image.load(image_path + "grass.png")
-    #     self.grass = self.platform_img
-    #     self.grass = pygame.transform.scale(self.grass, (tile_size, tile_size))
-    #     self.platform_img = pygame.image.load(image_path + "water.png")
-    #     self.water = self.platform_img
-    #     self.water = pygame.transform.scale(self.water, (tile_size, tile_size))
-    #     self.platform_img = pygame.image.load(image_path + "waterwave.png")
-    #     self.waterwave = self.platform_img
-    #     self.waterwave = pygame.transform.scale(self.waterwave,
-    #                                             (tile_size, tile_size))
-    #     self.coin_img = pygame.image.load(image_path + "coin.png")
 
 
 class player():
@@ -461,7 +612,7 @@ class coins(pygame.sprite.Sprite):
 class Doors(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        img = pygame.image.load(image_path + 'tiles_door.png')
+        img = pygame.image.load(image_path + 'door.png')
         self.image = pygame.transform.scale(
             img, (int(tile_size * 1.5), int(tile_size * 2)))
         self.rect = self.image.get_rect()
@@ -471,7 +622,7 @@ class Doors(pygame.sprite.Sprite):
 class Keys(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        img = pygame.image.load(image_path + 'tiles_oldkey.png')
+        img = pygame.image.load(image_path + 'key.png')
         self.image = pygame.transform.scale(
             img, (tile_size, tile_size))
         self.rect = self.image.get_rect()
@@ -481,7 +632,7 @@ class Keys(pygame.sprite.Sprite):
 class platform_move(pygame.sprite.Sprite):
     def __init__(self, x, y, move_x, move_y):
         pygame.sprite.Sprite.__init__(self)
-        img = pygame.image.load(image_path + "platform.png")
+        img = pygame.image.load(image_path + "moving_platform.png")
         self.image = pygame.transform.scale(img, (tile_size, tile_size // 2))
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -535,7 +686,7 @@ class Lava(pygame.sprite.Sprite):
 class spikes_r(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        img = pygame.image.load(image_path + "spikes_right.png")
+        img = pygame.image.load(image_path + "spike_right.png")
         self.image = pygame.transform.scale(img, (tile_size // 2, tile_size))
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -545,7 +696,7 @@ class spikes_r(pygame.sprite.Sprite):
 class spikes_l(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        img = pygame.image.load(image_path + "spikes_left.png")
+        img = pygame.image.load(image_path + "spike_left.png")
         self.image = pygame.transform.scale(img, (tile_size // 2, tile_size))
         self.rect = self.image.get_rect()
         self.rect.x = x
