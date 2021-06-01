@@ -176,8 +176,9 @@ def draw_world():
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 15:
                     img = pygame.transform.scale(
-                        img_door, (tile_size, tile_size))
-                    screen.blit(img, (col * tile_size, row * tile_size))
+                        img_door, (tile_size, int(tile_size * 1.5)))
+                    screen.blit(img, (col * tile_size, row *
+                                tile_size - (tile_size // 2)))
                 if world_data[row][col] == 16:
                     img = pygame.transform.scale(
                         img_coin, (tile_size, tile_size))
