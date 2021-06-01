@@ -19,7 +19,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Level Editor Water')
 
 
-ImgPath = "Images7/"
+ImgPath = "Images3/"
 
 sun_img = pygame.image.load(ImgPath + 'sun.png')
 sun_img = pygame.transform.scale(sun_img, (tile_size, tile_size))
@@ -66,8 +66,8 @@ img_decoratie_8 = pygame.image.load(ImgPath + 'decoratie_8.png')
 img_decoratie_9 = pygame.image.load(ImgPath + 'decoratie_9.png')
 img_decoratie_10 = pygame.image.load(ImgPath + 'decoratie_10.png')
 
-save_img = pygame.image.load('Images2/save_btn.png')
-load_img = pygame.image.load('Images2/load_btn.png')
+save_img = pygame.image.load('Images3/save_btn.png')
+load_img = pygame.image.load('Images3/load_btn.png')
 
 # define game variables
 clicked = False
