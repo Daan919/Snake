@@ -624,9 +624,9 @@ class Doors(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         img = pygame.image.load(image_path + 'door.png')
         self.image = pygame.transform.scale(
-            img, (int(tile_size * 1.5), int(tile_size * 2)))
+            img, (int(tile_size), int(tile_size * 2)))
         self.rect = self.image.get_rect()
-        self.rect.center = (x, y)
+        self.rect.center = (x, y + tile_size)
 
 
 class Keys(pygame.sprite.Sprite):
