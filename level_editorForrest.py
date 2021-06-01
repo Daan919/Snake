@@ -66,8 +66,8 @@ img_decoratie_8 = pygame.image.load(ImgPath + 'decoratie_8.png')
 img_decoratie_9 = pygame.image.load(ImgPath + 'decoratie_9.png')
 img_decoratie_10 = pygame.image.load(ImgPath + 'decoratie_10.png')
 
-save_img = pygame.image.load('Images2/save_btn.png')
-load_img = pygame.image.load('Images2/load_btn.png')
+save_img = pygame.image.load('Images1/save_btn.png')
+load_img = pygame.image.load('Images1/load_btn.png')
 
 # define game variables
 clicked = False
