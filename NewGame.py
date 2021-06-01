@@ -19,7 +19,7 @@ screenWidth = 1000
 screenHeight = 1000
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption('ons eerste spelletje')
-image_path = os.path.dirname(__file__) + '/Images' + str("4") + '/'
+image_path = os.path.dirname(__file__) + '/Images' + str('1') + '/'
 sound_path = os.path.dirname(__file__) + '/Sounds/'
 
 font_score = pygame.font.SysFont("Comic Sans", tile_size)
@@ -94,6 +94,37 @@ class level(pygame.sprite.Sprite):
         self.img_coin = pygame.image.load(image_path + 'Coin.png')
         self.img_enemy = pygame.image.load(image_path + 'coin.png')
 
+        self.img_dirt = pygame.transform.scale(
+            self.img_dirt, (tile_size, tile_size))
+        self.img_grass = pygame.transform.scale(
+            self.img_grass, (tile_size, tile_size))
+        self.img_static_platform_left = pygame.transform.scale(
+            self.img_static_platform_left, (tile_size, tile_size))
+        self.img_static_platform_mid = pygame.transform.scale(
+            self.img_static_platform_mid, (tile_size, tile_size))
+        self.img_static_platform_right = pygame.transform.scale(
+            self.img_static_platform_right, (tile_size, tile_size))
+        self.img_water = pygame.transform.scale(
+            self.img_water, (tile_size, tile_size))
+        self.img_lava = pygame.transform.scale(
+            self.img_lava, (tile_size, tile_size))
+        self.img_spike_right = pygame.transform.scale(
+            self.img_spike_right, (tile_size, tile_size))
+        self.img_spike_left = pygame.transform.scale(
+            self.img_spike_left, (tile_size, tile_size))
+        self.img_spike_up = pygame.transform.scale(
+            self.img_spike_up, (tile_size, tile_size))
+        self.img_spike_down = pygame.transform.scale(
+            self.img_spike_down, (tile_size, tile_size))
+        self.img_key = pygame.transform.scale(
+            self.img_key, (tile_size, tile_size))
+        self.img_door = pygame.transform.scale(
+            self.img_door, (tile_size, tile_size))
+        self.img_coin = pygame.transform.scale(
+            self.img_coin, (tile_size, tile_size))
+        self.img_enemy = pygame.transform.scale(
+            self.img_enemy, (tile_size, tile_size))
+
         row_count = 0
         for row in data:
             colum_count = 0
@@ -167,6 +198,7 @@ class level(pygame.sprite.Sprite):
                         colum_count * tile_size + (tile_size // 2),
                         row_count * tile_size)
                     self.spike_list.add(spike)
+
                 if tile == 14:
                     key = Keys(colum_count * tile_size, row_count * tile_size)
                     self.key_list.add(key)
@@ -188,6 +220,8 @@ class level(pygame.sprite.Sprite):
                 if tile == 18:
                     self.img_deco_block = pygame.image.load(
                         image_path + 'deco_block_1.png')
+                    self.img_deco_block = pygame.transform.scale(
+                        self.img_deco_block, (tile_size, tile_size))
                     img_rect = self.img_deco_block.get_rect()
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
@@ -196,6 +230,8 @@ class level(pygame.sprite.Sprite):
                 if tile == 19:
                     self.img_deco_block = pygame.image.load(
                         image_path + 'deco_block_2.png')
+                    self.img_deco_block = pygame.transform.scale(
+                        self.img_deco_block, (tile_size, tile_size))
                     img_rect = self.img_deco_block.get_rect()
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
@@ -204,6 +240,8 @@ class level(pygame.sprite.Sprite):
                 if tile == 20:
                     self.img_deco_block = pygame.image.load(
                         image_path + 'deco_block_3.png')
+                    self.img_deco_block = pygame.transform.scale(
+                        self.img_deco_block, (tile_size, tile_size))
                     img_rect = self.img_deco_block.get_rect()
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
@@ -212,6 +250,8 @@ class level(pygame.sprite.Sprite):
                 if tile == 21:
                     self.img_deco_block = pygame.image.load(
                         image_path + 'deco_block_4.png')
+                    self.img_deco_block = pygame.transform.scale(
+                        self.img_deco_block, (tile_size, tile_size))
                     img_rect = self.img_deco_block.get_rect()
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
@@ -220,6 +260,8 @@ class level(pygame.sprite.Sprite):
                 if tile == 22:
                     self.img_deco_block = pygame.image.load(
                         image_path + 'deco_block_5.png')
+                    self.img_deco_block = pygame.transform.scale(
+                        self.img_deco_block, (tile_size, tile_size))
                     img_rect = self.img_deco_block.get_rect()
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
@@ -228,6 +270,8 @@ class level(pygame.sprite.Sprite):
                 if tile == 23:
                     self.img_deco_block = pygame.image.load(
                         image_path + 'deco_block_6.png')
+                    self.img_deco_block = pygame.transform.scale(
+                        self.img_deco_block, (tile_size, tile_size))
                     img_rect = self.img_deco_block.get_rect()
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
@@ -236,6 +280,8 @@ class level(pygame.sprite.Sprite):
                 if tile == 24:
                     self.img_deco_block = pygame.image.load(
                         image_path + 'deco_block_7.png')
+                    self.img_deco_block = pygame.transform.scale(
+                        self.img_deco_block, (tile_size, tile_size))
                     img_rect = self.img_deco_block.get_rect()
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
@@ -244,6 +290,8 @@ class level(pygame.sprite.Sprite):
                 if tile == 25:
                     self.img_deco_block = pygame.image.load(
                         image_path + 'deco_block_8.png')
+                    self.img_deco_block = pygame.transform.scale(
+                        self.img_deco_block, (tile_size, tile_size))
                     img_rect = self.img_deco_block.get_rect()
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
@@ -252,6 +300,8 @@ class level(pygame.sprite.Sprite):
                 if tile == 26:
                     self.img_deco_block = pygame.image.load(
                         image_path + 'deco_block_9.png')
+                    self.img_deco_block = pygame.transform.scale(
+                        self.img_deco_block, (tile_size, tile_size))
                     img_rect = self.img_deco_block.get_rect()
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
@@ -260,6 +310,8 @@ class level(pygame.sprite.Sprite):
                 if tile == 27:
                     self.img_deco = pygame.image.load(
                         image_path + 'decoratie_1.png')
+                    self.img_deco = pygame.transform.scale(
+                        self.img_deco, (tile_size, tile_size))
                     img_rect = self.img_deco.get_rect()
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
@@ -268,6 +320,8 @@ class level(pygame.sprite.Sprite):
                 if tile == 28:
                     self.img_deco = pygame.image.load(
                         image_path + 'decoratie_2.png')
+                    self.img_deco = pygame.transform.scale(
+                        self.img_deco, (tile_size, tile_size))
                     img_rect = self.img_deco.get_rect()
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
@@ -276,6 +330,8 @@ class level(pygame.sprite.Sprite):
                 if tile == 29:
                     self.img_deco = pygame.image.load(
                         image_path + 'decoratie_3.png')
+                    self.img_deco = pygame.transform.scale(
+                        self.img_deco, (tile_size, tile_size))
                     img_rect = self.img_deco.get_rect()
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
@@ -284,6 +340,8 @@ class level(pygame.sprite.Sprite):
                 if tile == 30:
                     self.img_deco = pygame.image.load(
                         image_path + 'decoratie_4.png')
+                    self.img_deco = pygame.transform.scale(
+                        self.img_deco, (tile_size, tile_size))
                     img_rect = self.img_deco.get_rect()
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
@@ -292,6 +350,8 @@ class level(pygame.sprite.Sprite):
                 if tile == 31:
                     self.img_deco = pygame.image.load(
                         image_path + 'decoratie_5.png')
+                    self.img_deco = pygame.transform.scale(
+                        self.img_deco, (tile_size, tile_size))
                     img_rect = self.img_deco.get_rect()
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
@@ -300,6 +360,8 @@ class level(pygame.sprite.Sprite):
                 if tile == 32:
                     self.img_deco = pygame.image.load(
                         image_path + 'decoratie_6.png')
+                    self.img_deco = pygame.transform.scale(
+                        self.img_deco, (tile_size, tile_size))
                     img_rect = self.img_deco.get_rect()
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
@@ -308,6 +370,8 @@ class level(pygame.sprite.Sprite):
                 if tile == 33:
                     self.img_deco = pygame.image.load(
                         image_path + 'decoratie_7.png')
+                    self.img_deco = pygame.transform.scale(
+                        self.img_deco, (tile_size, tile_size))
                     img_rect = self.img_deco.get_rect()
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
@@ -316,6 +380,8 @@ class level(pygame.sprite.Sprite):
                 if tile == 34:
                     self.img_deco = pygame.image.load(
                         image_path + 'decoratie_8.png')
+                    self.img_deco = pygame.transform.scale(
+                        self.img_deco, (tile_size, tile_size))
                     img_rect = self.img_deco.get_rect()
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
@@ -324,6 +390,8 @@ class level(pygame.sprite.Sprite):
                 if tile == 35:
                     self.img_deco = pygame.image.load(
                         image_path + 'decoratie_9.png')
+                    self.img_deco = pygame.transform.scale(
+                        self.img_deco, (tile_size, tile_size))
                     img_rect = self.img_deco.get_rect()
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
@@ -332,6 +400,8 @@ class level(pygame.sprite.Sprite):
                 if tile == 36:
                     self.img_deco = pygame.image.load(
                         image_path + 'decoratie_10.png')
+                    self.img_deco = pygame.transform.scale(
+                        self.img_deco, (tile_size, tile_size))
                     img_rect = self.img_deco.get_rect()
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
