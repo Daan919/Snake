@@ -2,6 +2,7 @@ import pygame
 from pygame.locals import *
 from pygame import mixer
 import pickle
+import math
 import Menu
 import os
 from os import path
@@ -13,13 +14,14 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 1
+level_counter = 13
 
 screenWidth = 1000
 screenHeight = 1000
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption('ons eerste spelletje')
-image_path = os.path.dirname(__file__) + '/Images' + str('1') + '/'
+image_path = os.path.dirname(__file__) + '/Images' + \
+    str(math.ceil(level_counter/3)) + '/'
 sound_path = os.path.dirname(__file__) + '/Sounds/'
 
 font_score = pygame.font.SysFont("Comic Sans", tile_size)
