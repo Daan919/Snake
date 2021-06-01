@@ -10,6 +10,7 @@ fps = 60
 
 # game window
 tile_size = 20
+
 cols = 40
 margin = 100
 screen_width = tile_size * cols
@@ -138,22 +139,24 @@ def draw_world():
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 6:
                     img = pygame.transform.scale(
-                        img_moving_platform, (tile_size, tile_size))
+                        img_moving_platform, (tile_size, tile_size // 2))
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 7:
                     img = pygame.transform.scale(
-                        img_moving_platform, (tile_size, tile_size))
+                        img_moving_platform, (tile_size, tile_size // 2))
                     screen.blit(img, (col * tile_size, row * tile_size))
 
                     # interactieve blockjes
                 if world_data[row][col] == 8:
                     img = pygame.transform.scale(
-                        img_water, (tile_size, tile_size))
-                    screen.blit(img, (col * tile_size, row * tile_size))
+                        img_water, (tile_size, tile_size // 2))
+                    screen.blit(img, (col * tile_size, row *
+                                tile_size + (tile_size // 2)))
                 if world_data[row][col] == 9:
                     img = pygame.transform.scale(
-                        img_lava, (tile_size, tile_size))
-                    screen.blit(img, (col * tile_size, row * tile_size))
+                        img_lava, (tile_size, tile_size // 2))
+                    screen.blit(img, (col * tile_size, row *
+                                tile_size + (tile_size // 2)))
                 if world_data[row][col] == 10:
                     img = pygame.transform.scale(
                         img_spike_right, (tile_size, tile_size))
@@ -176,8 +179,9 @@ def draw_world():
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 15:
                     img = pygame.transform.scale(
-                        img_door, (tile_size, tile_size))
-                    screen.blit(img, (col * tile_size, row * tile_size))
+                        img_door, (tile_size, int(tile_size * 1.5)))
+                    screen.blit(img, (col * tile_size, row *
+                                tile_size - (tile_size // 2)))
                 if world_data[row][col] == 16:
                     img = pygame.transform.scale(
                         img_coin, (tile_size, tile_size))
@@ -231,15 +235,15 @@ def draw_world():
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 28:
                     img = pygame.transform.scale(
-                        img_decoratie_2, (tile_size, tile_size // 2))
+                        img_decoratie_2, (tile_size, tile_size))
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 29:
                     img = pygame.transform.scale(
-                        img_decoratie_3, (tile_size, tile_size // 2))
+                        img_decoratie_3, (tile_size, tile_size))
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 30:
                     img = pygame.transform.scale(
-                        img_decoratie_4, (tile_size, tile_size // 2))
+                        img_decoratie_4, (tile_size, tile_size))
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 31:
                     img = pygame.transform.scale(
