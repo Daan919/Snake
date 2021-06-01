@@ -19,7 +19,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Level Editor Water')
 
 
-ImgPath = "Images_Thij/"
+ImgPath = "Images9/"
 
 sun_img = pygame.image.load(ImgPath + 'sun.png')
 sun_img = pygame.transform.scale(sun_img, (tile_size, tile_size))
@@ -87,7 +87,7 @@ for row in range(40):
 
 # create boundary
 for tile in range(0, 40):
-    world_data[39][tile] = 2
+    world_data[39][tile] = 0
     world_data[0][tile] = 1
     world_data[tile][0] = 1
     world_data[tile][39] = 1
@@ -176,9 +176,8 @@ def draw_world():
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 15:
                     img = pygame.transform.scale(
-                        img_door, (tile_size, int(tile_size * 1.5)))
-                    screen.blit(img, (col * tile_size, row *
-                                tile_size - (tile_size // 2)))
+                        img_door, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 16:
                     img = pygame.transform.scale(
                         img_coin, (tile_size, tile_size))
@@ -206,7 +205,7 @@ def draw_world():
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 22:
                     img = pygame.transform.scale(
-                        img_deco_block_5, (tile_size, tile_size))
+                        img_deco_block_5, (tile_size, tile_size *2))
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 23:
                     img = pygame.transform.scale(
@@ -240,7 +239,7 @@ def draw_world():
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 30:
                     img = pygame.transform.scale(
-                        img_decoratie_4, (tile_size, tile_size))
+                        img_decoratie_4, (tile_size, tile_size // 2))
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 31:
                     img = pygame.transform.scale(
@@ -367,3 +366,4 @@ while run:
     pygame.display.update()
 
 pygame.quit()
+ 
