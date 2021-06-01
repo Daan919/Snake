@@ -14,7 +14,7 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 13
+level_counter = 3
 
 screenWidth = 1000
 screenHeight = 1000
@@ -422,14 +422,25 @@ class level(pygame.sprite.Sprite):
 
 class player():
     def __init__(self, x, y):
-        img = img = pygame.image.load(image_path + "Fall (32x32).png")
-        self.image = pygame.transform.scale(img, (20, 40))
+        self.images_right = []
+        self.images_left = []
+        self.index = 0
+        self.counter = 0
+        for number in range(1, 7):
+            img_right = pygame.image.load(image_path + f'run{number}.png')
+            img_left = pygame.transform.flip(img_right, True, False)
+            self.images_right.append(img_right)
+            self.images_left.append(img_left)
+
+        self.image = self.images_right[self.index]
+        self.dead_image = pygame.image.load(image_path + 'ghost.png')
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
         self.width = self.image.get_width()
         self.height = self.image.get_height()
         self.vel_y = 0
+        self.direction = 0
         self.life = 3
         self.jumped = False
         self.in_air = False
@@ -446,6 +457,7 @@ class player():
         dx = 0
         dy = 0
         col_tresh = 20
+        walk_cooldown = 10
 
         if game_over == 0:
 
@@ -459,27 +471,51 @@ class player():
 
             if key[pygame.K_LEFT]:
                 dx -= 5
+                self.counter += 1
+                self.direction = -1
                 self.walking = True
                 self.playWalkingSound()
                 self.walking_sound = False
 
             if key[pygame.K_RIGHT]:
                 dx += 5
+                self.counter += 1
+                self.direction = 1
                 self.walking = True
                 self.playWalkingSound()
                 self.walking_sound = False
 
             if key[pygame.K_LEFT] == False and key[pygame.K_RIGHT] == False:
+                self.counter = 0
+                self.index = 0
                 sound_walking.stop()
                 self.walking = False
                 self.walking_sound = True
+                if self.direction == 1:
+                    self.image = self.images_right[self.index]
+                elif self.direction == -1:
+                    self.image = self.images_left[self.index]
 
+            # animatie voor het lopen > kijkt naar de array met de png's
+            if self.counter > walk_cooldown:
+                self.counter = 0
+                self.index += 1
+                if self.index >= len(self.images_right):
+                    self.index = 0
+                if self.direction == 1:
+                    self.image = self.images_right[self.index]
+                elif self.direction == -1:
+                    self.image = self.images_left[self.index]
+
+            # gravity
             self.vel_y += 1
             if self.vel_y > 10:
                 self.vel_y = 10
             dy += self.vel_y
 
             self.in_air = True
+
+            # check for collision
             for tile in lv.tile_list:
                 if tile[1].colliderect(self.rect.x + dx, self.rect.y,
                                        self.width, self.height):
@@ -547,8 +583,14 @@ class player():
                     if platform.move_x != 0:
                         self.rect.x += platform.move_direction
 
+            # update speler zijn coordinates
             self.rect.x += dx
             self.rect.y += dy
+
+        if game_over == 1:
+            self.image = self.dead_image
+            if self.rect.y > 200:
+                self.rect.y -= 5
 
         screen.blit(self.image, self.rect)
 
