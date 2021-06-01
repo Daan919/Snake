@@ -14,7 +14,7 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 4
+level_counter = 7
 
 screenWidth = 1000
 screenHeight = 1000
@@ -32,8 +32,6 @@ sound_get_coin.set_volume(0.5)
 sound_game_over = pygame.mixer.Sound(sound_path + "game_over.wav")
 sound_game_over.set_volume(0.5)
 
-sound_walking = pygame.mixer.Sound(sound_path + "walking.wav")
-sound_walking.set_volume(0.5)
 
 game_over = 0
 
@@ -213,11 +211,9 @@ class level(pygame.sprite.Sprite):
                                  row_count * tile_size + (tile_size // 2))
                     self.coin_list.add(coin)
                 if tile == 17:  # create enamy class
-                    img_rect = self.img_dirt.get_rect()
-                    img_rect.x = colum_count * tile_size
-                    img_rect.y = row_count * tile_size
-                    tile = (self.img_dirt, img_rect)
-                    self.tile_list.append(tile)
+                    coin = coins(colum_count * tile_size + (tile_size // 2),
+                                 row_count * tile_size + (tile_size // 2))
+                    self.coin_list.add(coin)
 
                 if tile == 18:
                     self.img_deco_block = pygame.image.load(
@@ -447,12 +443,6 @@ class player():
         self.walking = False
         self.walking_sound = True
 
-    def playWalkingSound(self):
-        if self.walking and self.walking_sound:
-            sound_walking.play()
-        elif self.walking == False:
-            sound_walking.stop()
-
     def update(self, game_over):
         dx = 0
         dy = 0
@@ -474,21 +464,16 @@ class player():
                 self.counter += 1
                 self.direction = -1
                 self.walking = True
-                self.playWalkingSound()
-                self.walking_sound = False
 
             if key[pygame.K_RIGHT]:
                 dx += 5
                 self.counter += 1
                 self.direction = 1
                 self.walking = True
-                self.playWalkingSound()
-                self.walking_sound = False
 
             if key[pygame.K_LEFT] == False and key[pygame.K_RIGHT] == False:
                 self.counter = 0
                 self.index = 0
-                sound_walking.stop()
                 self.walking = False
                 self.walking_sound = True
                 if self.direction == 1:
@@ -746,7 +731,6 @@ def main(game_over):
                      screenWidth // 2)
 
             if game_over_sound:
-                sound_walking.stop()
                 sound_game_over.play()
                 game_over_sound = False
 
