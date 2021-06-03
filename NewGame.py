@@ -853,6 +853,7 @@ def main(game_over):
         if pygame.sprite.spritecollide(player, lv.door_list,
                                        False) and key_found:
             print("next level")
+            key_found = False
             level_counter = levelUp(level_counter)
             player.reset(100, screenHeight - 130)
             # Change Tiles and Load in level data and create world
