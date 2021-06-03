@@ -14,7 +14,7 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 2
+level_counter = 8
 
 screenWidth = 1000
 screenHeight = 1000
