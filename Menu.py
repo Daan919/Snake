@@ -15,8 +15,8 @@ screen_width = 1000
 screen = pygame.display.set_mode(size)
 image_path = os.path.dirname(__file__) + '/Images1/'
 
-buttonhight = screen_hight / 10
-buttonWidth = screen_width / 3
+buttonhight =  int(screen_hight / 10)
+buttonWidth = int(screen_width / 3)
 
 
 font = pygame.font.SysFont(None, screen_width // 20)
@@ -26,7 +26,7 @@ class background():
     def __init__(self):
         self.background = None
         self.background = pygame.image.load(
-            image_path + 'Menu.png').convert()
+            image_path + 'Menu2.png').convert()
         self.background = pygame.transform.scale(
             self.background, size)
 
@@ -47,11 +47,22 @@ bg = background()
 
 def main_menu():
     while True:
+        global click
 
         screen.fill((0, 0, 0))
         bg.draw(screen)
 
         mx, my = pygame.mouse.get_pos()
+
+        img_button1 = pygame.image.load('images_thij/Game_button.png').convert_alpha()
+        img_button2 = pygame.image.load('images_thij/Options_button.png').convert_alpha()
+        img_button3 = pygame.image.load('images_thij/Quit_button.png').convert_alpha()
+
+        img_button1 = pygame.transform.scale(img_button1, [buttonWidth, buttonhight])
+        img_button2 = pygame.transform.scale(img_button2, [buttonWidth, buttonhight])
+        img_button3 = pygame.transform.scale(img_button3, [buttonWidth, buttonhight])
+    
+    
 
         button_1 = pygame.Rect(
             screen_width / 3, buttonhight * 3, buttonWidth, buttonhight)
@@ -59,6 +70,7 @@ def main_menu():
             screen_width / 3, buttonhight * 5, buttonWidth, buttonhight)
         button_3 = pygame.Rect(
             screen_width / 3, buttonhight * 7, buttonWidth, buttonhight)
+        
 
         if button_1.collidepoint((mx, my)):
             if click:
@@ -75,12 +87,12 @@ def main_menu():
         pygame.draw.rect(screen, (255, 0, 0), button_2, 1)
         pygame.draw.rect(screen, (255, 0, 0), button_3, 1)
 
-        draw_text('Game', font, (255, 255, 255),
-                  screen,  buttonWidth * 1.1, buttonhight * 3.4)
-        draw_text('Options', font, (255, 255, 255),
-                  screen,  buttonWidth * 1.1, buttonhight * 5.4)
-        draw_text('Quit', font, (255, 255, 255),
-                  screen,  buttonWidth * 1.1, buttonhight * 7.4)
+        screen.blit(img_button1, [screen_width / 3, buttonhight * 3])
+        screen.blit(img_button2, [screen_width / 3, buttonhight * 5])
+        screen.blit(img_button3, [screen_width / 3, buttonhight * 7])
+
+        
+
 
         click = False
         for event in pygame.event.get():

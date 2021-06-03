@@ -15,7 +15,9 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 4
+
+level_counter = 1
+
 
 screenWidth = 1000
 screenHeight = 1000
@@ -765,6 +767,7 @@ def levelUp(counter):
     counter += 1
     return counter
 
+click2 = False 
 
 def main(game_over):
     global level_counter
@@ -774,7 +777,7 @@ def main(game_over):
     game_over_sound = True
 
     while running:
-        global lv
+        global lv, click2
         clock.tick(60)
         bg.draw(screen)
         lv.draw()
@@ -784,6 +787,42 @@ def main(game_over):
         if game_over != 0:
             drawText("Game Over", font_score, BLACK, screenHeight // 2.5,
                      screenWidth // 2)
+
+
+            # hier moet nog een reset komen van alle levels, de locatie van de speler en de levens moeten nog gereset worden.
+            # Ook qua design kan hier nog een klein continue menu komen.
+
+
+
+
+
+        
+            
+            mx2, my2 = pygame.mouse.get_pos()
+            img_button4 = pygame.image.load('images_thij/Menu_button.png').convert_alpha()
+            img_button4 = pygame.transform.scale(img_button4, [200, 50])
+            button_4 = pygame.Rect(screenHeight / 2.5, screenWidth / 3, 200, 50)
+
+            if button_4.collidepoint((mx2, my2)):
+                if click2:
+                    running = False
+
+            pygame.draw.rect(screen, (255, 0, 0) , button_4, 1)
+
+            screen.blit(img_button4, [screenHeight / 2.5, screenWidth / 3])
+
+
+
+
+            click2 = False
+            for event in pygame.event.get():
+                if event.type == MOUSEBUTTONDOWN:
+                    if event.button == 1:
+                        click2 =  True 
+                if event.type == pygame.QUIT:
+                    pygame.QUIT()
+
+            
 
             if game_over_sound:
                 sound_game_over.play()
