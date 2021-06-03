@@ -15,7 +15,7 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 1
+level_counter = 7
 
 screenWidth = 1000
 screenHeight = 1000
@@ -201,15 +201,13 @@ class level(pygame.sprite.Sprite):
                         colum_count * tile_size + (tile_size // 2),
                         row_count * tile_size)
                     self.spike_list.add(spike)
-
-                    # create spike up down
                 if tile == 12:
-                    spike = spikes_l(
+                    spike = spikes_up(
                         colum_count * tile_size + (tile_size // 2),
                         row_count * tile_size)
                     self.spike_list.add(spike)
                 if tile == 13:
-                    spike = spikes_l(
+                    spike = spikes_down(
                         colum_count * tile_size + (tile_size // 2),
                         row_count * tile_size)
                     self.spike_list.add(spike)
@@ -734,6 +732,25 @@ class spikes_l(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
+
+class spikes_up(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        img = pygame.image.load(image_path + "spike_up.png")
+        self.image = pygame.transform.scale(img, (tile_size // 2, tile_size))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+
+class spikes_down(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        img = pygame.image.load(image_path + "spike_down.png")
+        self.image = pygame.transform.scale(img, (tile_size // 2, tile_size))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y        
 
 
 # Load in level data and create world
