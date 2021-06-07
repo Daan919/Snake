@@ -62,7 +62,6 @@ def main_menu():
         img_button2 = pygame.transform.scale(img_button2, [buttonWidth, buttonhight])
         img_button3 = pygame.transform.scale(img_button3, [buttonWidth, buttonhight])
     
-    
 
         button_1 = pygame.Rect(
             screen_width / 3, buttonhight * 3, buttonWidth, buttonhight)
@@ -83,16 +82,9 @@ def main_menu():
                 pygame.quit()
                 sys.exit()
 
-        pygame.draw.rect(screen, (255, 0, 0), button_1, 1)
-        pygame.draw.rect(screen, (255, 0, 0), button_2, 1)
-        pygame.draw.rect(screen, (255, 0, 0), button_3, 1)
-
         screen.blit(img_button1, [screen_width / 3, buttonhight * 3])
         screen.blit(img_button2, [screen_width / 3, buttonhight * 5])
         screen.blit(img_button3, [screen_width / 3, buttonhight * 7])
-
-        
-
 
         click = False
         for event in pygame.event.get():
