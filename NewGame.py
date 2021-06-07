@@ -15,8 +15,8 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-
 level_counter = 1
+
 
 screenWidth = 1000
 screenHeight = 1000
@@ -852,6 +852,7 @@ def main(game_over):
         if pygame.sprite.spritecollide(player, lv.door_list,
                                        False) and key_found:
             print("next level")
+            key_found = False
             level_counter = levelUp(level_counter)
             player.reset(100, screenHeight - 130)
             # Change Tiles and Load in level data and create world
