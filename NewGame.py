@@ -15,7 +15,7 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 1
+level_counter = 10
 
 
 screenWidth = 1000
@@ -26,9 +26,12 @@ image_path = os.path.dirname(__file__) + '/Images' + \
     str(math.ceil(level_counter/3)) + '/'
 sound_path = os.path.dirname(__file__) + '/Sounds/'
 
+
 font_score = pygame.font.SysFont("Comic Sans", tile_size)
 
 # load sounds
+pygame.mixer.music.load(image_path + "level_sound.mp3")
+pygame.mixer.music.set_volume(0.5)
 sound_get_coin = pygame.mixer.Sound(sound_path + "coin.wav")
 sound_get_coin.set_volume(0.5)
 sound_game_over = pygame.mixer.Sound(sound_path + "game_over.wav")
@@ -477,7 +480,7 @@ class player():
         walk_cooldown = 10
 
         if game_over == 0:
-
+            
             key = pygame.key.get_pressed()
             if key[pygame.
                    K_SPACE] and self.jumped == False and self.in_air == False:
@@ -605,7 +608,7 @@ class player():
                         self.in_air = False
                     if platform.move_x != 0:
                         self.rect.x += platform.move_direction
-
+            
             # update speler zijn coordinates
             self.rect.x += dx
             self.rect.y += dy
@@ -774,6 +777,7 @@ def main(game_over):
     running = True
     key_found = False
     game_over_sound = True
+    pygame.mixer.music.play(-1, 00, 0)
 
     while running:
         global lv, click2
