@@ -15,7 +15,7 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 1
+level_counter = 6
 
 
 screenWidth = 1000
@@ -829,7 +829,6 @@ def main(game_over):
                     lv = level()
                     realLevel = lv.mapTiles(World_data)
 
-            pygame.draw.rect(screen, (255, 0, 0) , button_4, 1)
 
             screen.blit(img_button4, [screenHeight / 2.5, screenWidth / 3])
 
