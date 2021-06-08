@@ -801,6 +801,7 @@ def main(game_over):
         if game_over == 0:
             lv.platform_list.update()
         if game_over != 0:
+            key_found = False
             drawText("Game Over", font_score, BLACK, screenHeight // 2.5,
                      screenWidth // 2)
             # hier moet nog een reset komen van alle levels, de locatie van de speler en de levens moeten nog gereset worden.
@@ -817,7 +818,6 @@ def main(game_over):
                     #Reset in Game, health back to 3, coins back to 0 and player reset at postition of the ghost
                     player.life = 3
                     lv.score = 0
-                    level_counter = levelUp(level_counter)
                     pickle_in = open(f"level{level_counter}_data", "rb")
                     World_data = pickle.load(pickle_in)
                     lv = level()
