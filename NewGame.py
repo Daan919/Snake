@@ -15,7 +15,7 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 4
+level_counter = 1
 
 
 screenWidth = 1000
@@ -36,6 +36,8 @@ sound_get_coin = pygame.mixer.Sound(sound_path + "coin.wav")
 sound_get_coin.set_volume(0.5)
 sound_game_over = pygame.mixer.Sound(sound_path + "game_over.wav")
 sound_game_over.set_volume(0.5)
+sound_get_key = pygame.mixer.Sound(sound_path + "key_sound.mp3")
+sound_get_key.set_volume(0.5)
 
 game_over = 0
 
@@ -788,7 +790,7 @@ def main(game_over):
     running = True
     key_found = False
     game_over_sound = True
-    pygame.mixer.music.play(-1, 00, 0)
+    #pygame.mixer.music.play(-1, 00, 0)
 
     while running:
         global lv, click2
@@ -881,6 +883,7 @@ def main(game_over):
             print(level_counter)
 
         if pygame.sprite.spritecollide(player, lv.key_list, True):
+            sound_get_key.play()
             key_found = True
             print("Go to Next level")
 
