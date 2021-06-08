@@ -803,17 +803,9 @@ def main(game_over):
         if game_over != 0:
             drawText("Game Over", font_score, BLACK, screenHeight // 2.5,
                      screenWidth // 2)
-
-
             # hier moet nog een reset komen van alle levels, de locatie van de speler en de levens moeten nog gereset worden.
             # Ook qua design kan hier nog een klein continue menu komen.
-
-
-
-
-
         
-            
             mx2, my2 = pygame.mouse.get_pos()
             img_button4 = pygame.image.load('images_thij/Menu_button.png').convert_alpha()
             img_button4 = pygame.transform.scale(img_button4, [200, 50])
@@ -822,6 +814,13 @@ def main(game_over):
             if button_4.collidepoint((mx2, my2)):
                 if click2:
                     running = False
+                    #Reset in Game, health back to 3, coins back to 0 and player reset at postition of the ghost
+                    player.life = 3
+                    lv.score = 0
+                    pickle_in = open(f"level{level_counter}_data", "rb")
+                    World_data = pickle.load(pickle_in)
+                    lv = level()
+                    realLevel = lv.mapTiles(World_data)
 
             pygame.draw.rect(screen, (255, 0, 0) , button_4, 1)
 
