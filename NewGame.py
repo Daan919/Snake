@@ -15,7 +15,7 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 13
+level_counter = 1
 
 screenWidth = 1000
 screenHeight = 1000
@@ -28,6 +28,8 @@ sound_path = os.path.dirname(__file__) + '/Sounds/'
 font_score = pygame.font.SysFont("Comic Sans", tile_size)
 
 # load sounds
+pygame.mixer.music.load(image_path + "level_sound.mp3")
+pygame.mixer.music.set_volume(0.2)
 sound_get_coin = pygame.mixer.Sound(sound_path + "coin.wav")
 sound_get_coin.set_volume(0.5)
 sound_game_over = pygame.mixer.Sound(sound_path + "game_over.wav")
@@ -45,6 +47,7 @@ def drawText(text, font, tect_col, x, y):
     screen.blit(img, (x, y))
 
 
+# The enemy class....
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -64,6 +67,7 @@ class Enemy(pygame.sprite.Sprite):
             self.move_counter *= -1
 
 
+# The background class....
 class background():
     def __init__(self):
         self.background = None
@@ -76,6 +80,7 @@ class background():
         screen.blit(self.background, (0, 0))
 
 
+# The level class....
 class level(pygame.sprite.Sprite):
     def mapTiles(self, data):
 
@@ -203,15 +208,13 @@ class level(pygame.sprite.Sprite):
                         colum_count * tile_size + (tile_size // 2),
                         row_count * tile_size)
                     self.spike_list.add(spike)
-
-                    # create spike up down
                 if tile == 12:
-                    spike = spikes_l(
+                    spike = spikes_up(
                         colum_count * tile_size + (tile_size // 2),
                         row_count * tile_size)
                     self.spike_list.add(spike)
                 if tile == 13:
-                    spike = spikes_l(
+                    spike = spikes_down(
                         colum_count * tile_size + (tile_size // 2),
                         row_count * tile_size)
                     self.spike_list.add(spike)
@@ -433,6 +436,7 @@ class level(pygame.sprite.Sprite):
             screen.blit(tile[0], tile[1])
 
 
+# The Player class....
 class player():
     def __init__(self, x, y):
         self.images_right = []
@@ -635,6 +639,7 @@ class player():
         self.in_air = False
 
 
+# The coins class....
 class coins(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -645,6 +650,9 @@ class coins(pygame.sprite.Sprite):
         self.rect.center = (x, y)
 
 
+# Beneed this quote you have the classes Doors and Keys,
+# these classes has also a side effect because there are collidebel with the player
+# and change the lvl when you have the key and collide with the door
 class Doors(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -664,6 +672,7 @@ class Keys(pygame.sprite.Sprite):
         self.rect.center = (x, y)
 
 
+# The moving platform class....
 class platform_move(pygame.sprite.Sprite):
     def __init__(self, x, y, move_x, move_y):
         pygame.sprite.Sprite.__init__(self)
@@ -686,6 +695,7 @@ class platform_move(pygame.sprite.Sprite):
             self.move_counter *= -1
 
 
+# The water class....
 class Water(pygame.sprite.Sprite):
     def __init__(self, x, y, move_x, move_y):
         pygame.sprite.Sprite.__init__(self)
@@ -708,6 +718,8 @@ class Water(pygame.sprite.Sprite):
             self.move_counter *= -1
 
 
+# Beneed this quote there are classes of tiles that has a side effect,
+# because there are classes you can animate them with the player
 class Lava(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
@@ -738,7 +750,27 @@ class spikes_l(pygame.sprite.Sprite):
         self.rect.y = y
 
 
-# Load in level data and create world
+class spikes_up(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        img = pygame.image.load(image_path + "spike_up.png")
+        self.image = pygame.transform.scale(img, (tile_size // 2, tile_size))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+
+class spikes_down(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        img = pygame.image.load(image_path + "spike_down.png")
+        self.image = pygame.transform.scale(img, (tile_size // 2, tile_size))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+
+# Load in level_data and create the world in a new level
 pickle_in = open(f"level{level_counter}_data", "rb")
 World_data = pickle.load(pickle_in)
 lv = level()
@@ -746,9 +778,14 @@ realLevel = lv.mapTiles(World_data)
 player = player(130, screenHeight - 130)
 
 
+# The levels are depent on the counter, when player has the key and hits the door,
+# the counter is going up with 1 and the new level loads
 def levelUp(counter):
     counter += 1
     return counter
+
+
+click2 = False
 
 
 def main(game_over):
@@ -757,18 +794,47 @@ def main(game_over):
     running = True
     key_found = False
     game_over_sound = True
+    pygame.mixer.music.play(-1, 00, 0)
 
     while running:
-        global lv
+        global lv, click2
         clock.tick(60)
         bg.draw(screen)
         lv.draw()
 
+        # when game over equals zero the platform list updates
+        # when game over is not equal to zero the player has no lives and on screen pop up the continue screen
         if game_over == 0:
             lv.platform_list.update()
         if game_over != 0:
             drawText("Game Over", font_score, BLACK, screenHeight // 2.5,
                      screenWidth // 2)
+
+            # hier moet nog een reset komen van alle levels, de locatie van de speler en de levens moeten nog gereset worden.
+            # Ook qua design kan hier nog een klein continue menu komen.
+
+            mx2, my2 = pygame.mouse.get_pos()
+            img_button4 = pygame.image.load(
+                'images_thij/Menu_button.png').convert_alpha()
+            img_button4 = pygame.transform.scale(img_button4, [200, 50])
+            button_4 = pygame.Rect(screenHeight / 2.5, screenWidth / 3, 200,
+                                   50)
+
+            if button_4.collidepoint((mx2, my2)):
+                if click2:
+                    running = False
+
+            pygame.draw.rect(screen, (255, 0, 0), button_4, 1)
+
+            screen.blit(img_button4, [screenHeight / 2.5, screenWidth / 3])
+
+            click2 = False
+            for event in pygame.event.get():
+                if event.type == MOUSEBUTTONDOWN:
+                    if event.button == 1:
+                        click2 = True
+                if event.type == pygame.QUIT:
+                    pygame.QUIT()
 
             if game_over_sound:
                 sound_game_over.play()
@@ -785,7 +851,7 @@ def main(game_over):
         lv.platform_list.draw(screen)
         game_over = player.update(game_over)
 
-        # update score
+        # If the player finds a coin, the score is going up with one and when you picking up the coin you heare a coin sound
 
         if pygame.sprite.spritecollide(player, lv.coin_list, True):
             lv.score += 1
@@ -796,13 +862,15 @@ def main(game_over):
             str(player.life) + " lifes left", font_score, white, tile_size * 4,
             tile_size // 4)
 
-        # update level
+        # Load in level_data and create the world in a new level
+        # The levels are depent on the counter, when player has the key and hits the door,
+        # the counter is going up with 1 and the new level loads
         if pygame.sprite.spritecollide(player, lv.door_list,
                                        False) and key_found:
             print("next level")
+            key_found = False
             level_counter = levelUp(level_counter)
             player.reset(100, screenHeight - 130)
-            # Change Tiles and Load in level data and create world
 
             pickle_in = open(f"level{level_counter}_data", "rb")
             World_data = pickle.load(pickle_in)
