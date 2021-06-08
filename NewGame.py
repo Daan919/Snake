@@ -15,14 +15,14 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 8
+level_counter = 13
 
 screenWidth = 1000
 screenHeight = 1000
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption('ons eerste spelletje')
 image_path = os.path.dirname(__file__) + '/Images' + \
-    str(math.ceil(level_counter/3)) + '/'
+    str(math.floor(level_counter/2)) + '/'
 sound_path = os.path.dirname(__file__) + '/Sounds/'
 
 font_score = pygame.font.SysFont("Comic Sans", tile_size)
@@ -48,7 +48,8 @@ def drawText(text, font, tect_col, x, y):
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load(image_path + 'barbarian.png')
+        img = pygame.image.load(image_path + 'enemy.png')
+        self.image = pygame.transform.scale(img, (tile_size, tile_size))
         self.rect = self.image.get_rect()
         self.rect.x = x
         self.rect.y = y
@@ -80,6 +81,7 @@ class level(pygame.sprite.Sprite):
 
         self.tile_list = []
         self.coin_list = pygame.sprite.Group()
+        self.enemy_list = pygame.sprite.Group()
         self.spike_list = pygame.sprite.Group()
         self.lava_list = pygame.sprite.Group()
         self.water_list = pygame.sprite.Group()
@@ -107,7 +109,7 @@ class level(pygame.sprite.Sprite):
         self.img_key = pygame.image.load(image_path + 'key.png')
         self.img_door = pygame.image.load(image_path + 'door.png')
         self.img_coin = pygame.image.load(image_path + 'Coin.png')
-        self.img_enemy = pygame.image.load(image_path + 'coin.png')
+        self.img_enemy = pygame.image.load(image_path + 'enemy.png')
 
         self.img_dirt = pygame.transform.scale(self.img_dirt,
                                                (tile_size, tile_size))
@@ -225,10 +227,10 @@ class level(pygame.sprite.Sprite):
                     coin = coins(colum_count * tile_size + (tile_size // 2),
                                  row_count * tile_size + (tile_size // 2))
                     self.coin_list.add(coin)
-                if tile == 17:  # create enamy class
-                    coin = coins(colum_count * tile_size + (tile_size // 2),
-                                 row_count * tile_size + (tile_size // 2))
-                    self.coin_list.add(coin)
+                if tile == 17:  # create enemy class
+                    enemy = Enemy(colum_count * tile_size + (tile_size // 2),
+                                  row_count * tile_size + (tile_size // 2))
+                    self.enemy_list.add(enemy)
 
                 if tile == 18:
                     self.img_deco_block = pygame.image.load(image_path +
@@ -775,6 +777,7 @@ def main(game_over):
         lv.door_list.draw(screen)
         lv.key_list.draw(screen)
         lv.coin_list.draw(screen)
+        lv.enemy_list.draw(screen)
         lv.water_list.draw(screen)
         lv.lava_list.draw(screen)
         lv.spike_list.draw(screen)
