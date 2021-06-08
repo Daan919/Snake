@@ -3,6 +3,7 @@ from pygame.locals import *
 from pygame import mixer
 import pickle
 import math
+import sys
 import Menu
 import os
 from os import path, walk
@@ -36,6 +37,8 @@ sound_get_coin = pygame.mixer.Sound(sound_path + "coin.wav")
 sound_get_coin.set_volume(0.5)
 sound_game_over = pygame.mixer.Sound(sound_path + "game_over.wav")
 sound_game_over.set_volume(0.5)
+sound_get_key = pygame.mixer.Sound(sound_path + "key_sound.mp3")
+sound_get_key.set_volume(0.5)
 
 game_over = 0
 
@@ -793,7 +796,7 @@ def main(game_over):
     running = True
     key_found = False
     game_over_sound = True
-    pygame.mixer.music.play(-1, 00, 0)
+    #pygame.mixer.music.play(-1, 00, 0)
 
     while running:
         global lv, click2
@@ -808,14 +811,18 @@ def main(game_over):
         if game_over != 0:
             key_found = False
             drawText("Game Over", font_score, BLACK, screenHeight // 2.5,
-                     screenWidth // 2)
+                     screenWidth // 3)
             # hier moet nog een reset komen van alle levels, de locatie van de speler en de levens moeten nog gereset worden.
             # Ook qua design kan hier nog een klein continue menu komen.
         
             mx2, my2 = pygame.mouse.get_pos()
             img_button4 = pygame.image.load('images_thij/Menu_button.png').convert_alpha()
             img_button4 = pygame.transform.scale(img_button4, [200, 50])
+            img_button5 = pygame.image.load('images_thij/quit_button.png').convert_alpha()
+            img_button5 = pygame.transform.scale(img_button5, [200, 50])
+
             button_4 = pygame.Rect(screenHeight / 2.5, screenWidth / 3, 200, 50)
+            button_5 = pygame.Rect(screenHeight / 2.5, screenWidth / 2.5, 200, 50)
 
             if button_4.collidepoint((mx2, my2)):
                 if click2:
@@ -828,9 +835,15 @@ def main(game_over):
                     World_data = pickle.load(pickle_in)
                     lv = level()
                     realLevel = lv.mapTiles(World_data)
-
+            if button_5.collidepoint((mx2, my2)):
+                if click2:
+                    pygame.quit()
+                    sys.exit()
+            
+            
 
             screen.blit(img_button4, [screenHeight / 2.5, screenWidth / 3])
+            screen.blit(img_button5, [screenHeight / 2.5, screenWidth / 2.5])
 
 
 
@@ -886,6 +899,7 @@ def main(game_over):
             print(level_counter)
 
         if pygame.sprite.spritecollide(player, lv.key_list, True):
+            sound_get_key.play()
             key_found = True
             print("Go to Next level")
 
