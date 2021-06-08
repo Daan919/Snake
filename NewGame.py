@@ -788,7 +788,7 @@ def main(game_over):
     running = True
     key_found = False
     game_over_sound = True
-    #pygame.mixer.music.play(-1, 00, 0)
+    pygame.mixer.music.play(-1, 00, 0)
 
     while running:
         global lv, click2
