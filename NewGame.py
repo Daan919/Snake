@@ -3,6 +3,7 @@ from pygame.locals import *
 from pygame import mixer
 import pickle
 import math
+import sys
 import Menu
 import os
 from os import path, walk
@@ -15,13 +16,13 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 1
+level_counter = 9
 
 
 screenWidth = 1000
 screenHeight = 1000
 screen = pygame.display.set_mode((screenWidth, screenHeight))
-pygame.display.set_caption('ons eerste spelletje')
+pygame.display.set_caption('The Game')
 image_path = os.path.dirname(__file__) + '/Images' + \
     str(math.ceil(level_counter/3)) + '/'
 sound_path = os.path.dirname(__file__) + '/Sounds/'
@@ -31,7 +32,7 @@ font_score = pygame.font.SysFont("Comic Sans", tile_size)
 
 # load sounds
 pygame.mixer.music.load(image_path + "level_sound.mp3")
-pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.set_volume(0.1)
 sound_get_coin = pygame.mixer.Sound(sound_path + "coin.wav")
 sound_get_coin.set_volume(0.5)
 sound_game_over = pygame.mixer.Sound(sound_path + "game_over.wav")
@@ -782,6 +783,11 @@ def levelUp(counter):
     counter += 1
     return counter
 
+def levelRespan(counter):
+    counter
+    return counter
+
+
 click2 = False 
 
 def main(game_over):
@@ -803,31 +809,41 @@ def main(game_over):
         if game_over == 0:
             lv.platform_list.update()
         if game_over != 0:
+            key_found = False
             drawText("Game Over", font_score, BLACK, screenHeight // 2.5,
-                     screenWidth // 2)
-
-
+                     screenWidth // 3)
             # hier moet nog een reset komen van alle levels, de locatie van de speler en de levens moeten nog gereset worden.
             # Ook qua design kan hier nog een klein continue menu komen.
-
-
-
-
-
         
-            
             mx2, my2 = pygame.mouse.get_pos()
             img_button4 = pygame.image.load('images_thij/Menu_button.png').convert_alpha()
             img_button4 = pygame.transform.scale(img_button4, [200, 50])
+            img_button5 = pygame.image.load('images_thij/quit_button.png').convert_alpha()
+            img_button5 = pygame.transform.scale(img_button5, [200, 50])
+
             button_4 = pygame.Rect(screenHeight / 2.5, screenWidth / 3, 200, 50)
+            button_5 = pygame.Rect(screenHeight / 2.5, screenWidth / 2.5, 200, 50)
 
             if button_4.collidepoint((mx2, my2)):
                 if click2:
                     running = False
-
-            pygame.draw.rect(screen, (255, 0, 0) , button_4, 1)
+                    #Reset in Game, health back to 3, coins back to 0 and player reset at postition of the ghost
+                    player.life = 3
+                    lv.score = 0
+                    level_counter = levelRespan(level_counter)
+                    pickle_in = open(f"level{level_counter}_data", "rb")
+                    World_data = pickle.load(pickle_in)
+                    lv = level()
+                    realLevel = lv.mapTiles(World_data)
+            if button_5.collidepoint((mx2, my2)):
+                if click2:
+                    pygame.quit()
+                    sys.exit()
+            
+            
 
             screen.blit(img_button4, [screenHeight / 2.5, screenWidth / 3])
+            screen.blit(img_button5, [screenHeight / 2.5, screenWidth / 2.5])
 
 
 
