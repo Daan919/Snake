@@ -817,6 +817,7 @@ def main(game_over):
                     #Reset in Game, health back to 3, coins back to 0 and player reset at postition of the ghost
                     player.life = 3
                     lv.score = 0
+                    level_counter = levelUp(level_counter)
                     pickle_in = open(f"level{level_counter}_data", "rb")
                     World_data = pickle.load(pickle_in)
                     lv = level()
