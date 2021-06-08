@@ -15,7 +15,7 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 10
+level_counter = 4
 
 
 screenWidth = 1000
@@ -777,7 +777,7 @@ def main(game_over):
     running = True
     key_found = False
     game_over_sound = True
-    pygame.mixer.music.play(-1, 00, 0)
+    #pygame.mixer.music.play(-1, 00, 0)
 
     while running:
         global lv, click2
