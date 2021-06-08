@@ -801,6 +801,7 @@ def main(game_over):
         if game_over == 0:
             lv.platform_list.update()
         if game_over != 0:
+            key_found = False
             drawText("Game Over", font_score, BLACK, screenHeight // 2.5,
                      screenWidth // 2)
             # hier moet nog een reset komen van alle levels, de locatie van de speler en de levens moeten nog gereset worden.
