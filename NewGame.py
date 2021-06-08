@@ -16,13 +16,13 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 6
+level_counter = 9
 
 
 screenWidth = 1000
 screenHeight = 1000
 screen = pygame.display.set_mode((screenWidth, screenHeight))
-pygame.display.set_caption('ons eerste spelletje')
+pygame.display.set_caption('The Game')
 image_path = os.path.dirname(__file__) + '/Images' + \
     str(math.ceil(level_counter/3)) + '/'
 sound_path = os.path.dirname(__file__) + '/Sounds/'
@@ -781,6 +781,11 @@ def levelUp(counter):
     counter += 1
     return counter
 
+def levelRespan(counter):
+    counter
+    return counter
+
+
 click2 = False 
 
 def main(game_over):
@@ -823,6 +828,7 @@ def main(game_over):
                     #Reset in Game, health back to 3, coins back to 0 and player reset at postition of the ghost
                     player.life = 3
                     lv.score = 0
+                    level_counter = levelRespan(level_counter)
                     pickle_in = open(f"level{level_counter}_data", "rb")
                     World_data = pickle.load(pickle_in)
                     lv = level()
