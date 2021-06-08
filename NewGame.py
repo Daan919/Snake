@@ -39,6 +39,8 @@ sound_game_over = pygame.mixer.Sound(sound_path + "game_over.wav")
 sound_game_over.set_volume(0.5)
 sound_get_key = pygame.mixer.Sound(sound_path + "key_sound.mp3")
 sound_get_key.set_volume(0.5)
+sound_fall_in_lava = pygame.mixer.Sound(sound_path + "lava_sound.mp3")
+sound_fall_in_lava.set_volume(0.5)
 
 game_over = 0
 
@@ -566,6 +568,7 @@ class player():
 
             if pygame.sprite.spritecollide(self, lv.lava_list, False):
                 self.life -= 1
+                sound_fall_in_lava.play()
                 if self.life != 0:
                     self.rect.x = 100
                     self.rect.y = screenHeight - 130
@@ -796,7 +799,7 @@ def main(game_over):
     running = True
     key_found = False
     game_over_sound = True
-    #pygame.mixer.music.play(-1, 00, 0)
+    pygame.mixer.music.play(-1, 00, 0)
 
     while running:
         global lv, click2
