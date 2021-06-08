@@ -15,7 +15,7 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 4
+level_counter = 1
 
 
 screenWidth = 1000
@@ -31,7 +31,7 @@ font_score = pygame.font.SysFont("Comic Sans", tile_size)
 
 # load sounds
 pygame.mixer.music.load(image_path + "level_sound.mp3")
-pygame.mixer.music.set_volume(0.5)
+pygame.mixer.music.set_volume(0.2)
 sound_get_coin = pygame.mixer.Sound(sound_path + "coin.wav")
 sound_get_coin.set_volume(0.5)
 sound_game_over = pygame.mixer.Sound(sound_path + "game_over.wav")
