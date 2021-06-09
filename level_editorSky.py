@@ -16,35 +16,58 @@ screen_width = tile_size * cols
 screen_height = (tile_size * cols) + margin
 
 screen = pygame.display.set_mode((screen_width, screen_height))
-pygame.display.set_caption('Level Editor Cave')
+pygame.display.set_caption('Level Editor Water')
 
 
-map = 'in'
+ImgPath = "Images4/"
 
-# load images
-sun_img = pygame.image.load('Images2/sun.png')
+sun_img = pygame.image.load(ImgPath + 'sun.png')
 sun_img = pygame.transform.scale(sun_img, (tile_size, tile_size))
-bg_img = pygame.image.load('Images4/background.png')
+bg_img = pygame.image.load(ImgPath + 'background.png')
 bg_img = pygame.transform.scale(bg_img, (screen_width, screen_height - margin))
-dirt_img = pygame.image.load('Images4/stone.png')
-grass_img = pygame.image.load('Images4/grass.png')
-grassLeft_img = pygame.image.load('Images4/grassLeft.png')
-grassRight_img = pygame.image.load('Images4/grassRight.png')
-grassMid_img = pygame.image.load('Images4/grassMid.png')
-waterblock_img = pygame.image.load('Images2/waterblock.png')
-waterwave_img = pygame.image.load('Images2/waterwave.png')
-platform_x_img = pygame.image.load('Images2/platform.png')
-platform_y_img = pygame.image.load('Images4/platform.png')
-lava_img = pygame.image.load('Images2/lava.png')
-spikesR_img = pygame.image.load('Images2/spikes_right.png')
-spikesL_img = pygame.image.load('Images2/spikes_left.png')
-water_img = pygame.image.load('Images2/water.png')
-coin_img = pygame.image.load('Images2/coin.png')
-exit_img = pygame.image.load('Images4/door.png')
-key_img = pygame.image.load('Images4/key.png')
-save_img = pygame.image.load('Images2/save_btn.png')
-load_img = pygame.image.load('Images2/load_btn.png')
 
+img_dirt = pygame.image.load(ImgPath + 'dirt.png')
+img_grass = pygame.image.load(ImgPath + 'grass.png')
+img_static_platform_left = pygame.image.load(
+    ImgPath + 'static_platform_left.png')
+img_static_platform_mid = pygame.image.load(
+    ImgPath + 'static_platform_mid.png')
+img_static_platform_right = pygame.image.load(
+    ImgPath + 'static_platform_right.png')
+img_moving_platform = pygame.image.load(ImgPath + 'moving_platform.png')
+img_moving_platform = pygame.image.load(ImgPath + 'moving_platform.png')
+img_water = pygame.image.load(ImgPath + 'water.png')
+img_lava = pygame.image.load(ImgPath + 'lava.png')
+img_spike_right = pygame.image.load(ImgPath + 'spike_right.png')
+img_spike_left = pygame.image.load(ImgPath + 'spike_left.png')
+img_spike_up = pygame.image.load(ImgPath + 'spike_up.png')
+img_spike_down = pygame.image.load(ImgPath + 'spike_down.png')
+img_key = pygame.image.load(ImgPath + 'key.png')
+img_door = pygame.image.load(ImgPath + 'door.png')
+img_coin = pygame.image.load(ImgPath + 'Coin.png')
+img_enemy = pygame.image.load(ImgPath + 'coin.png')
+img_deco_block_1 = pygame.image.load(ImgPath + 'deco_block_1.png')
+img_deco_block_2 = pygame.image.load(ImgPath + 'deco_block_2.png')
+img_deco_block_3 = pygame.image.load(ImgPath + 'deco_block_3.png')
+img_deco_block_4 = pygame.image.load(ImgPath + 'deco_block_4.png')
+img_deco_block_5 = pygame.image.load(ImgPath + 'deco_block_5.png')
+img_deco_block_6 = pygame.image.load(ImgPath + 'deco_block_6.png')
+img_deco_block_7 = pygame.image.load(ImgPath + 'deco_block_7.png')
+img_deco_block_8 = pygame.image.load(ImgPath + 'deco_block_8.png')
+img_deco_block_9 = pygame.image.load(ImgPath + 'deco_block_9.png')
+img_decoratie_1 = pygame.image.load(ImgPath + 'decoratie_1.png')
+img_decoratie_2 = pygame.image.load(ImgPath + 'decoratie_2.png')
+img_decoratie_3 = pygame.image.load(ImgPath + 'decoratie_3.png')
+img_decoratie_4 = pygame.image.load(ImgPath + 'decoratie_4.png')
+img_decoratie_5 = pygame.image.load(ImgPath + 'decoratie_5.png')
+img_decoratie_6 = pygame.image.load(ImgPath + 'decoratie_6.png')
+img_decoratie_7 = pygame.image.load(ImgPath + 'decoratie_7.png')
+img_decoratie_8 = pygame.image.load(ImgPath + 'decoratie_8.png')
+img_decoratie_9 = pygame.image.load(ImgPath + 'decoratie_9.png')
+img_decoratie_10 = pygame.image.load(ImgPath + 'decoratie_10.png')
+
+save_img = pygame.image.load('Images1/save_btn.png')
+load_img = pygame.image.load('Images1/load_btn.png')
 
 # define game variables
 clicked = False
@@ -91,90 +114,156 @@ def draw_world():
     for row in range(40):
         for col in range(40):
             if world_data[row][col] > 0:
+
+                # Standaart blockje
                 if world_data[row][col] == 1:
-                    # dirt blocks
                     img = pygame.transform.scale(
-                        dirt_img, (tile_size, tile_size))
+                        img_dirt, (tile_size, tile_size))
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 2:
-                    # grass blocks
                     img = pygame.transform.scale(
-                        grass_img, (tile_size, tile_size))
+                        img_grass, (tile_size, tile_size))
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 3:
-                    # waterblock blocks
                     img = pygame.transform.scale(
-                        waterblock_img, (tile_size, tile_size))
+                        img_static_platform_left, (tile_size, tile_size))
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 4:
-                    # waterwave blocks
                     img = pygame.transform.scale(
-                        waterwave_img, (tile_size, tile_size))
+                        img_static_platform_mid, (tile_size, tile_size))
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 5:
-                    # horizontally moving platform
                     img = pygame.transform.scale(
-                        platform_x_img, (tile_size, tile_size // 2))
+                        img_static_platform_right, (tile_size, tile_size))
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 6:
-                    # vertically moving platform
                     img = pygame.transform.scale(
-                        platform_y_img, (tile_size, tile_size // 2))
+                        img_moving_platform, (tile_size, tile_size))
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 7:
-                    # lava
                     img = pygame.transform.scale(
-                        lava_img, (tile_size, tile_size // 2))
-                    screen.blit(img, (col * tile_size, row *
-                                tile_size + (tile_size // 2)))
+                        img_moving_platform, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+
+                    # interactieve blockjes
                 if world_data[row][col] == 8:
-                    # Spikes Right blocks
                     img = pygame.transform.scale(
-                        spikesR_img, (tile_size, tile_size))
+                        img_water, (tile_size, tile_size))
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 9:
-                    # Spikes Left blocks
                     img = pygame.transform.scale(
-                        spikesL_img, (tile_size, tile_size))
+                        img_lava, (tile_size, tile_size))
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 10:
-                    # water
                     img = pygame.transform.scale(
-                        water_img, (tile_size, tile_size // 2))
-                    screen.blit(img, (col * tile_size, row *
-                                tile_size + (tile_size // 2)))
+                        img_spike_right, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 11:
-                    # door
                     img = pygame.transform.scale(
-                        exit_img, (tile_size, int(tile_size * 1.5)))
-                    screen.blit(img, (col * tile_size, row *
-                                tile_size - (tile_size // 2)))
+                        img_spike_left, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 12:
-                    # key
                     img = pygame.transform.scale(
-                        key_img, (tile_size, int(tile_size * 1.1)))
-                    screen.blit(img, (col * tile_size, row *
-                                tile_size - (tile_size // 2)))
+                        img_spike_up, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 13:
-                    # coins
                     img = pygame.transform.scale(
-                        coin_img, (tile_size, tile_size // 2))
-                    screen.blit(img, (col * tile_size, row *
-                                tile_size + (tile_size // 2)))
+                        img_spike_down, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 14:
-                    # coins
                     img = pygame.transform.scale(
-                        grassLeft_img, (tile_size, tile_size))
+                        img_key, (tile_size, tile_size))
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 15:
-                    # coins
                     img = pygame.transform.scale(
-                        grassRight_img, (tile_size, tile_size))
+                        img_door, (tile_size, tile_size * 2))
                     screen.blit(img, (col * tile_size, row * tile_size))
                 if world_data[row][col] == 16:
-                    # coins
                     img = pygame.transform.scale(
-                        grassMid_img, (tile_size, tile_size))
+                        img_coin, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 17:
+                    img = pygame.transform.scale(
+                        img_enemy, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                    # Deco block
+                if world_data[row][col] == 18:
+                    img = pygame.transform.scale(
+                        img_deco_block_1, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 19:
+                    img = pygame.transform.scale(
+                        img_deco_block_2, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 20:
+                    img = pygame.transform.scale(
+                        img_deco_block_3, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 21:
+                    img = pygame.transform.scale(
+                        img_deco_block_4, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 22:
+                    img = pygame.transform.scale(
+                        img_deco_block_5, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 23:
+                    img = pygame.transform.scale(
+                        img_deco_block_6, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 24:
+                    img = pygame.transform.scale(
+                        img_deco_block_7, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 25:
+                    img = pygame.transform.scale(
+                        img_deco_block_8, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 26:
+                    img = pygame.transform.scale(
+                        img_deco_block_9, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+
+                    # Decoratie block
+                if world_data[row][col] == 27:
+                    img = pygame.transform.scale(
+                        img_decoratie_1, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 28:
+                    img = pygame.transform.scale(
+                        img_decoratie_2, (tile_size, tile_size // 2))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 29:
+                    img = pygame.transform.scale(
+                        img_decoratie_3, (tile_size, tile_size // 2))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 30:
+                    img = pygame.transform.scale(
+                        img_decoratie_4, (tile_size, tile_size // 2))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 31:
+                    img = pygame.transform.scale(
+                        img_decoratie_5, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 32:
+                    img = pygame.transform.scale(
+                        img_decoratie_6, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 33:
+                    img = pygame.transform.scale(
+                        img_decoratie_7, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 34:
+                    img = pygame.transform.scale(
+                        img_decoratie_8, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 35:
+                    img = pygame.transform.scale(
+                        img_decoratie_9, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 36:
+                    img = pygame.transform.scale(
+                        img_decoratie_10, (tile_size, tile_size))
                     screen.blit(img, (col * tile_size, row * tile_size))
 
 
@@ -219,7 +308,6 @@ while run:
     # draw background
     screen.fill(green)
     screen.blit(bg_img, (0, 0))
-    screen.blit(sun_img, (tile_size * 2, tile_size * 2))
 
     # load and save level
     if save_button.draw():
@@ -259,12 +347,12 @@ while run:
                 # update tile value
                 if pygame.mouse.get_pressed()[0] == 1:
                     world_data[y][x] += 1
-                    if world_data[y][x] > 16:
+                    if world_data[y][x] > 36:
                         world_data[y][x] = 0
                 elif pygame.mouse.get_pressed()[2] == 1:
                     world_data[y][x] -= 1
                     if world_data[y][x] < 0:
-                        world_data[y][x] = 16
+                        world_data[y][x] = 36
         if event.type == pygame.MOUSEBUTTONUP:
             clicked = False
         # up and down key presses to change level number

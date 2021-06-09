@@ -14,7 +14,7 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 7
+level_counter = 10
 
 screenWidth = 1000
 screenHeight = 1000
@@ -65,12 +65,14 @@ class level(pygame.sprite.Sprite):
 
         self.tile_list = []
         self.coin_list = pygame.sprite.Group()
+        self.hart_list = pygame.sprite.Group()
         self.spike_list = pygame.sprite.Group()
         self.lava_list = pygame.sprite.Group()
         self.water_list = pygame.sprite.Group()
         self.door_list = pygame.sprite.Group()
         self.key_list = pygame.sprite.Group()
         self.platform_list = pygame.sprite.Group()
+        self.decoratie = []
 
         self.score = 0
 
@@ -314,7 +316,7 @@ class level(pygame.sprite.Sprite):
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
                     tile = (self.img_deco, img_rect)
-                    self.tile_list.append(tile)
+                    self.decoratie.append(tile)
                 if tile == 28:
                     self.img_deco = pygame.image.load(
                         image_path + 'decoratie_2.png')
@@ -324,7 +326,7 @@ class level(pygame.sprite.Sprite):
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
                     tile = (self.img_deco, img_rect)
-                    self.tile_list.append(tile)
+                    self.decoratie.append(tile)
                 if tile == 29:
                     self.img_deco = pygame.image.load(
                         image_path + 'decoratie_3.png')
@@ -334,7 +336,7 @@ class level(pygame.sprite.Sprite):
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
                     tile = (self.img_deco, img_rect)
-                    self.tile_list.append(tile)
+                    self.decoratie.append(tile)
                 if tile == 30:
                     self.img_deco = pygame.image.load(
                         image_path + 'decoratie_4.png')
@@ -344,7 +346,7 @@ class level(pygame.sprite.Sprite):
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
                     tile = (self.img_deco, img_rect)
-                    self.tile_list.append(tile)
+                    self.decoratie.append(tile)
                 if tile == 31:
                     self.img_deco = pygame.image.load(
                         image_path + 'decoratie_5.png')
@@ -354,7 +356,7 @@ class level(pygame.sprite.Sprite):
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
                     tile = (self.img_deco, img_rect)
-                    self.tile_list.append(tile)
+                    self.decoratie.append(tile)
                 if tile == 32:
                     self.img_deco = pygame.image.load(
                         image_path + 'decoratie_6.png')
@@ -364,7 +366,7 @@ class level(pygame.sprite.Sprite):
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
                     tile = (self.img_deco, img_rect)
-                    self.tile_list.append(tile)
+                    self.decoratie.append(tile)
                 if tile == 33:
                     self.img_deco = pygame.image.load(
                         image_path + 'decoratie_7.png')
@@ -374,7 +376,7 @@ class level(pygame.sprite.Sprite):
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
                     tile = (self.img_deco, img_rect)
-                    self.tile_list.append(tile)
+                    self.decoratie.append(tile)
                 if tile == 34:
                     self.img_deco = pygame.image.load(
                         image_path + 'decoratie_8.png')
@@ -384,7 +386,7 @@ class level(pygame.sprite.Sprite):
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
                     tile = (self.img_deco, img_rect)
-                    self.tile_list.append(tile)
+                    self.decoratie.append(tile)
                 if tile == 35:
                     self.img_deco = pygame.image.load(
                         image_path + 'decoratie_9.png')
@@ -394,7 +396,7 @@ class level(pygame.sprite.Sprite):
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
                     tile = (self.img_deco, img_rect)
-                    self.tile_list.append(tile)
+                    self.decoratie.append(tile)
                 if tile == 36:
                     self.img_deco = pygame.image.load(
                         image_path + 'decoratie_10.png')
@@ -404,7 +406,11 @@ class level(pygame.sprite.Sprite):
                     img_rect.x = colum_count * tile_size
                     img_rect.y = row_count * tile_size
                     tile = (self.img_deco, img_rect)
-                    self.tile_list.append(tile)
+                    self.decoratie.append(tile)
+                if tile == 37:
+                    coin = coins(colum_count * tile_size + (tile_size // 2),
+                                 row_count * tile_size + (tile_size // 2))
+                    self.hart_list.add(coin)
                 colum_count += 1
             row_count += 1
 
@@ -414,6 +420,8 @@ class level(pygame.sprite.Sprite):
     def draw(self, ):
         for tile in self.tile_list:
             screen.blit(tile[0], tile[1])
+        for deco in self.decoratie:
+            screen.blit(deco[0], deco[1])
 
 
 class player():
@@ -424,7 +432,9 @@ class player():
         self.counter = 0
         for number in range(1, 7):
             img_right = pygame.image.load(image_path + f'run{number}.png')
+            img_right = pygame.transform.scale(img_right, (23, 47))
             img_left = pygame.transform.flip(img_right, True, False)
+            img_left = pygame.transform.scale(img_left, (23, 47))
             self.images_right.append(img_right)
             self.images_left.append(img_left)
 
@@ -532,6 +542,22 @@ class player():
                 if self.life == 0:
                     game_over = 1
 
+            if self.rect.y > screenHeight or self.rect.y < 0:
+                self.life -= 1
+                if self.life != 0:
+                    self.rect.x = 100
+                    self.rect.y = screenHeight - 130
+                if self.life == 0:
+                    game_over = 1
+
+            if self.rect.x > screenHeight or self.rect.x < 0:
+                self.life -= 1
+                if self.life != 0:
+                    self.rect.x = 100
+                    self.rect.y = screenHeight - 130
+                if self.life == 0:
+                    game_over = 1
+
             for platform in lv.platform_list:
                 if platform.rect.colliderect(self.rect.x + dx, self.rect.y,
                                              self.width, self.height):
@@ -598,6 +624,16 @@ class coins(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
         img = pygame.image.load(image_path + 'coin.png')
+        self.image = pygame.transform.scale(img,
+                                            (tile_size // 2, tile_size // 2))
+        self.rect = self.image.get_rect()
+        self.rect.center = (x, y)
+
+
+class Life(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        img = pygame.image.load(image_path + 'hart.png')
         self.image = pygame.transform.scale(img,
                                             (tile_size // 2, tile_size // 2))
         self.rect = self.image.get_rect()
@@ -737,6 +773,7 @@ def main(game_over):
         lv.door_list.draw(screen)
         lv.key_list.draw(screen)
         lv.coin_list.draw(screen)
+        lv.hart_list.draw(screen)
         lv.water_list.draw(screen)
         lv.lava_list.draw(screen)
         lv.spike_list.draw(screen)
@@ -749,6 +786,10 @@ def main(game_over):
         if pygame.sprite.spritecollide(player, lv.coin_list, True):
             lv.score += 1
             sound_get_coin.play()
+        if pygame.sprite.spritecollide(player, lv.hart_list, True):
+            player.life += 1
+            sound_get_coin.play()
+
         drawText(" X" + str(lv.score), font_score, white, tile_size // 2,
                  tile_size // 4)
         drawText(
