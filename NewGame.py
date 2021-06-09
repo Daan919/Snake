@@ -17,14 +17,14 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 3
+level_counter = 1
 
 screenWidth = 1000
 screenHeight = 1000
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption('The Game')
 image_path = os.path.dirname(__file__) + '/Images' + \
-    str(math.floor(level_counter/2)) + '/'
+    str(math.ceil(level_counter / 3)) + '/'
 sound_path = os.path.dirname(__file__) + '/Sounds/'
 
 font_score = pygame.font.SysFont("Comic Sans", tile_size)
