@@ -16,7 +16,7 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 9
+level_counter = 1
 
 
 screenWidth = 1000
@@ -791,7 +791,13 @@ def levelRespan(counter):
     return counter
 
 
-click2 = False 
+click2 = False
+
+def credits():
+    pygame.mixer.music.stop()
+    Menu.credits()
+
+
 
 def main(game_over):
     global level_counter
@@ -914,5 +920,9 @@ def main(game_over):
                 pygame.quit()
                 runnig = False
 
+        if level_counter > 12:
+            credits()
+
+        
 
 # main(level_counter,game_over)
