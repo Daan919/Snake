@@ -65,6 +65,7 @@ img_decoratie_7 = pygame.image.load(ImgPath + 'decoratie_7.png')
 img_decoratie_8 = pygame.image.load(ImgPath + 'decoratie_8.png')
 img_decoratie_9 = pygame.image.load(ImgPath + 'decoratie_9.png')
 img_decoratie_10 = pygame.image.load(ImgPath + 'decoratie_10.png')
+img_harth = pygame.image.load(ImgPath + 'hearth.png')
 
 save_img = pygame.image.load('Images1/save_btn.png')
 load_img = pygame.image.load('Images1/load_btn.png')
@@ -265,6 +266,10 @@ def draw_world():
                     img = pygame.transform.scale(
                         img_decoratie_10, (tile_size, tile_size))
                     screen.blit(img, (col * tile_size, row * tile_size))
+                if world_data[row][col] == 37:
+                    img = pygame.transform.scale(
+                        img_harth, (tile_size, tile_size))
+                    screen.blit(img, (col * tile_size, row * tile_size))
 
 
 class Button():
@@ -347,12 +352,12 @@ while run:
                 # update tile value
                 if pygame.mouse.get_pressed()[0] == 1:
                     world_data[y][x] += 1
-                    if world_data[y][x] > 36:
+                    if world_data[y][x] > 37:
                         world_data[y][x] = 0
                 elif pygame.mouse.get_pressed()[2] == 1:
                     world_data[y][x] -= 1
                     if world_data[y][x] < 0:
-                        world_data[y][x] = 36
+                        world_data[y][x] = 37
         if event.type == pygame.MOUSEBUTTONUP:
             clicked = False
         # up and down key presses to change level number

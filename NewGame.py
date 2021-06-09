@@ -16,12 +16,13 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 10
+level_counter = 3
 
 screenWidth = 1000
 screenHeight = 1000
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption('The Game')
+
 image_path = os.path.dirname(__file__) + '/Images' + \
     str(math.ceil(level_counter/3)) + '/'
 sound_path = os.path.dirname(__file__) + '/Sounds/'
@@ -432,9 +433,9 @@ class level(pygame.sprite.Sprite):
                     tile = (self.img_deco, img_rect)
                     self.decoratie.append(tile)
                 if tile == 37:
-                    coin = coins(colum_count * tile_size + (tile_size // 2),
-                                 row_count * tile_size + (tile_size // 2))
-                    self.hart_list.add(coin)
+                    harths = hearth(colum_count * tile_size + (tile_size // 2),
+                                    row_count * tile_size + (tile_size // 2))
+                    self.hart_list.add(harths)
                 colum_count += 1
             row_count += 1
 
@@ -680,10 +681,23 @@ class coins(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
 
+# The coins class....
+
+
+class hearth(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        pygame.sprite.Sprite.__init__(self)
+        img = pygame.image.load(image_path + 'hearth.png')
+        self.image = pygame.transform.scale(img,
+                                            (tile_size // 2, tile_size // 2))
+        self.rect = self.image.get_rect()
+        self.rect.center = (x, y)
 
 # Beneed this quote you have the classes Doors and Keys,
 # these classes has also a side effect because there are collidebel with the player
 # and change the lvl when you have the key and collide with the door
+
+
 class Doors(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
