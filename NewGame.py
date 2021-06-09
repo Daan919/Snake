@@ -25,7 +25,7 @@ screen = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption('The Game')
 
 image_path = os.path.dirname(__file__) + '/Images' + \
-    str(math.floor(level_counter/2)) + '/'
+    str(math.ceil(level_counter/3)) + '/'
 sound_path = os.path.dirname(__file__) + '/Sounds/'
 
 font_score = pygame.font.SysFont("Comic Sans", tile_size)
@@ -92,7 +92,7 @@ class level(pygame.sprite.Sprite):
     def mapTiles(self, data):
 
         image_path = os.path.dirname(__file__) + '/Images' + \
-            str(math.floor(level_counter/2)) + '/'
+            str(math.ceil(level_counter/3)) + '/'
 
         print(image_path)
 
