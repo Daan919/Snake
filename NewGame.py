@@ -1,4 +1,5 @@
 import pygame
+from pygame import image
 from pygame.locals import *
 from pygame import mixer
 import pickle
@@ -15,7 +16,7 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 1
+level_counter = 3
 
 screenWidth = 1000
 screenHeight = 1000
@@ -54,7 +55,7 @@ class Enemy(pygame.sprite.Sprite):
         img = pygame.image.load(image_path + 'enemy.png')
         self.image = pygame.transform.scale(img, (tile_size, tile_size))
         self.rect = self.image.get_rect()
-        self.rect.x = x
+        self.rect.x = x - (tile_size / 2)
         self.rect.y = y
         self.move_direction = 1
         self.move_counter = 0
@@ -83,6 +84,11 @@ class background():
 # The level class....
 class level(pygame.sprite.Sprite):
     def mapTiles(self, data):
+
+        image_path = os.path.dirname(__file__) + '/Images' + \
+    str(math.floor(level_counter/2)) + '/'
+
+        print(image_path)
 
         self.tile_list = []
         self.coin_list = pygame.sprite.Group()
@@ -230,9 +236,9 @@ class level(pygame.sprite.Sprite):
                     coin = coins(colum_count * tile_size + (tile_size // 2),
                                  row_count * tile_size + (tile_size // 2))
                     self.coin_list.add(coin)
-                if tile == 17:  # create enemy class
+                if tile == 17:
                     enemy = Enemy(colum_count * tile_size + (tile_size // 2),
-                                  row_count * tile_size + (tile_size // 2))
+                                  row_count * tile_size)
                     self.enemy_list.add(enemy)
 
                 if tile == 18:
@@ -562,6 +568,14 @@ class player():
                         self.in_air = False
 
             if pygame.sprite.spritecollide(self, lv.lava_list, False):
+                self.life -= 1
+                if self.life != 0:
+                    self.rect.x = 100
+                    self.rect.y = screenHeight - 130
+                if self.life == 0:
+                    game_over = 1
+
+            if pygame.sprite.spritecollide(self, lv.enemy_list, False):
                 self.life -= 1
                 if self.life != 0:
                     self.rect.x = 100
