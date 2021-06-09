@@ -838,6 +838,7 @@ def main(game_over):
                     World_data = pickle.load(pickle_in)
                     lv = level()
                     realLevel = lv.mapTiles(World_data)
+                    player.reset(100, screenHeight - 130)
             if button_5.collidepoint((mx2, my2)):
                 if click2:
                     pygame.quit()
