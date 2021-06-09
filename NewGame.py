@@ -920,7 +920,7 @@ def main(game_over):
                 pygame.quit()
                 runnig = False
 
-        if level_counter > 12:
+        if level_counter > 15:
             credits()
 
         
