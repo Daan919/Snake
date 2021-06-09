@@ -17,7 +17,7 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 1
+level_counter = 4
 
 screenWidth = 1000
 screenHeight = 1000
@@ -882,7 +882,7 @@ def main(game_over):
                      screenWidth // 3)
             # hier moet nog een reset komen van alle levels, de locatie van de speler en de levens moeten nog gereset worden.
             # Ook qua design kan hier nog een klein continue menu komen.
-
+            level_counter = 1
             mx2, my2 = pygame.mouse.get_pos()
             img_button4 = pygame.image.load(
                 'images_thij/Menu_button.png').convert_alpha()
