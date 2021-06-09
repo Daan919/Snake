@@ -1,4 +1,5 @@
 import pygame
+from pygame import image
 from pygame.locals import *
 from pygame import mixer
 import pickle
@@ -24,9 +25,8 @@ screen = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption('The Game')
 
 image_path = os.path.dirname(__file__) + '/Images' + \
-    str(math.ceil(level_counter/3)) + '/'
+    str(math.floor(level_counter/2)) + '/'
 sound_path = os.path.dirname(__file__) + '/Sounds/'
-
 
 font_score = pygame.font.SysFont("Comic Sans", tile_size)
 
@@ -58,9 +58,10 @@ def drawText(text, font, tect_col, x, y):
 class Enemy(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load(image_path + 'barbarian.png')
+        img = pygame.image.load(image_path + 'enemy.png')
+        self.image = pygame.transform.scale(img, (tile_size, tile_size))
         self.rect = self.image.get_rect()
-        self.rect.x = x
+        self.rect.x = x - (tile_size / 2)
         self.rect.y = y
         self.move_direction = 1
         self.move_counter = 0
@@ -90,9 +91,15 @@ class background():
 class level(pygame.sprite.Sprite):
     def mapTiles(self, data):
 
+        image_path = os.path.dirname(__file__) + '/Images' + \
+            str(math.floor(level_counter/2)) + '/'
+
+        print(image_path)
+
         self.tile_list = []
         self.coin_list = pygame.sprite.Group()
         self.hart_list = pygame.sprite.Group()
+        self.enemy_list = pygame.sprite.Group()
         self.spike_list = pygame.sprite.Group()
         self.lava_list = pygame.sprite.Group()
         self.water_list = pygame.sprite.Group()
@@ -121,7 +128,7 @@ class level(pygame.sprite.Sprite):
         self.img_key = pygame.image.load(image_path + 'key.png')
         self.img_door = pygame.image.load(image_path + 'door.png')
         self.img_coin = pygame.image.load(image_path + 'Coin.png')
-        self.img_enemy = pygame.image.load(image_path + 'coin.png')
+        self.img_enemy = pygame.image.load(image_path + 'enemy.png')
 
         self.img_dirt = pygame.transform.scale(self.img_dirt,
                                                (tile_size, tile_size))
@@ -237,10 +244,10 @@ class level(pygame.sprite.Sprite):
                     coin = coins(colum_count * tile_size + (tile_size // 2),
                                  row_count * tile_size + (tile_size // 2))
                     self.coin_list.add(coin)
-                if tile == 17:  # create enamy class
-                    coin = coins(colum_count * tile_size + (tile_size // 2),
-                                 row_count * tile_size + (tile_size // 2))
-                    self.coin_list.add(coin)
+                if tile == 17:
+                    enemy = Enemy(colum_count * tile_size + (tile_size // 2),
+                                  row_count * tile_size)
+                    self.enemy_list.add(enemy)
 
                 if tile == 18:
                     self.img_deco_block = pygame.image.load(image_path +
@@ -585,6 +592,14 @@ class player():
                 if self.life == 0:
                     game_over = 1
 
+            if pygame.sprite.spritecollide(self, lv.enemy_list, False):
+                self.life -= 1
+                if self.life != 0:
+                    self.rect.x = 100
+                    self.rect.y = screenHeight - 130
+                if self.life == 0:
+                    game_over = 1
+
             if pygame.sprite.spritecollide(self, lv.spike_list, False):
                 self.life -= 1
                 if self.life != 0:
@@ -681,7 +696,7 @@ class coins(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
 
-# The coins class....
+# The harth class....
 
 
 class hearth(pygame.sprite.Sprite):
@@ -838,6 +853,11 @@ def levelRespan(counter):
 click2 = False
 
 
+def credits():
+    pygame.mixer.music.stop()
+    Menu.credits()
+
+
 def main(game_over):
     global level_counter
     bg = background()
@@ -871,10 +891,10 @@ def main(game_over):
                 'images_thij/quit_button.png').convert_alpha()
             img_button5 = pygame.transform.scale(img_button5, [200, 50])
 
-            button_4 = pygame.Rect(
-                screenHeight / 2.5, screenWidth / 3, 200, 50)
-            button_5 = pygame.Rect(
-                screenHeight / 2.5, screenWidth / 2.5, 200, 50)
+            button_4 = pygame.Rect(screenHeight / 2.5, screenWidth / 3, 200,
+                                   50)
+            button_5 = pygame.Rect(screenHeight / 2.5, screenWidth / 2.5, 200,
+                                   50)
 
             if button_4.collidepoint((mx2, my2)):
                 if click2:
@@ -887,6 +907,7 @@ def main(game_over):
                     World_data = pickle.load(pickle_in)
                     lv = level()
                     realLevel = lv.mapTiles(World_data)
+                    player.reset(100, screenHeight - 130)
             if button_5.collidepoint((mx2, my2)):
                 if click2:
                     pygame.quit()
@@ -911,6 +932,7 @@ def main(game_over):
         lv.key_list.draw(screen)
         lv.coin_list.draw(screen)
         lv.hart_list.draw(screen)
+        lv.enemy_list.draw(screen)
         lv.water_list.draw(screen)
         lv.lava_list.draw(screen)
         lv.spike_list.draw(screen)
@@ -959,6 +981,9 @@ def main(game_over):
                 running = False
                 pygame.quit()
                 runnig = False
+
+        if level_counter > 12:
+            credits()
 
 
 # main(level_counter,game_over)

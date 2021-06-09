@@ -96,6 +96,7 @@ def main_menu():
 
         #The first event makes sure the game closes when the red cross is being pressed.
         #The second event registers if the mouse is being clicked. The click variable will be set to True.
+
         for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
@@ -126,6 +127,42 @@ def options_menu():
 
         pygame.display.update()
         mainClock.tick(60)
+
+#This is another gameloop used to show the endcredits. These will be shown after you've completed all the levels.
+def credits():
+    running = True
+    while running:
+        mx, my = pygame.mouse.get_pos()
+
+        screen.fill((0, 0, 0))
+        background = pygame.image.load(image_path + 'credits.png').convert()
+        background = pygame.transform.scale(background, size)
+        screen.blit(background, (0, 0))
+
+        button_1 = pygame.Rect(50, 900, 200, 50)
+        img_button1 = pygame.image.load('images_thij/quit_button.png').convert_alpha()
+        img_button1 = pygame.transform.scale(img_button1, [200, 50])
+
+        if button_1.collidepoint((mx, my)):
+            if click:
+                pygame.quit()
+                sys.exit()
+
+        screen.blit(img_button1, [50,900])
+        
+        click = False
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+
+
+        pygame.display.update()
+        mainClock.tick(60)
+
 
 # The whole program is started at this point
 main_menu()
