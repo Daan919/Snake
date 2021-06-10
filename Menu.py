@@ -58,7 +58,7 @@ def main_menu():
 
         #Button images are loaded at this place in the code.
         img_button1 = pygame.image.load('images_thij/Game_button.png').convert_alpha()
-        img_button2 = pygame.image.load('images_thij/Options_button.png').convert_alpha()
+        img_button2 = pygame.image.load('images_thij/controls_button.png').convert_alpha()
         img_button3 = pygame.image.load('images_thij/Quit_button.png').convert_alpha()
 
         # Is dit nodig? @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
@@ -81,7 +81,7 @@ def main_menu():
                 NewGame.main(NewGame.game_over)
         if button_2.collidepoint((mx, my)):
             if click:
-                options_menu()
+                controls_menu()
         if button_3.collidepoint((mx, my)):
             if click:
                 pygame.quit()
@@ -110,20 +110,34 @@ def main_menu():
 
 #The option menu is a close copy to the main menu. It has its own game loop and is being called by pressing the option menu button.
 #To return to the menu, the while loop will be set to false.
-def options_menu():
+def controls_menu():
     running = True
     while running:
+        mx, my = pygame.mouse.get_pos()
         screen.fill((0, 0, 0))
-        draw_text('Options', font, (255, 255, 255), screen, 20, 20)
-        draw_text('Druk op escape om terug te gaan',
-                  font, (255, 255, 255), screen, 20, 50)
+        background = pygame.image.load(image_path + 'controls_menu.png').convert()
+        background = pygame.transform.scale(background, size)
+        screen.blit(background, (0, 0))
+
+        button_1 = pygame.Rect(390, 900, 200, 50)
+        img_button1 = pygame.image.load('images_thij/menu_button.png').convert_alpha()
+        img_button1 = pygame.transform.scale(img_button1, [200, 50])
+        
+        if button_1.collidepoint((mx, my)):
+            if click:
+                main_menu()
+
+        screen.blit(img_button1, [390,900])
+
+        click = False
         for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
-            if event.type == KEYDOWN:
-                if event.key == K_ESCAPE:
-                    running = False
+            if event.type == MOUSEBUTTONDOWN:
+                if event.button == 1:
+                    click = True
+            
 
         pygame.display.update()
         mainClock.tick(60)
