@@ -26,7 +26,6 @@ screen = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption('The Game')
 
 image_path = os.path.dirname(__file__) + '/Images' + \
-<<<<<<< HEAD
         str(math.ceil(level_counter / 3)) + '/'
 
 
@@ -35,10 +34,8 @@ def update_imagepath():
         str(math.ceil(level_counter / 3)) + '/'
     return image_path
 
-=======
     str(math.ceil(level_counter/3)) + '/'
 sound_path = os.path.dirname(__file__) + '/Sounds/'
->>>>>>> e458f680b94bdba4cc5a0ab2751e7a9c8a9f4c44
 
 sound_path = os.path.dirname(__file__) + '/Sounds/'
 font_score = pygame.font.SysFont("Comic Sans", tile_size)
