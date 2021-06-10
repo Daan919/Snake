@@ -10,18 +10,18 @@ mainClock = pygame.time.Clock()
 pygame.init()
 pygame.display.set_caption('Menu')
 size = [1000, 1000]
-screen_hight = 1000
+screen_height = 1000
 screen_width = 1000
 screen = pygame.display.set_mode(size)
 image_path = os.path.dirname(__file__) + '/Images1/'
 
-buttonhight =  int(screen_hight / 10)
+buttonheight =  int(screen_height / 10)
 buttonWidth = int(screen_width / 3)
 
 
 font = pygame.font.SysFont(None, screen_width // 20)
 
-#class that sets background
+#class that loads and draws the background
 class background():
     def __init__(self):
         self.background = None
@@ -40,7 +40,7 @@ def draw_text(text, font, color, surface, x, y):
     textrect.topleft = (x, y)
     surface.blit(textobj, textrect)
 
-
+# This click varibale changes when the left mousebutton is used
 click = False
 bg = background()
 
@@ -62,17 +62,17 @@ def main_menu():
         img_button3 = pygame.image.load('images_thij/Quit_button.png').convert_alpha()
 
         # Is dit nodig? @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-        img_button1 = pygame.transform.scale(img_button1, [buttonWidth, buttonhight])
-        img_button2 = pygame.transform.scale(img_button2, [buttonWidth, buttonhight])
-        img_button3 = pygame.transform.scale(img_button3, [buttonWidth, buttonhight])
+        img_button1 = pygame.transform.scale(img_button1, [buttonWidth, buttonheight])
+        img_button2 = pygame.transform.scale(img_button2, [buttonWidth, buttonheight])
+        img_button3 = pygame.transform.scale(img_button3, [buttonWidth, buttonheight])
     
         #For the buttons to work, we will need invicible rectangles. they are made at this place in the code.
         button_1 = pygame.Rect(
-            screen_width / 3, buttonhight * 3, buttonWidth, buttonhight)
+            screen_width / 3, buttonheight * 3, buttonWidth, buttonheight)
         button_2 = pygame.Rect(
-            screen_width / 3, buttonhight * 5, buttonWidth, buttonhight)
+            screen_width / 3, buttonheight * 5, buttonWidth, buttonheight)
         button_3 = pygame.Rect(
-            screen_width / 3, buttonhight * 7, buttonWidth, buttonhight)
+            screen_width / 3, buttonheight * 7, buttonWidth, buttonheight)
         
         #If the mouse collides with one of the rectangles created at line 70 and the mouse mouse is clicked at the same time, the program wil run the code beneath the if statements. 
         #In this instance there are three options: Running the game, opening the options menu and quiting the game.
@@ -88,9 +88,9 @@ def main_menu():
                 sys.exit()
 
         #The images are being blit on top of the invicible reectangles at this place.
-        screen.blit(img_button1, [screen_width / 3, buttonhight * 3])
-        screen.blit(img_button2, [screen_width / 3, buttonhight * 5])
-        screen.blit(img_button3, [screen_width / 3, buttonhight * 7])
+        screen.blit(img_button1, [screen_width / 3, buttonheight * 3])
+        screen.blit(img_button2, [screen_width / 3, buttonheight * 5])
+        screen.blit(img_button3, [screen_width / 3, buttonheight * 7])
 
         click = False
 
@@ -109,7 +109,7 @@ def main_menu():
         mainClock.tick(60)
 
 #The option menu is a close copy to the main menu. It has its own game loop and is being called by pressing the option menu button.
-#To return to the menu, the while loop will be set to false.
+#To return to the menu, the while loop will be set to false. 
 def controls_menu():
     running = True
     while running:
@@ -142,7 +142,7 @@ def controls_menu():
         pygame.display.update()
         mainClock.tick(60)
 
-#This is another gameloop used to show the endcredits. These will be shown after you've completed all the levels.
+#This is another gameloop used to show the endcredits. this will be run after you've completed all the levels.
 def credits():
     running = True
     while running:
