@@ -26,7 +26,6 @@ screen = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption('The Game')
 
 image_path = os.path.dirname(__file__) + '/Images' + \
-<<<<<<< HEAD
         str(math.ceil(level_counter / 3)) + '/'
 
 
@@ -35,8 +34,6 @@ def update_imagepath():
         str(math.ceil(level_counter / 3)) + '/'
     return image_path
 
-=======
->>>>>>> ace86bc411b7b4b724a00c98caa457584beddaaa
     str(math.ceil(level_counter/3)) + '/'
 sound_path = os.path.dirname(__file__) + '/Sounds/'
 
