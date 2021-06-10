@@ -90,9 +90,8 @@ for tile in range(0, 40):
     world_data[tile][0] = 1
     world_data[tile][39] = 1
 
+
 # function for outputting text onto the screen
-
-
 def draw_text(text, font, text_col, x, y):
     img = font.render(text, True, text_col)
     screen.blit(img, (x, y))

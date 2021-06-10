@@ -1,5 +1,6 @@
 import pygame
 from pygame import image
+from pygame.display import update
 from pygame.locals import *
 from pygame import mixer
 import pickle
@@ -17,16 +18,24 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 1
+level_counter = 3
 
 screenWidth = 1000
 screenHeight = 1000
 screen = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption('The Game')
-image_path = os.path.dirname(__file__) + '/Images' + \
-    str(math.ceil(level_counter / 3)) + '/'
-sound_path = os.path.dirname(__file__) + '/Sounds/'
 
+image_path = os.path.dirname(__file__) + '/Images' + \
+        str(math.ceil(level_counter / 3)) + '/'
+
+
+def update_imagepath():
+    image_path = os.path.dirname(__file__) + '/Images' + \
+        str(math.ceil(level_counter / 3)) + '/'
+    return image_path
+
+
+sound_path = os.path.dirname(__file__) + '/Sounds/'
 font_score = pygame.font.SysFont("Comic Sans", tile_size)
 
 # load sounds
@@ -77,7 +86,7 @@ class Enemy(pygame.sprite.Sprite):
 class background():
     def __init__(self):
         self.background = None
-        self.background = pygame.image.load(image_path +
+        self.background = pygame.image.load(update_imagepath() +
                                             'background.png').convert()
         self.background = pygame.transform.scale(self.background,
                                                  (screenWidth, screenHeight))
@@ -89,11 +98,8 @@ class background():
 # The level class....
 class level(pygame.sprite.Sprite):
     def mapTiles(self, data):
-
         image_path = os.path.dirname(__file__) + '/Images' + \
-    str(math.floor(level_counter/2)) + '/'
-
-        print(image_path)
+    str(math.ceil(level_counter/ 3)) + '/'
 
         self.tile_list = []
         self.coin_list = pygame.sprite.Group()
@@ -115,6 +121,8 @@ class level(pygame.sprite.Sprite):
             image_path + 'static_platform_mid.png')
         self.img_static_platform_right = pygame.image.load(
             image_path + 'static_platform_right.png')
+        self.img_moving_platform = pygame.image.load(image_path +
+                                                     'moving_platform.png')
         self.img_water = pygame.image.load(image_path + 'water.png')
         self.img_lava = pygame.image.load(image_path + 'lava.png')
         self.img_spike_right = pygame.image.load(image_path +
@@ -137,6 +145,9 @@ class level(pygame.sprite.Sprite):
             self.img_static_platform_mid, (tile_size, tile_size))
         self.img_static_platform_right = pygame.transform.scale(
             self.img_static_platform_right, (tile_size, tile_size))
+
+        self.img_moving_platform = pygame.transform.scale(
+            self.img_moving_platform, (tile_size, tile_size))
         self.img_water = pygame.transform.scale(self.img_water,
                                                 (tile_size, tile_size))
         self.img_lava = pygame.transform.scale(self.img_lava,
@@ -663,7 +674,7 @@ class player():
 class coins(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        img = pygame.image.load(image_path + 'coin.png')
+        img = pygame.image.load(update_imagepath() + 'coin.png')
         self.image = pygame.transform.scale(img,
                                             (tile_size // 2, tile_size // 2))
         self.rect = self.image.get_rect()
@@ -676,7 +687,7 @@ class coins(pygame.sprite.Sprite):
 class Doors(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        img = pygame.image.load(image_path + 'door.png')
+        img = pygame.image.load(update_imagepath() + 'door.png')
         self.image = pygame.transform.scale(
             img, (int(tile_size), int(tile_size * 2)))
         self.rect = self.image.get_rect()
@@ -686,7 +697,7 @@ class Doors(pygame.sprite.Sprite):
 class Keys(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        img = pygame.image.load(image_path + 'key.png')
+        img = pygame.image.load(update_imagepath() + 'key.png')
         self.image = pygame.transform.scale(img, (tile_size, tile_size))
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
@@ -695,8 +706,9 @@ class Keys(pygame.sprite.Sprite):
 # The moving platform class....
 class platform_move(pygame.sprite.Sprite):
     def __init__(self, x, y, move_x, move_y):
+
         pygame.sprite.Sprite.__init__(self)
-        img = pygame.image.load(image_path + "moving_platform.png")
+        img = pygame.image.load(update_imagepath() + "moving_platform.png")
         self.image = pygame.transform.scale(img, (tile_size, tile_size // 2))
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -719,7 +731,7 @@ class platform_move(pygame.sprite.Sprite):
 class Water(pygame.sprite.Sprite):
     def __init__(self, x, y, move_x, move_y):
         pygame.sprite.Sprite.__init__(self)
-        img = pygame.image.load(image_path + "water.png")
+        img = pygame.image.load(update_imagepath() + "water.png")
         self.image = pygame.transform.scale(img, (tile_size, tile_size // 2))
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -743,7 +755,7 @@ class Water(pygame.sprite.Sprite):
 class Lava(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        img = pygame.image.load(image_path + "lava.png")
+        img = pygame.image.load(update_imagepath() + "lava.png")
         self.image = pygame.transform.scale(img, (tile_size, tile_size // 2))
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -753,7 +765,7 @@ class Lava(pygame.sprite.Sprite):
 class spikes_r(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        img = pygame.image.load(image_path + "spike_right.png")
+        img = pygame.image.load(update_imagepath() + "spike_right.png")
         self.image = pygame.transform.scale(img, (tile_size // 2, tile_size))
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -763,7 +775,7 @@ class spikes_r(pygame.sprite.Sprite):
 class spikes_l(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        img = pygame.image.load(image_path + "spike_left.png")
+        img = pygame.image.load(update_imagepath() + "spike_left.png")
         self.image = pygame.transform.scale(img, (tile_size // 2, tile_size))
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -773,7 +785,7 @@ class spikes_l(pygame.sprite.Sprite):
 class spikes_up(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        img = pygame.image.load(image_path + "spike_up.png")
+        img = pygame.image.load(update_imagepath() + "spike_up.png")
         self.image = pygame.transform.scale(img, (tile_size // 2, tile_size))
         self.rect = self.image.get_rect()
         self.rect.x = x
@@ -783,7 +795,7 @@ class spikes_up(pygame.sprite.Sprite):
 class spikes_down(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        img = pygame.image.load(image_path + "spike_down.png")
+        img = pygame.image.load(update_imagepath() + "spike_down.png")
         self.image = pygame.transform.scale(img, (tile_size // 2, tile_size))
         self.rect = self.image.get_rect()
         self.rect.x = x
