@@ -965,7 +965,6 @@ def main(game_over):
             key_found = False
             level_counter = levelUp(level_counter)
             player.reset(100, screenHeight - 130)
-
             pickle_in = open(f"level{level_counter}_data", "rb")
             World_data = pickle.load(pickle_in)
             realLevel = lv.mapTiles(World_data)
