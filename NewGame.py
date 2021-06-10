@@ -26,6 +26,7 @@ screen = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption('The Game')
 
 image_path = os.path.dirname(__file__) + '/Images' + \
+<<<<<<< HEAD
         str(math.ceil(level_counter / 3)) + '/'
 
 
@@ -34,6 +35,8 @@ def update_imagepath():
         str(math.ceil(level_counter / 3)) + '/'
     return image_path
 
+=======
+>>>>>>> ace86bc411b7b4b724a00c98caa457584beddaaa
     str(math.ceil(level_counter/3)) + '/'
 sound_path = os.path.dirname(__file__) + '/Sounds/'
 
@@ -45,6 +48,8 @@ pygame.mixer.music.load(image_path + "level_sound.mp3")
 pygame.mixer.music.set_volume(0.1)
 sound_get_coin = pygame.mixer.Sound(sound_path + "coin.wav")
 sound_get_coin.set_volume(0.5)
+sound_get_hart = pygame.mixer.Sound(sound_path + "power_up.mp3")
+sound_get_hart.set_volume(0.5)
 sound_game_over = pygame.mixer.Sound(sound_path + "game_over.wav")
 sound_game_over.set_volume(0.5)
 sound_get_key = pygame.mixer.Sound(sound_path + "key_sound.mp3")
@@ -961,7 +966,7 @@ def main(game_over):
             sound_get_coin.play()
         if pygame.sprite.spritecollide(player, lv.hart_list, True):
             player.life += 1
-            sound_get_coin.play()
+            sound_get_hart.play()
 
         drawText(" X" + str(lv.score), font_score, white, tile_size // 2,
                  tile_size // 4)
