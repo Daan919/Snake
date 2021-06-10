@@ -18,7 +18,7 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 3
+level_counter = 1
 
 screenWidth = 1000
 screenHeight = 1000
@@ -26,7 +26,6 @@ screen = pygame.display.set_mode((screenWidth, screenHeight))
 pygame.display.set_caption('The Game')
 
 image_path = os.path.dirname(__file__) + '/Images' + \
-<<<<<<< HEAD
         str(math.ceil(level_counter / 3)) + '/'
 
 
@@ -35,10 +34,6 @@ def update_imagepath():
         str(math.ceil(level_counter / 3)) + '/'
     return image_path
 
-=======
-    str(math.ceil(level_counter/3)) + '/'
-sound_path = os.path.dirname(__file__) + '/Sounds/'
->>>>>>> e458f680b94bdba4cc5a0ab2751e7a9c8a9f4c44
 
 sound_path = os.path.dirname(__file__) + '/Sounds/'
 font_score = pygame.font.SysFont("Comic Sans", tile_size)
@@ -69,7 +64,7 @@ def drawText(text, font, tect_col, x, y):
 
 # The enemy class....
 class Enemy(pygame.sprite.Sprite):
-    def __init__(self, x, y):
+    def __init__(self, x, y, move_x, move_y):
         pygame.sprite.Sprite.__init__(self)
         img = pygame.image.load(image_path + 'enemy.png')
         self.image = pygame.transform.scale(img, (tile_size, tile_size))
@@ -78,11 +73,13 @@ class Enemy(pygame.sprite.Sprite):
         self.rect.y = y
         self.move_direction = 1
         self.move_counter = 0
+        self.move_x = move_x
+        self.move_y = move_y
 
     def update(self):
         self.rect.x += self.move_direction
         self.move_counter += 1
-        if abs(self.move_counter) > 50:
+        if abs(self.move_counter) > 15:
             self.move_direction *= -1
             self.move_counter *= -1
 
@@ -102,6 +99,16 @@ class background():
 
 # The level class....
 class level(pygame.sprite.Sprite):
+    def backgroundUpdate(self):
+        self.background = None
+        self.background = pygame.image.load(update_imagepath() +
+                                            'background.png').convert()
+        self.background = pygame.transform.scale(self.background,
+                                                 (screenWidth, screenHeight))
+
+    def backgroundDraw(self, screen):
+        screen.blit(self.background, (0, 0))
+
     def mapTiles(self, data):
         image_path = os.path.dirname(__file__) + '/Images' + \
     str(math.ceil(level_counter/ 3)) + '/'
@@ -261,7 +268,7 @@ class level(pygame.sprite.Sprite):
                     self.coin_list.add(coin)
                 if tile == 17:
                     enemy = Enemy(colum_count * tile_size + (tile_size // 2),
-                                  row_count * tile_size)
+                                  row_count * tile_size, 1, 0)
                     self.enemy_list.add(enemy)
 
                 if tile == 18:
@@ -484,9 +491,7 @@ class player():
         self.counter_walk = 0
         for number in range(1, 7):
             img_right = pygame.image.load(image_path + f'run{number}.png')
-            img_right = pygame.transform.scale(img_right, (23, 47))
             img_left = pygame.transform.flip(img_right, True, False)
-            img_left = pygame.transform.scale(img_left, (23, 47))
             self.images_right.append(img_right)
             self.images_left.append(img_left)
 
@@ -711,6 +716,7 @@ class coins(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
 
+
 # The harth class....
 
 
@@ -722,6 +728,7 @@ class hearth(pygame.sprite.Sprite):
                                             (tile_size // 2, tile_size // 2))
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
+
 
 # Beneed this quote you have the classes Doors and Keys,
 # these classes has also a side effect because there are collidebel with the player
@@ -867,6 +874,7 @@ def levelRespan(counter):
 
 
 click2 = False
+lv.backgroundUpdate()
 
 
 def credits():
@@ -885,13 +893,14 @@ def main(game_over):
     while running:
         global lv, click2
         clock.tick(60)
-        bg.draw(screen)
+        lv.backgroundDraw(screen)
         lv.draw()
 
         # when game over equals zero the platform list updates
         # when game over is not equal to zero the player has no lives and on screen pop up the continue screen
         if game_over == 0:
             lv.platform_list.update()
+            lv.enemy_list.update()
         if game_over != 0:
             key_found = False
             drawText("Game Over", font_score, BLACK, screenHeight // 2.5,
@@ -922,6 +931,7 @@ def main(game_over):
                     pickle_in = open(f"level{level_counter}_data", "rb")
                     World_data = pickle.load(pickle_in)
                     lv = level()
+                    lv.backgroundUpdate()
                     realLevel = lv.mapTiles(World_data)
                     player.reset(100, screenHeight - 130)
             if button_5.collidepoint((mx2, my2)):
@@ -980,6 +990,7 @@ def main(game_over):
             print("next level")
             key_found = False
             level_counter = levelUp(level_counter)
+            lv.backgroundUpdate()
             player.reset(100, screenHeight - 130)
 
             pickle_in = open(f"level{level_counter}_data", "rb")
