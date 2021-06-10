@@ -17,7 +17,7 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 4
+level_counter = 3
 
 screenWidth = 1000
 screenHeight = 1000
@@ -925,6 +925,7 @@ def main(game_over):
                     pygame.QUIT()
 
             if game_over_sound:
+                pygame.mixer.music.stop()
                 sound_game_over.play()
                 game_over_sound = False
 
