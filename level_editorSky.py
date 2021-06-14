@@ -19,7 +19,7 @@ screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption('Level Editor Water')
 
 
-ImgPath = "Images2/"
+ImgPath = "Images3/"
 
 sun_img = pygame.image.load(ImgPath + 'sun.png')
 sun_img = pygame.transform.scale(sun_img, (tile_size, tile_size))
