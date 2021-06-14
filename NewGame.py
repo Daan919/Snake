@@ -18,7 +18,7 @@ pygame.display.init()
 
 clock = pygame.time.Clock()
 tile_size = 25
-level_counter = 3
+level_counter = 15
 
 screenWidth = 1000
 screenHeight = 1000
@@ -897,6 +897,9 @@ def main(game_over):
         lv.backgroundDraw(screen)
         lv.draw()
 
+        if level_counter > 15:
+            credits()
+
         # when game over equals zero the platform list updates
         # when game over is not equal to zero the player has no lives and on screen pop up the continue screen
         if game_over == 0:
@@ -1009,9 +1012,6 @@ def main(game_over):
                 running = False
                 pygame.quit()
                 runnig = False
-
-        if level_counter > 15:
-            credits()
 
 
 # main(level_counter,game_over)
