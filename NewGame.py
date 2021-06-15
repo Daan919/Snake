@@ -39,7 +39,7 @@ sound_path = os.path.dirname(__file__) + '/Sounds/'
 font_score = pygame.font.SysFont("Comic Sans", tile_size)
 
 # load sounds
-pygame.mixer.music.load(image_path + "level_sound.mp3")
+pygame.mixer.music.load(update_imagepath() + "level_sound.mp3")
 pygame.mixer.music.set_volume(0.1)
 sound_get_coin = pygame.mixer.Sound(sound_path + "coin.wav")
 sound_get_coin.set_volume(0.5)
@@ -936,6 +936,8 @@ def main(game_over):
                     World_data = pickle.load(pickle_in)
                     lv = level()
                     lv.backgroundUpdate()
+                    pygame.mixer.music.load(update_imagepath() + "level_sound.mp3")
+                    pygame.mixer.music.set_volume(0.1)
                     realLevel = lv.mapTiles(World_data)
                     player.reset(100, screenHeight - 130)
             if button_5.collidepoint((mx2, my2)):
