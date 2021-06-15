@@ -51,6 +51,8 @@ sound_get_key = pygame.mixer.Sound(sound_path + "key_sound.mp3")
 sound_get_key.set_volume(0.5)
 sound_fall_in_lava = pygame.mixer.Sound(sound_path + "lava_sound.mp3")
 sound_fall_in_lava.set_volume(0.5)
+sound_stick_enemy = pygame.mixer.Sound(sound_path + "enemy_sound.mp3")
+sound_stick_enemy.set_volume(0.5)
 
 game_over = 0
 
@@ -616,6 +618,7 @@ class player():
 
             if pygame.sprite.spritecollide(self, lv.enemy_list, False):
                 self.life -= 1
+                sound_stick_enemy.play()
                 if self.life != 0:
                     self.rect.x = 100
                     self.rect.y = screenHeight - 130
@@ -624,6 +627,7 @@ class player():
 
             if pygame.sprite.spritecollide(self, lv.spike_list, False):
                 self.life -= 1
+                sound_stick_enemy.play()
                 if self.life != 0:
                     self.rect.x = 100
                     self.rect.y = screenHeight - 130
