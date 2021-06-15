@@ -944,6 +944,7 @@ def main(game_over):
                     pygame.mixer.music.set_volume(0.1)
                     realLevel = lv.mapTiles(World_data)
                     player.reset(100, screenHeight - 130)
+                    
             if button_5.collidepoint((mx2, my2)):
                 if click2:
                     pygame.quit()
