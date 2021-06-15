@@ -932,7 +932,7 @@ def main(game_over):
             if button_4.collidepoint((mx2, my2)):
                 if click2:
                     running = False
-                    # Reset in Game, health back to 3, coins back to 0 and player reset at postition of the ghost
+                    # Reset in Game, health back to 3, coins back to 0, background, level sound and player reset at player default postition
                     player.life = 3
                     lv.score = 0
                     level_counter = levelRespan(level_counter)
@@ -944,7 +944,7 @@ def main(game_over):
                     pygame.mixer.music.set_volume(0.1)
                     realLevel = lv.mapTiles(World_data)
                     player.reset(100, screenHeight - 130)
-                    
+
             if button_5.collidepoint((mx2, my2)):
                 if click2:
                     pygame.quit()
