@@ -997,7 +997,6 @@ def main(game_over):
         # the counter is going up with 1 and the new level loads
         if pygame.sprite.spritecollide(player, lv.door_list,
                                        False) and key_found:
-            print("next level")
             key_found = False
             level_counter = levelUp(level_counter)
             lv.backgroundUpdate()
@@ -1005,12 +1004,10 @@ def main(game_over):
             pickle_in = open(f"level{level_counter}_data", "rb")
             World_data = pickle.load(pickle_in)
             realLevel = lv.mapTiles(World_data)
-            print(level_counter)
 
         if pygame.sprite.spritecollide(player, lv.key_list, True):
             sound_get_key.play()
             key_found = True
-            print("Go to Next level")
 
         pygame.display.flip()
         for event in pygame.event.get():
